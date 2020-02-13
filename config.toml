@@ -1,0 +1,97 @@
+#baseURL = "https://yairgd.github.com/myblog/"
+baseURL = "https://yairgd.github.com/"
+
+
+languageCode = "en-us"
+title = "My Tech Blog"
+
+
+theme = "jeffprod"
+
+#publishDir = "yairgd.github.io/"
+
+[permalinks]
+  post = "/:year/:month/:slug/"
+#    post = ""
+#	top = "/:year/:filename/"
+
+[taxonomies]
+    tag = "tags"
+    archive = "archives"
+
+
+[author]
+  name = "Yair Gadelov"
+  bio = "SW,HW , Embbedded systems"
+  job = "Embbeded SW engineer"
+  location = "Pittsburgh, PA"
+  # Your Gravatar email. Overwrite `author.picture` everywhere in the blog
+  gravatarEmail = "yair.gadelov@gmail.com"
+  # Your profile picture
+  # Overwritten by your gravatar image if `author.gravatarEmail` is filled
+  picture = "/images/pi.png"
+  # Your Twitter username without the @. E.g : thibaudlepretre
+  # twitter = ""
+  # Your google plus profile id. E.g : +ThibaudLepretre or 114625208755123718311
+  # googlePlus = ""
+
+#sectionPagesMenu = "main"
+
+
+# Menu Configuration
+[[menu.main]]
+  weight = 1
+  identifier = "home"
+  name = "Home"
+  pre = "<i class=\"sidebar-button-icon fas fa-home\"></i>"
+  url = "/"
+[[menu.main]]
+  weight = 2
+  identifier = "about"
+  name = "About"
+  pre = "<i class=\"sidebar-button-icon fas fa-question\"></i>"
+  url = "/about"
+[[menu.main]]
+  weight = 3
+  identifier = "blogs"
+  name = "Blogs"
+  pre = "<i class=\"sidebar-button-icon fas fa-edit\"></i>"
+  url = "/blogs"
+[[menu.main]]
+  weight = 4
+  identifier = "research"
+  name = "Research"
+  pre = "<i class=\"sidebar-button-icon fas fa-flask\"></i>"
+  url = "/research"
+[[menu.main]]
+  weight = 5
+  identifier = "software"
+  name = "Software"
+  pre = "<i class=\"sidebar-button-icon fas fa-laptop-code\"></i>"
+  url = "/software"
+
+[[menu.links]]
+  weight = 1
+  identifier = "rss"
+  name = "RSS"
+  pre = "<i class=\"sidebar-button-icon fas fa-rss\"></i>"
+  url = "/index.xml"
+[[menu.links]]
+  weight = 2
+  identifier = "categories"
+  name = "Categories"
+  pre = "<i class=\"sidebar-button-icon fas fa-bookmark\"></i>"
+  url = "/categories"
+[[menu.links]]
+  weight = 3
+  identifier = "tags"
+  name = "Tags"
+  pre = "<i class=\"sidebar-button-icon fas fa-tags\"></i>"
+  url = "/tags"
+[[menu.links]]
+  weight = 4
+  identifier = "github"
+  name = "GitHub"
+  pre = "<i class=\"sidebar-button-icon fab fa-github\"></i>"
+  url = "https://github.com/yixuan/"
+  
