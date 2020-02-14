@@ -12,7 +12,7 @@ I hold an MSc degree from Ben-Gurion University, Israel, in electrical engineeri
 These are some of the technologies I know and have experienced:
 * Linux - Expert level in Linux stuff like User and Kernel space programming. Linux scripts like bash/pythons. Linux distributions like Gentoo, Debian, Embedded Linux and Yocto project and  BSP. GNU toolchain: GCC, GDB, Make, CMake, etc'.
 
-* Microcontrollers: Low-level programming with CPUs like STM32/Atmel cortex M series, Soft microcontrollers like NIOS2. Boot loaders programming. Differents embedded IDEs  like kail, IAR, and GNU tools
+* Microcontrollers: Low-level programming with CPUs like STM32/Atmel cortex M series, Soft microcontrollers like NIOS2. Boot loaders programming. Differents embedded environments like kail, IAR, and GNU tools (open OCD, cross compilers)
 
 * FPGA coding, HW tests, lab equipment, and bords bring up. I work with Zync-7000, Cyclone and spartan-6. I have a full-scale FPGA experience from design to simulation, synthesis,  flushing the code to FPGA,  testing and integration with SW (from bare metal to Linux userspace code).
 
