@@ -14,7 +14,7 @@ These are some of the technologies I know and have experienced:
 
 * Microcontrollers: Low-level programming with CPUs like STM32/Atmel cortex M series, Soft microcontrollers like NIOS2. Boot loaders programming. Differents embedded environments like kail, IAR, and GNU tools (open OCD, cross compilers)
 
-* FPGA coding, HW tests, lab equipment, and bords bring up. I work with Zync-7000, Cyclone and spartan-6. I have a full-scale FPGA experience from design to simulation, synthesis,  flushing the code to FPGA,  testing and integration with SW (from bare metal to Linux userspace code).
+* HW & FPGA coding, HW tests, lab equipment, and bords bring up. I work with Zync-7000, Cyclone and spartan-6. I have a full-scale FPGA experience from design to simulation, synthesis,  flushing the code to FPGA,  testing and integration with SW (from bare metal to Linux userspace code).
 
 * Programing  languages: c/c++, Matlab, python, java, and golang
 
