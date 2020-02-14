@@ -59,16 +59,16 @@ theme = "jeffprod"
   url = "/blogs"
 [[menu.main]]
   weight = 4
-  identifier = "research"
-  name = "Research"
+  identifier = "cv"
+  name = "CV"
   pre = "<i class=\"sidebar-button-icon fas fa-flask\"></i>"
-  url = "/research"
+  url = "/cv"
 [[menu.main]]
   weight = 5
-  identifier = "software"
-  name = "Software"
+  identifier = "prjects"
+  name = "Projects"
   pre = "<i class=\"sidebar-button-icon fas fa-laptop-code\"></i>"
-  url = "/software"
+  url = "/projects"
 
 [[menu.links]]
   weight = 1

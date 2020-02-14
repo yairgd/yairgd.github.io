@@ -1,7 +1,7 @@
 +++
 title = "Home"
 date = "2014-04-09"
-menu = "main"
+menu = "no-main"
 draft=false
 +++
 

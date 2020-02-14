@@ -1,9 +1,8 @@
-+++
-title = "About Me"
-date = "2020-14-02"
-menu = "main"
-draft=false
-+++
+---
+title : "About Me"
+date : "2020-14-02"
+draft: false
+---
 
 My name is Yair Gadelov, I have worked as professional RT/Embedded Software Engineer for almost a decade, before that that I worked an algorithm engineer about 5 years and worked with machine learning, signal processing, and numerical analysis. I have leadership capabilities work in a team and as a self-depended.
 

@@ -14,7 +14,7 @@ categories = [
     "Development",
     "golang",
 ]
-menu = "main"
+menu = "no-main"
 +++
 
 Hugo uses the excellent [Go][] [html/template][gohtmltemplate] library for

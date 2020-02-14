@@ -1,10 +1,11 @@
 ---
 author: "Michael Henderson"
+description: "Example post tha I took from tutorial"
 date: 2014-09-28
 archives: "2014"
 linktitle: Creating a New Theme
 menu:
-  main:
+  no-main:
     parent: tutorials
 next: /tutorials/github-pages-blog
 prev: /tutorials/automated-deployments
