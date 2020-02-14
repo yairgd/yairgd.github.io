@@ -1,11 +1,7 @@
 ---
-title: "Home"
+title: Yair's Homepage
 date : "2020-02-20"
 draft: false
----
-
----
-title: Yair's Homepage
 ---
 
 <!-- <img src="" class="align-right"/> -->
