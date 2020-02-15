@@ -9,6 +9,8 @@ draft : false
 
 <a href="tel:+972528489064">+972 52 8489064</a>
 
+[https://yairgd.github.io](https://yairgd.github.io)
+
 [Download copy](yair_gadelov_cv.pdf)
 
 
