@@ -18,19 +18,17 @@ analysis. The product is SW/HW integrated and includes FPGA, custom board,
 an application processor, USB components and more. The product was done
 from scratch and had installed in fields.
 
-*  Embedded Linux and BSP: IMX6, c/c++ programming under Linux Kernel/
-Userspace, Yocto build system, bash, python, GCC, gdb, makefiles, Autotools
-Page 1 of 3
+*  Embedded Linux and BSP: IMX6, c/c++ programming under Linux Kernel/Userspace, Yocto build system, bash, python, GCC, gdb, makefiles, Autotools
 * Xilinx FPGA & Board design: Verilog programming, I2C, SPI, UART, Board
 bring up and testing, Lab equipment
 * System architecture, IoT, Rest API, client programming
 * Working with different functionalities: QA & Product, DevOps, Backend team
 
 ### January 2016 - December 2016 Senior: Nano Dimension - Builds and produces 3d printers,  Embedded SW Engineer 
-
 I was in both teams: SW: C++programming for printer management
 application team, HW: Building from scratch a printer head controller using
 Xilinx Zynq7000. The job involved the following tasks:
+
 * Linux embedded BSP, Linux kernel drivers,
 * FPGA coding with Verilog, C/C++ programming,
 * Bare metal and FreeRTOS programming of ARM cortex-m7
