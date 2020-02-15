@@ -1,12 +1,19 @@
 ---
 title : "Yair's CV"
 date : "2020-14-02"
-draft: false
+draft : false
 ---
+
 # Yair's CV
+[yair.gadelov@gmail.com](mailto:yair.gadelov@gmail.com) 
+
+<a href="tel:+972528489064">+972 52 8489064</a>
+
+[Download copy](yair_gadelov_cv.pdf)
+
 
 ## Experience
-Here is my CV. Its more than 15 years of experience in the Israeli Hi-Tech. I began as an Algorithm Engineer and switched role to  RT/Embedded Software engineer.
+I Have more than 15 years of experience in the Israeli Hi-Tech. I began as an Algorithm Engineer and switched role to  RT/Embedded Software engineer.
 
 ### BELKIN Laser Ltd - Medical device company. Embedded System Software Engineer
 
@@ -71,8 +78,8 @@ Member at the machine learning group. Responsible for solving clustering problem
 
 ## Education
 Ben-Gurion University of the Negev
-Bachelor of Science (BSc), Ben-Gurion University of the Negev · (1998 - 2002)
-Ben-Gurion University of the Negev
-Master of Science (MSc), Electrical engineering · (2002 - 2005)
+
+* Bachelor of Science (BSc), Ben-Gurion University of the Negev · (1998 - 2002)
+* Master of Science (MSc), Electrical engineering · (2002 - 2005)
 
 
