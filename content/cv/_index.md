@@ -38,7 +38,7 @@ Xilinx Zynq7000. The job involved the following tasks:
 ### Sep 2010 - December 2015: Coloright -  designed and developed hair coloring systems
 I began as an algorithm engineer and switched role to SW/FW/HW Embedded engineer
 
-#### SW & HW Engineer
+#### 2011-2016: SW & HW Engineer
 Part of a multidisciplinary team: HW, SW, Optics, and mechanics that
 developed a spectrometer from scratch. Responsible for embedded SW and
 firmware design.
@@ -54,7 +54,7 @@ RAM, DMA, TCP/UDP/IP
 * Small micro-controllers: arm cortex-m3,stm8,msp430 and integration with
 FPGA
 
-#### Algorithm Engineer
+#### 2010-2011: Algorithm Engineer
 Member of the algorithm team. Responsible for developing statistical and
 prediction of coloring based on physical models.
 
