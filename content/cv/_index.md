@@ -54,10 +54,8 @@ firmware design.
 * Camera sensors
 * FPGA Coding using Verilog, soft micro-controller nios2 integration
 * C/C++/Python/Verilog
-* Interfaces , protocols and components: WiFi,SPI,I2C,SDRAM , FTDI,FLASH
-RAM, DMA, TCP/UDP/IP
-* Small micro-controllers: arm cortex-m3,stm8,msp430 and integration with
-FPGA
+* Interfaces , protocols and components: WiFi,SPI,I2C,SDRAM , FTDI,FLASH RAM, DMA, TCP/UDP/IP
+* Small micro-controllers: arm cortex-m3,stm8,msp430 and integration with FPGA
 
 #### 2010-2011: Algorithm Engineer
 Member of the algorithm team. Responsible for developing statistical and
@@ -67,10 +65,11 @@ prediction of coloring based on physical models.
 * Java | Matlab
 
 ### June 2008 - August 2010: Galileo Satellite Navigation, Algorithm Engineer
-Responsible for algorithm simulation and implementation using MATLAB C/C++/JAVA on X86, DSP, and FPGA.
+Responsible for algorithm simulation and implementation using MATLAB C/C++, DSP and FPGA.
+
 * Kalman Filters | Wavelets |Weighted Robust LMS | fixed point | FFT
 * Implementation and simulation of the GPS receiver and transmit CDMA channel.
-*  HDL Implementation
+* HDL Implementation
 
 ### June 2006 - July 2008, Algorithm Development
 Member at the machine learning group. Responsible for solving clustering problems, data mining, feature exaction. supervised/unsupervised learning, GMM, PCA, K-means, statistics, and
