@@ -142,17 +142,17 @@ plt.imsave('green_only.png',RGB[2]  )
 ```
 
 # Results
-![Raw Bayer Image](/post/bayer_conversion/bayer_img.png)
-![Conversion](/post/bayer_conversion/rgb_res.png)
-![Conversion by opencv](/post/bayer_conversion/color_image_by_opencv.png)
-![Conversion by to gray](/post/bayer_conversion/gray_level.png)
-![Red only](/post/bayer_conversion/red_only.png)
-![Green only](/post/bayer_conversion/green_only.png)
-![Blue only](/post/bayer_conversion/blue_only.png)
+![Raw Bayer Image](/post/bayer_conversion/bayer_img.png)  
+![Conversion](/post/bayer_conversion/rgb_res.png)  
+![Conversion by opencv](/post/bayer_conversion/color_image_by_opencv.png)  
+![Conversion by to gray](/post/bayer_conversion/gray_level.png)  
+![Red only](/post/bayer_conversion/red_only.png)  
+![Green only](/post/bayer_conversion/green_only.png)  
+![Blue only](/post/bayer_conversion/blue_only.png)  
 
 
 # References
-Here are some reference sources that used to </br> create this module  
+Here are some reference sources that used to create this post
 [[1] Bayer to RGB](https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html?highlight=cvtcolor)  
 [[2] RGB color conversions matrixes ](http://poynton.ca/notes/colour_and_gamma/ColorFAQ.html)  
 [[3] Bayer to RGB algorithm](http://www.peter-cockerell.net/Bayer/bayer2.html)  
