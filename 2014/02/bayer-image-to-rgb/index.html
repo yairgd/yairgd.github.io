@@ -1,0 +1,116 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><title>My Tech Blog | Bayer Image to RGB</title><meta name=viewport content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css><link rel=stylesheet href=https://yairgd.github.io/css/blog.css></head><body><nav class="navbar is-fixed-top" role=navigation aria-label="main navigation"><div class=navbar-brand><a class=navbar-item href=https://yairgd.github.io/>Home</a>
+<a class=navbar-item href=/about>About</a>
+<a class=navbar-item href=/blogs>Blogs</a>
+<a class=navbar-item href=/cv>CV</a>
+<a class=navbar-item href=/projects>Projects</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">Bayer Image to RGB</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><h1 id=color-transformation-from-bayer-to-rgb>Color transformation from Bayer to RGB</h1><p>A Bayer filter mosaic is a color filter array (CFA) for arranging RGB color filters on a square grid of photosensors. Its particular arrangement of color filters is used in most single-chip digital image sensors used in digital cameras, camcorders, and scanners to create a color image. The filter pattern is 50% green, 25% red and 25% blue - <a href=https://en.wikipedia.org/wiki/Bayer_filter>see here</a>.</p><p><img src=https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Bayer_pattern_on_sensor.svg/500px-Bayer_pattern_on_sensor.svg.png alt="Bayer filter"></p><h2 id=color-conversion-algorithm>Color conversion algorithm</h2><h2 id=implemantation>Implemantation</h2><p>Implementation using python including that modules: matplotlib, numpy,cv2. To install these modules with pip:</p><pre><code class=language-bash>pip install matplotlib --user
+pip install numpy --user
+#pip install cv2 --user  - not sure this will work , I did it with the gentoo package manager (in debian/ubuntu you can try apt-cache search)
+</code></pre><p>Some images to work with can be download from here
+<a href=/post/bayer_conversion/bayer.raw>1</a>
+<a href=/post/bayer_conversion/movie-0443.raw>2</a>
+<a href=/post/bayer_conversion/movie-0601.raw>3</a>
+<a href=/post/bayer_conversion/movie-0697.raw>4</a></p><ul><li><p>read raw image at a size of <em>540x600</em> in Bayer format</p><pre><code class=language-python>import matplotlib.pyplot as plt
+import numpy as np
+import cv2
+file_path = 'path-to-bayer.raw'
+imrows = 540
+imcols = 600
+imsize = imrows*imcols
+with open(file_path, &quot;rb&quot;) as rawimage:
+    bayer_img = np.fromfile(rawimage, np.dtype('u1'), imsize).reshape((imrows, imcols))
+</code></pre></li><li><p>define a conversion function</p><pre><code class=language-python>def pixel (img):
+    img = img.astype(np.float64) 
+    pixel = lambda x,y : {
+        0: [ img[x][y] , (img[x][y-1] + img[x-1][y] + img[x+1][y] + img[x][y+1]) / 4 ,  (img[x-1][y-1] + img[x+1][y-1] + img[x-1][y+1] + img[x+1][y+1]) / 4 ] ,
+        1: [ (img[x-1][y] + img[x+1][y])  / 2,img[x][y] , (img[x][y-1] + img[x][y+1]) / 2 ],
+        2: [(img[x][y-1] + img[x][y+1]) / 2 ,img[x][y], (img[x-1][y] + img[x+1][y]) / 2],
+        3: [(img[x-1][y-1] + img[x+1][y-1] + img[x-1][y+1] + img[x+1][y+1]) / 4 , (img[x][y-1] + img[x-1][y] + img[x+1][y] + img[x][y+1]) / 4 ,img[x][y] ]
+    } [  x % 2 + (y % 2)*2]
+    res = np.zeros ( [    np.size(img,0) , np.size(img,1)  , 3] )
+    for x in range (1,np.size(img,0)-2):
+        for y in range (1,np.size(img,1)-2):
+            p = pixel(x,y)
+            p.reverse();
+            res[x][y] = p
+    res = res.astype(np.uint8)
+    return res
+</code></pre></li><li><p>break image to to 3 channels : RGB</p><pre><code class=language-python>def channel_break (img):
+    img = img.astype(np.float64) 
+    red=np.copy (img);red [1::2,:]=0;red[:,1::2]=0
+    blue=np.copy (img);blue [0::2,:]=0;blue[:,0::2]=0
+    green=np.copy (img);green [0::2,0::2]=0;green [1::2,1::2]=0;
+    red = red.astype(np.float64) 
+    blue = blue.astype(np.float64) 
+    green = green.astype(np.float64) 
+    return (red,green,blue)
+</code></pre></li><li><p>conver RGB to gray</p><pre><code class=language-python>def rgb2gray(img):
+    res = np.zeros ( [    np.size(img,0) , np.size(img,1)  , 3] )
+    res = res.astype(np.float64) 
+    for x in range (1,np.size(img,0)-1):
+        for y in range (1,np.size(img,1)-1):
+            res[x][y]=img[x][y][0]*0 + img[x][y][1]*0.5 + img[x][y][2]*0.5;
+    res = res.astype(np.uint8)
+    return res
+</code></pre></li><li><p>save results to png files</p><pre><code class=language-python># plot bayer imager
+plt.imshow(bayer_img)
+plt.title ('bayer img')
+plt.imsave('bayer_img.png', bayer_img)
+#plt.show()
+
+
+# this algorithm conversion
+rgb_res = pixel (bayer_img)
+plt.imshow(rgb_res)
+plt.title ('the article conversion')
+plt.imsave('the_article_conversion.png', rgb_res)
+#plt.show()
+
+# open cv conversion
+colour = cv2.cvtColor(bayer_img, cv2.COLOR_BAYER_BG2BGR)
+plt.imshow(colour)
+plt.title ('color image by open cv')
+plt.imsave('color_image_by_opencv.png', colour)
+#plt.show()
+
+# convert to gray level
+gray = rgb2gray(rgb_res)
+plt.imshow(gray)
+plt.title ('gray conversion')
+plt.imsave('gray_level.png', gray)
+#plt.show()
+
+
+# break to RGB  channels
+RGB = channel_break(res)
+plt.imshow(RGB[0])
+plt.title ('red only')
+plt.imsave('red_only.png',RGB[0]  )
+#plt.show()
+
+plt.imshow(RGB[1])
+plt.title ('blue only')
+plt.imsave('blue_only.png',RGB[1]  )
+#plt.show()
+
+plt.imshow(RGB[2])
+plt.title ('green only')
+plt.imsave('green_only.png',RGB[2]  )
+#plt.show()
+</code></pre></li></ul><h1 id=results>Results</h1><p><img src=/post/bayer_conversion/bayer_img.png alt="Raw Bayer Image">
+<img src=/post/bayer_conversion/rgb_res.png alt=Conversion>
+<img src=/post/bayer_conversion/color_image_by_opencv.png alt="Conversion by opencv">
+<img src=/post/bayer_conversion/gray_level.png alt="Conversion by to gray">
+<img src=/post/bayer_conversion/red_only.png alt="Red only">
+<img src=/post/bayer_conversion/green_only.png alt="Green only">
+<img src=/post/bayer_conversion/blue_only.png alt="Blue only"></p><h1 id=references>References</h1><p>Here are some reference sources that used to</br>create this module<br><a href="https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html?highlight=cvtcolor">[1] Bayer to RGB</a><br><a href=http://poynton.ca/notes/colour_and_gamma/ColorFAQ.html>[2] RGB color conversions matrixes</a><br><a href=http://www.peter-cockerell.net/Bayer/bayer2.html>[3] Bayer to RGB algorithm</a><br><a href=http://www.peter-cockerell.net/Bayer/bayer.html>[4] Bayer Patterns in Digicam CCDs</a><br><a href=https://groups.google.com/forum/#!topic/sci.image.processing/Jf-aTjPEgjc>[5] RGB to gray</a></p></div></div></div><div class="column is-3"><div class=card><div class=card-content><h1 class="title is-5">Tags</h1><div class=tags><span class=tag><a href=https://yairgd.github.io/tags/bayer>bayer</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/development>development</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/go>go</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/golang>golang</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/hugo>hugo</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/python>python</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/rgb>rgb</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/templates>templates</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/themes>themes</a></span></div></div></div><br><div class=card><div class=card-content><h1 class="title is-5">Recent posts</h1><h1><a href=https://yairgd.github.io/2020/02/my-first-post/>My First Post</a></h1><time class="has-text-grey-light is-size-7">10 February 2020</time><h1><a href=https://yairgd.github.io/2014/09/creating-a-new-theme/>Creating a New Theme</a></h1><time class="has-text-grey-light is-size-7">28 September 2014</time><h1><a href=https://yairgd.github.io/2014/04/getting-started-with-hugo/>Getting Started with Hugo</a></h1><time class="has-text-grey-light is-size-7">2 April 2014</time><h1><a href=https://yairgd.github.io/2014/04/hugo-template-primer/>(Hu)go Template Primer</a></h1><time class="has-text-grey-light is-size-7">2 April 2014</time><h1><a href=https://yairgd.github.io/2014/03/migrate-to-hugo-from-jekyll/>Migrate to Hugo from Jekyll</a></h1><time class="has-text-grey-light is-size-7">10 March 2014</time></div></div><br><br><div class=card><div class=card-content><h1 class="title is-5">Archives</h1><a href=https://yairgd.github.io/archives/2020>2020</a> (1)<br><a href=https://yairgd.github.io/archives/2014>2014</a> (5)<br></div></div></div></div></div></div><footer class="footer has-background-grey-darker has-text-white"><div class="content has-text-centered"><p><span class="icon is-large"><a href=https://twitter.com/ class=mysocial rel=me><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+<span class="icon is-large"><a href=https://www.youtube.com/ class=mysocial rel=me><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+<span class="icon is-large"><a href=https://github.com/yairgd/ class=mysocial rel=me><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;<br><br>Copyright &copy; My Tech Blog 2020 - Theme by <a href=https://jeffprod.com class=mysocial>JeffProd.com</a>
+- <a class=mysocial href=https://yairgd.github.io/about>About</a><br><a href=mailto:yair.gadelov@gmail.com>yair.gadelov@gmail.com</a><br><a href="tel:+972 52 8489064">tel:+972528489064</a></p></div></footer><script defer src=https://use.fontawesome.com/releases/v5.1.0/js/all.js></script></body></html>
