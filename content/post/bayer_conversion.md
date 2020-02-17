@@ -6,7 +6,7 @@ tags :
  - "rgb"
  - "python"
 
-date : "2014-02-16"
+date : "2020-02-17"
 archives : "2020"
 categories : 
  - "computer vision"
