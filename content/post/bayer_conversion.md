@@ -2,7 +2,6 @@
 title : "Bayer Image to RGB"
 description : "Bayer to RGB conversion"
 tags : 
-    - "compuyter vision "
     - "bayer"
     - "rgb"
     - "python"
