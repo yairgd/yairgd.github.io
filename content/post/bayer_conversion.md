@@ -152,7 +152,7 @@ plt.imsave('green_only.png',RGB[2]  )
 
 
 # References
-Here are some reference sources that used to create this post
+Here are some reference sources that used to create this post  
 [[1] Bayer to RGB](https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html?highlight=cvtcolor)  
 [[2] RGB color conversions matrixes ](http://poynton.ca/notes/colour_and_gamma/ColorFAQ.html)  
 [[3] Bayer to RGB algorithm](http://www.peter-cockerell.net/Bayer/bayer2.html)  
