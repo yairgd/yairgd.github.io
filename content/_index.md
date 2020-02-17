@@ -23,7 +23,7 @@ It makes use of a variety of open source projects including:
 * https://github.com/spf13/cobra
 * https://github.com/spf13/viper
 
-Learn more and contribute to [GitHub](https://github.com/gohugoio)
+Learn more and contribute to [GitHub](https://github.com/gohugoio) and about [Markdown Syntax](https://daringfireball.net/projects/markdown/syntax#p).
 
 My contacts details are: [yair.gadelov@gmail.com](mailto:yair.gadelov@gmail.com) ,  <tel:+972528489064>. 
 
