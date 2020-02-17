@@ -2,18 +2,17 @@
 title : "Bayer Image to RGB"
 description : "Bayer to RGB conversion"
 tags : 
-    - "bayer"
-    - "rgb"
-    - "python"
+ - "bayer"
+ - "rgb"
+ - "python"
 
 date : "2014-02-16"
 archives : "2020"
 categories : 
-    - "computer vision"
-    - "python"
+ - "computer vision"
+ - "python"
 menu : "no-main"
 ---
-
 # Color transformation from Bayer to RGB
 A Bayer filter mosaic is a color filter array (CFA) for arranging RGB color filters on a square grid of photosensors. Its particular arrangement of color filters is used in most single-chip digital image sensors used in digital cameras, camcorders, and scanners to create a color image. The filter pattern is 50% green, 25% red and 25% blue - [see here](https://en.wikipedia.org/wiki/Bayer_filter).
 
@@ -153,10 +152,10 @@ plt.imsave('green_only.png',RGB[2]  )
 
 
 # References
-Here are some reference sources that used to </br> create this module  
-[[1] Bayer to RGB](https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html?highlight=cvtcolor)  
-[[2] RGB color conversions matrixes ](http://poynton.ca/notes/colour_and_gamma/ColorFAQ.html)  
-[[3] Bayer to RGB algorithm](http://www.peter-cockerell.net/Bayer/bayer2.html)  
-[[4] Bayer Patterns in Digicam CCDs](http://www.peter-cockerell.net/Bayer/bayer.html)  
-[[5] RGB to gray](https://groups.google.com/forum/#!topic/sci.image.processing/Jf-aTjPEgjc)  
+Here are some reference sources that used to </br> create this module  
+[[1] Bayer to RGB](https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html?highlight=cvtcolor)  
+[[2] RGB color conversions matrixes ](http://poynton.ca/notes/colour_and_gamma/ColorFAQ.html)  
+[[3] Bayer to RGB algorithm](http://www.peter-cockerell.net/Bayer/bayer2.html)  
+[[4] Bayer Patterns in Digicam CCDs](http://www.peter-cockerell.net/Bayer/bayer.html)  
+[[5] RGB to gray](https://groups.google.com/forum/#!topic/sci.image.processing/Jf-aTjPEgjc)  
 

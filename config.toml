@@ -10,8 +10,8 @@ theme = "jeffprod"
 
 #publishDir = "yairgd.github.io/"
 
-[blackfriday]
-   extensions = ["hardLineBreak"]
+#[blackfriday]
+ #  extensions = ["hardLineBreak"]
 
 [permalinks]
   post = "/:year/:month/:slug/"
