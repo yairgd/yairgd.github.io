@@ -41,6 +41,11 @@ theme = "jeffprod"
 
 #sectionPagesMenu = "main"
 
+[params.staticman]
+    endpoint = "https://hidden-harbor-22710.herokuapp.com/v2/entry"
+    username = "yairgd"
+    repository = "yairgd.github.io"
+    branch = "source"
 
 # Menu Configuration
 [[menu.main]]

@@ -11,7 +11,7 @@ This is my personal homepage mainly to record my work. I'm working as an Embbed 
 I have used this place to write technical [blogs](/blogs/) on embedded systems and programming.
 You can also see my [CV](/cv/), or know a little bit more [about me](/about/).
 
-This site is driven by [Hugo](https://gohugo.io/). You can find the source code of this site in the [GitHub repository](https://github.com/yairgd/yairgd.github.io/). The theme is modified from [Jefprod](https://github.com/Tazeg/hugo-blog-jeffprod).
+This site is driven by [Hugo](https://gohugo.io/). You can find the source code of this site in the [GitHub repository](https://github.com/yairgd/yairgd.github.io/). The theme is modified from [Jefprod](https://github.com/Tazeg/hugo-blog-jeffprod) and expmantion how to enable commnets in the blog is [here](https://yasoob.me/posts/running_staticman_on_static_hugo_blog_with_nested_comments/) and [here](https://www.datascienceblog.net/post/other/staticman_comments/)
 
 Hugo is the **world’s fastest framework for building websites**. It is written in Go.
 
