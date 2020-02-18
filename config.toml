@@ -1,4 +1,3 @@
-#baseURL = "https://yairgd.github.com/myblog/"
 baseURL = "https://yairgd.github.io/"
 
 
@@ -102,5 +101,5 @@ theme = "jeffprod"
   identifier = "github"
   name = "GitHub"
   pre = "<i class=\"sidebar-button-icon fab fa-github\"></i>"
-  url = "https://github.com/yixuan/"
+  url = "https://github.com/yairgd/"
   
