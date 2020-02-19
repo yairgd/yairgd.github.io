@@ -2,16 +2,15 @@
 title: "Linux core isolation to have a close RT performance."
 description: "Linux core isolation to have a close RT performance "
 tags : 
- -"Linux"
- -"kernel"
- -"rt"
+- "linux"
+- "kernel"
+- "rt"
 
 date : "2020-02-18"
 archives : "2020"
 categories : 
- -"linux"
- -"embbeded"
-draft: true
+- "linux"
+- "embbeded"
 
 menu : "no-main"
 ---

@@ -21,6 +21,7 @@ theme = "jeffprod"
 [taxonomies]
     tag = "tags"
     archive = "archives"
+    category = "categories"
 
 
 [author]

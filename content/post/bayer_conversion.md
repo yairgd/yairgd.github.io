@@ -4,12 +4,11 @@ description : "Bayer to RGB conversion"
 tags : 
  - "bayer"
  - "rgb"
- - "python"
 
 date : "2020-02-17"
 archives : "2020"
 categories : 
- - "computer vision"
+ - "computer-vision"
  - "python"
 menu : "no-main"
 ---
