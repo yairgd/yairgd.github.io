@@ -1,6 +1,6 @@
 ---
-title: "Linux module to dissemble code in the kernel"
-description: "Linux module to dissabmle code in the kerenl"
+title: "Linux module to disassemble code in the Linux kernel."
+description: "Linux module to disassemble code in the Linux kernel."
 tags : 
 - "linux"
 - "kernel"
@@ -135,4 +135,5 @@ https://linux-kernel-labs.github.io/master/labs/device_drivers.html</br>
 https://gist.github.com/brenns10/65d1ee6bb8419f96d2ae693eb7a66cc0</br>
 https://www.kernel.org/doc/htmldocs/kernel-hacking/routines-module-use-counters.html</br>
 https://stackoverflow.com/questions/18456155/what-is-the-difference-between-misc-drivers-and-char-drivers</br>
+
 
