@@ -25,5 +25,5 @@ I have a real-time task that needed to run periodically at a constant rate at a 
 
 
 # References
-Here are some reference sources that used to create this post  
+Here are some reference sources that used to create this post  
 [[1] Whole one core dedicated to a single process](https://stackoverflow.com/questions/13583146/whole-one-core-dedicated-to-single-process) 
