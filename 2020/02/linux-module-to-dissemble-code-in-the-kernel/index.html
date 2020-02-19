@@ -1,0 +1,91 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><title>My Tech Blog | Linux module to dissemble code in the kernel</title><meta name=viewport content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css><link rel=stylesheet href=https://yairgd.github.io/css/blog.css></head><body><nav class="navbar is-fixed-top" role=navigation aria-label="main navigation"><div class=navbar-brand><a class=navbar-item href=https://yairgd.github.io/>Home</a>
+<a class=navbar-item href=/about>About</a>
+<a class=navbar-item href=/blogs>Blogs</a>
+<a class=navbar-item href=/cv>CV</a>
+<a class=navbar-item href=/projects>Projects</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">Linux module to dissemble code in the kernel</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><h1 id=disa>disa</h1><p>A simple module to disassembly memory using a Linux kernel module. This module is based on <a href=https://github.com/zyantific/zydis>Zydis</a> and integrated into this module. Also, there is a userspace application to demonstrate the Zydis library on a test function in user space and disassembly of the same c function at the kernel space. Also can dissemble internal c functions of the kernel like printk, kmalloc etc&rsquo;. This document writes with MarkDown, and <a href=https://daringfireball.net/projects/markdown/basics>here</a> is a useful reference explaining how to use it.</p><h1 id=module-structure>Module structure</h1><p>The module allows two interfaces from userspace:
+* Using kernel parameters API:</br>This part of the module demonstrates the use of module parameters API to control the module. There is one parameter named <em>func</em> and it uses to select from userspace the internal function to disassemble.</p><ul><li>Using kernel char device API (using a misc device):</br>The purpose of this interface is to make a file behavior for the disa module using <em>/dev/disa</em> using file system calls open, read,ioctl, and its content is the disassembly text code of a selected function. The selected function can be one of two:</br><ol><li>Internal kennel function (see kernel parameter <em>func</em>)</br></li><li>The local function of a process and it set using ioctl system call.<br></li></ol></li></ul><h1 id=build-the-module>Build the module</h1><pre><code class=language-bash>git clone https://github.com/yairgd/disa.git
+cd disa
+make 
+</code></pre><h1 id=testing-the-module>Testing the module</h1><p>Run test1,test2.py are unit tests for this module and to load into the kernel use this command:</p><pre><code class=language-bash>sudo insmod module/disa.ko
+sudo ./test1
+sudo ./test2.py
+</code></pre><h2 id=testing-of-disassembly-of-userspace-function>Testing of disassembly of userspace function</h2><p>Compare between the output of test1 function that disassembles func1 (see test1.c) on userspace and in the kernel space using disa module. Here is the output of test1 in userspace:</p><pre><code class=language-bash>this function  named &quot;func1&quot; with param 123
+push rbp
+mov rbp, rsp
+sub rsp, 0x10
+mov [rbp-0x04], edi
+mov eax, [rbp-0x04]
+mov edx, eax
+lea rsi, [0x000055EE2B1475D5]
+</code></pre><p>and the same disasebly in kernel space:</p><pre><code class=language-bash>push rbp
+mov rbp, rsp
+sub rsp, 0x10
+mov [rbp-0x04], edi
+mov eax, [rbp-0x04]
+mov edx, eax
+lea rsi, [0x000055F50A1455D5]
+</code></pre><p>Both results are identical with gdb:</p><pre><code class=language-bash>  (gdb) x/10i func1
+   0x555555563aba &lt;func1&gt;:      push   %rbp
+   0x555555563abb &lt;func1+1&gt;:    mov    %rsp,%rbp
+   0x555555563abe &lt;func1+4&gt;:    sub    $0x10,%rsp
+   0x555555563ac2 &lt;func1+8&gt;:    mov    %edi,-0x4(%rbp)
+   0x555555563ac5 &lt;func1+11&gt;:   mov    -0x4(%rbp),%eax
+   0x555555563ac8 &lt;func1+14&gt;:   mov    %eax,%edx
+   0x555555563aca &lt;func1+16&gt;:   lea    0x17b04(%rip),%rsi        # 0x55555557b5d5 &lt;__FUNCTION__.3489&gt;  
+</code></pre><p>and func1 eauls to :</p><pre><code class=language-bash>p/u (void*)func1
+$14 = 93824992295610
+</code></pre><p>and the addr parameter also equals to it:</p><pre><code class=language-bash>cat /sys/module/disasm/parameters/addr 
+93824992295610
+</code></pre><h2 id=testing-of-disasbly-internal-kernel-function>Testing of disasbly internal kernel function</h2><p>Use this command to get list of inernal functions that module is able to disasebmly.</p><pre><code class=language-bash>sudo su -c '/sys/module/disasm/parameters/func'
+</code></pre><p>Here is a pyhton code to use when its required to disasmble the code of <em>kfree</em>:</p><pre><code class=language-python># select intenal function to disasembly  
+f = open(&quot;/sys/module/disasm/parameters/func&quot;,&quot;w&quot;);
+f.write(&quot;kfree&quot;);
+f.close();
+# read the disasmbly data as file
+f=open(&quot;/dev/disa&quot;,&quot;r&quot;);
+a = f.read(256);
+a = a.replace(';','\n');
+print ( a);
+f.close();
+</code></pre><p>And the result is:</p><pre><code class=language-bash>push rbp
+mov rbp, rsp
+push r13
+push r12
+mov r13, [rbp+0x08]
+push rbx
+mov rbx, rdi
+nop
+cmp rbx, 0x10
+jbe 0xFFFFFFFF8117C71D
+mov r10d, 0x80000000
+mov rax, 0x77FF80000000
+mov rdi, 0xFFFFEA0000000000
+add r10, rbx
+cmovb rax, [0xFFFFFFFF81E0D010]
+add r10, rax
+</code></pre><p>To use the module in bash command line type:</p><pre><code class=language-bash>sudo cat /dev/disa | sed -e $'s/;/\\\n/g'
+</code></pre><h1 id=references>References</h1><p>Here are some reference sources that used to create this module</br><a href=http://www.embeddedlinux.org.cn/essentiallinuxdevicedrivers/final/ch05lev1sec7.html>http://www.embeddedlinux.org.cn/essentiallinuxdevicedrivers/final/ch05lev1sec7.html</a></br><a href=http://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/>http://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/</a></br><a href=https://linux-kernel-labs.github.io/master/labs/device_drivers.html>https://linux-kernel-labs.github.io/master/labs/device_drivers.html</a></br><a href=https://gist.github.com/brenns10/65d1ee6bb8419f96d2ae693eb7a66cc0>https://gist.github.com/brenns10/65d1ee6bb8419f96d2ae693eb7a66cc0</a></br><a href=https://www.kernel.org/doc/htmldocs/kernel-hacking/routines-module-use-counters.html>https://www.kernel.org/doc/htmldocs/kernel-hacking/routines-module-use-counters.html</a></br><a href=https://stackoverflow.com/questions/18456155/what-is-the-difference-between-misc-drivers-and-char-drivers>https://stackoverflow.com/questions/18456155/what-is-the-difference-between-misc-drivers-and-char-drivers</a></br></p></div><div class=content><section id=comments><h3 class=title><a href=#comments>&#9997; Comments</a></h3><section class="staticman-comments post-comments"><form id=comment-form class=post-new-comment method=post action=https://hidden-harbor-22710.herokuapp.com/v2/entry/yairgd/yairgd.github.io/source/comments><p>Be the first to leave a comment! 🎉</p><h3 class=prompt>Say something</h3><input type=hidden name=options[redirect] value=https://yairgd.github.io/2020/02/linux-module-to-dissemble-code-in-the-kernel/#comment-submitted>
+<input type=hidden name=options[slug] value=linux_disa_module>
+<input type=text name=fields[name] class=post-comment-field placeholder="Name *" required>
+<input type=email name=fields[email] class=post-comment-field placeholder="Email address (will not be public) *" required>
+<input type=hidden id=comment-parent name=fields[reply_to]>
+<textarea name=fields[comment] class=post-comment-field placeholder="Comment (markdown is accepted) *" required rows=10></textarea>
+<input type=submit class="post-comment-field btn btn-primary comment-buttons" value=Submit></form></section><div id=comment-submitted class=dialog><h3>Thank you!</h3><p>Your comment has been submitted and will be published once it has been approved. &#128522;</p><p><a href=# class="btn btn-primary comment-buttons ok">OK</a></p></div></section></div></div></div><div class="column is-3"><div class=card><div class=card-content><h1 class="title is-5">Categories</h1><div class=tags><span class=tag><a href=https://yairgd.github.io/categories/computer-vision>computer-vision</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/development>development</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/embbeded>embbeded</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/golang>golang</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/linux>linux</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/python>python</a></span></div></div></div><br><div class=card><div class=card-content><h1 class="title is-5">Tags</h1><div class=tags><span class=tag><a href=https://yairgd.github.io/tags/bayer>bayer</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/development>development</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/go>go</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/golang>golang</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/hugo>hugo</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/kernel>kernel</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/linux>linux</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/rgb>rgb</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/rt>rt</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/templates>templates</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/themes>themes</a></span></div></div></div><br><div class=card><div class=card-content><h1 class="title is-5">Recent posts</h1><h1><a href=https://yairgd.github.io/2020/02/linux-module-to-dissemble-code-in-the-kernel/>Linux module to dissemble code in the kernel</a></h1><time class="has-text-grey-light is-size-7">18 February 2020</time><h1><a href=https://yairgd.github.io/2020/02/linux-core-isolation-to-have-a-close-rt-performance./>Linux core isolation to have a close RT performance.</a></h1><time class="has-text-grey-light is-size-7">18 February 2020</time><h1><a href=https://yairgd.github.io/2020/02/bayer-image-to-rgb/>Bayer Image to RGB</a></h1><time class="has-text-grey-light is-size-7">17 February 2020</time><h1><a href=https://yairgd.github.io/2020/02/my-first-post/>My First Post</a></h1><time class="has-text-grey-light is-size-7">10 February 2020</time><h1><a href=https://yairgd.github.io/2014/09/creating-a-new-theme/>Creating a New Theme</a></h1><time class="has-text-grey-light is-size-7">28 September 2014</time></div></div><br><div class=card><div class=card-content><h1 class="title is-5">Related posts</h1><h1><a href=https://yairgd.github.io/2020/02/linux-core-isolation-to-have-a-close-rt-performance./>Linux core isolation to have a close RT performance.</a></h1><time class="has-text-grey-light is-size-7">18 February 2020</time></div></div><br><div class=card><div class=card-content><h1 class="title is-5">Archives</h1><a href=https://yairgd.github.io/archives/2020>2020</a> (4)<br><a href=https://yairgd.github.io/archives/2014>2014</a> (4)<br></div></div></div></div></div></div><footer class="footer has-background-grey-darker has-text-white"><div class="content has-text-centered"><p><span class="icon is-large"><a href=https://twitter.com/ class=mysocial rel=me><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+<span class="icon is-large"><a href=https://www.youtube.com/ class=mysocial rel=me><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+<span class="icon is-large"><a href=https://github.com/yairgd/ class=mysocial rel=me><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;<br><br>Copyright &copy; My Tech Blog 2020 - Theme by <a href=https://jeffprod.com class=mysocial>JeffProd.com</a>
+- <a class=mysocial href=https://yairgd.github.io/about>About</a><br><a href=mailto:yair.gadelov@gmail.com>yair.gadelov@gmail.com</a><br><a href="tel:+972 52 8489064">tel:+972528489064</a></p></div></footer><script defer src=https://use.fontawesome.com/releases/v5.1.0/js/all.js></script></body></html>
