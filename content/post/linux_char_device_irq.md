@@ -1,6 +1,6 @@
 ---
-title : "Linux char device to handle with IRQ "
-description : "Linux char device to handle with IRQ"
+title: "Linux char device to handle with IRQ "
+description: "Linux char device to handle with IRQ"
 tags : 
  - "linux"
  - "kernel"
@@ -16,7 +16,7 @@ menu : "no-main"
 ---
 # Linux chr device to handle with external irq
 
-We have an external FPGA that triggers GPIO. To handle with the IRQ in userspace it had to write a Linux chr device to handle with the IRQ in the kernel space and to signalize the user space usgin a standad system call. 
+We have an external FPGA that triggers GPIO. To handle with the IRQ in userspace, it had to write a Linux chr device to handle the IRQ in the kernel space and to signalize the userspace using a standard system call. 
 
 Here is the simple drive:
 ```c
@@ -159,7 +159,7 @@ clean:
 
 ```
 
-Here is a test program which get periodical IRQ. It open and wait for IRQ event and for each event, it trigger another GPIO which can seen on a scope device.
+Here is a test program which gets periodical IRQ. It open and wait for IRQ event and each event, it triggers another GPIO, which can see on a scope device.
 
 ```c
 #include<stdio.h>
@@ -234,4 +234,3 @@ http://alvarom.com/2014/12/17/linux-user-space-drivers-with-interrupts/</br>
 http://www.discoversdk.com/knowledge-base/interrupt-handling-in-user-space</br>
 https://yurovsky.github.io/2014/10/10/linux-uio-gpio-interrupt.html</br>
 https://fpgacpu.wordpress.com/2013/05/28/how-to-design-and-access-a-memory-mapped-device-part-two/</br>
-
