@@ -1,0 +1,210 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><title>My Tech Blog | Linux char device to handle with IRQ</title><meta name=viewport content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css><link rel=stylesheet href=https://yairgd.github.io/css/blog.css></head><body><nav class="navbar is-fixed-top" role=navigation aria-label="main navigation"><div class=navbar-brand><a class=navbar-item href=https://yairgd.github.io/>Home</a>
+<a class=navbar-item href=/about>About</a>
+<a class=navbar-item href=/blogs>Blogs</a>
+<a class=navbar-item href=/cv>CV</a>
+<a class=navbar-item href=/projects>Projects</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">Linux char device to handle with IRQ</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><h1 id=linux-chr-device-to-handle-with-external-irq>Linux chr device to handle with external irq</h1><p>We have an external FPGA that triggers GPIO. To handle with the IRQ in userspace it had to write a Linux chr device to handle with the IRQ in the kernel space and to signalize the user space usgin a standad system call.</p><p>Here is the simple drive:</p><pre><code class=language-c>#include &lt;linux/module.h&gt;
+#include &lt;linux/kernel.h&gt;    /* printk() */
+#include &lt;linux/moduleparam.h&gt;
+#include &lt;asm/uaccess.h&gt;
+#include &lt;asm/pgtable.h&gt;
+#include &lt;linux/fs.h&gt;
+#include &lt;linux/gfp.h&gt;
+#include &lt;linux/cdev.h&gt;
+#include &lt;linux/sched.h&gt;
+#include &lt;linux/interrupt.h&gt;
+#include &lt;linux/of_address.h&gt;
+#include &lt;linux/of_irq.h&gt;
+#include &lt;linux/of_platform.h&gt; 
+#include &lt;linux/semaphore.h&gt;
+
+
+DECLARE_WAIT_QUEUE_HEAD(hq);
+static int irq_num;
+
+static int x=0;
+//spinlock_t mLock = SPIN_LOCK_UNLOCKED;
+unsigned long flags;
+static DEFINE_SPINLOCK(mLock);
+
+static irqreturn_t fpga_irq_handle(int irq, void *dev_id)
+
+{
+	wake_up(&amp;hq);
+//	printk(KERN_DEBUG &quot;Interrupt\n&quot;);
+    	return IRQ_HANDLED;
+}
+
+	static ssize_t
+fpga_read(struct file *file, char __user *buf,size_t count,loff_t *ppos)
+{
+	wait_event(hq,x);	
+	return 0;
+}
+
+static struct file_operations fpga_fops =
+{
+	.owner = THIS_MODULE,
+	.read = fpga_read,
+};
+
+static struct cdev *fpga_cdev;
+#define DEVNAME &quot;fpga-irq&quot;
+	static int
+fpga_init (void)
+{
+	int  res;
+	struct device_node * np = NULL;
+
+	/* set IRQ */
+	np = of_find_compatible_node(NULL,NULL,DEVNAME);
+	if (np == NULL)
+	{
+		printk (KERN_INFO &quot;node %s is not defined in DTS\n&quot;,DEVNAME );
+
+		return 0;
+	}
+	irq_num = irq_of_parse_and_map(np, 0); /* get IRQ # from device tree */
+
+	res = request_irq(irq_num, fpga_irq_handle, 0, DEVNAME,0  );
+	if (res ) {
+		printk (KERN_INFO &quot;failed to request IRQ%u: %d\n&quot;,irq_num, res);
+		return res;   
+
+	}
+	printk(&quot;OK to request IRQ: %u\n&quot;,irq_num);
+
+
+
+
+	if(register_chrdev_region(MKDEV(230,0),1,&quot;fpga&quot;))
+	{
+		printk (KERN_INFO &quot;alloc chrdev error.\n&quot;);
+		return -1;
+	}
+
+	fpga_cdev=cdev_alloc();
+	if(!fpga_cdev)
+	{
+		printk (KERN_INFO &quot;cdev alloc error.\n&quot;);
+		return -1;
+	}
+	fpga_cdev-&gt;ops = &amp;fpga_fops;
+	fpga_cdev-&gt;owner = THIS_MODULE;
+
+	if(cdev_add(fpga_cdev,MKDEV(230,0),1))
+	{
+		printk (KERN_INFO &quot;cdev add error.\n&quot;);
+		return -1;
+	}
+
+	return 0;
+
+}
+
+static void
+fpga_cleanup (void)
+{
+
+	printk (KERN_INFO &quot;hello unloaded succefully.\n&quot;);
+	free_irq(irq_num,fpga_irq_handle);
+
+}
+
+module_init (fpga_init);
+module_exit (fpga_cleanup);
+MODULE_LICENSE(&quot;GPL&quot;);
+</code></pre><p>Makefile to buid the module:</p><pre><code class=language-makefile>#C_INCLUDE_PATH=../zydis/include/Zydis
+#CPATH=../zydis/include/Zydis
+EXTRA_CFLAGS=
+
+#-Wundef 
+#-Wframe-larger-than=4096 -Wint-to-pointer-cast -mcmodel=kernel 
+ 
+
+obj-m += fpga.o
+
+
+disasm-objs +=  
+
+all:
+	make -C /path/to/kernel  M=$(PWD) ARCH=arm64 CROSS_COMPILE=/opt/fsl-imx-xwayland/4.14-sumo/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-   modules
+
+clean:
+	make -C /path/to/kernel M=$(PWD)  ARCH=arm64 CROSS_COMPILE=/opt/fsl-imx-xwayland/4.14-sumo/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-  modules  clean
+
+</code></pre><p>Here is a test program which get periodical IRQ. It open and wait for IRQ event and for each event, it trigger another GPIO which can seen on a scope device.</p><pre><code class=language-c>#include&lt;stdio.h&gt;
+#include&lt;fcntl.h&gt;
+#include&lt;unistd.h&gt;
+#include&lt;sys/ioctl.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;sys/mman.h&gt;
+#include &lt;pthread.h&gt;
+
+
+void *thread_isr(void *p)
+{
+	char buf[100];
+	int fd,led_fd;
+	fd=open(&quot;/dev/fpga&quot;,O_RDONLY);
+	led_fd=open(&quot;/sys/class/gpio/gpio100/value&quot;,O_WRONLY);
+
+	while(1)
+	{
+		write(led_fd,&quot;1&quot;,1);		
+		read(fd,buf,1);
+		write(led_fd,&quot;0&quot;,1);
+		usleep(400);
+		
+	//	printf(&quot;Interrupt handler\n&quot;);
+		write(led_fd,&quot;1&quot;,1);
+		
+		
+	}
+
+}
+
+int main()
+{
+	pthread_t t1;
+	puts(&quot;start&quot;);
+	pthread_create(&amp;t1,NULL,thread_isr,NULL);
+	while (1)
+		sleep(500);
+	return 1;
+}
+</code></pre><p>to compile and copy the test to target run:</p><pre><code class=language-bash>$CC test.c -o test -lpthread  -g -O2
+scp test root@a.b.c.d:/home/root #a.b.c.d is the target ip address
+</code></pre><p>the demo app triggers GPIOs to measure the response in scope and the following commands should be run before the test:</p><pre><code class=language-bash>insmod fpga.ko
+mknod /dev/fpga c 230 0
+echo  100 &gt; /sys/class/gpio/export 
+echo &quot;out&quot; &gt; /sys/class/gpio/gpio100/direction
+echo 1 &gt; /sys/class/gpio/gpio100/value
+echo 0 &gt; /sys/class/gpio/gpio100/value
+</code></pre><h1 id=references>References</h1><p>Here are some reference sources that used to create this module</br><a href=https://yurovsky.github.io/2014/10/10/linux-uio-gpio-interrupt.html>https://yurovsky.github.io/2014/10/10/linux-uio-gpio-interrupt.html</a></br><a href=https://github.com/torvalds/linux/blob/master/drivers/uio/uio_pdrv_genirq.c>https://github.com/torvalds/linux/blob/master/drivers/uio/uio_pdrv_genirq.c</a></br><a href=https://lwn.net/Articles/127293/>https://lwn.net/Articles/127293/</a></br><a href=https://wiki.embeddedarm.com/wiki/Userspace_IRQ>https://wiki.embeddedarm.com/wiki/Userspace_IRQ</a></br><a href=https://elinux.org/images/9/9b/GPIO_for_Engineers_and_Makers.pdf>https://elinux.org/images/9/9b/GPIO_for_Engineers_and_Makers.pdf</a></br><a href=https://harmoninstruments.com/posts/uio.html>https://harmoninstruments.com/posts/uio.html</a></br><a href=http://alvarom.com/2014/12/17/linux-user-space-drivers-with-interrupts/>http://alvarom.com/2014/12/17/linux-user-space-drivers-with-interrupts/</a></br><a href=http://www.discoversdk.com/knowledge-base/interrupt-handling-in-user-space>http://www.discoversdk.com/knowledge-base/interrupt-handling-in-user-space</a></br><a href=https://yurovsky.github.io/2014/10/10/linux-uio-gpio-interrupt.html>https://yurovsky.github.io/2014/10/10/linux-uio-gpio-interrupt.html</a></br><a href=https://fpgacpu.wordpress.com/2013/05/28/how-to-design-and-access-a-memory-mapped-device-part-two/>https://fpgacpu.wordpress.com/2013/05/28/how-to-design-and-access-a-memory-mapped-device-part-two/</a></br></p></div><div class=content><section id=comments><h3 class=title><a href=#comments>&#9997; Comments</a></h3><section class="staticman-comments post-comments"><form id=comment-form class=post-new-comment method=post action=https://hidden-harbor-22710.herokuapp.com/v2/entry/yairgd/yairgd.github.io/source/comments><p>Be the first to leave a comment! 🎉</p><h3 class=prompt>Say something</h3><input type=hidden name=options[redirect] value=https://yairgd.github.io/2020/02/linux-char-device-to-handle-with-irq/#comment-submitted>
+<input type=hidden name=options[slug] value=linux_char_device_irq>
+<input type=text name=fields[name] class=post-comment-field placeholder="Name *" required>
+<input type=email name=fields[email] class=post-comment-field placeholder="Email address (will not be public) *" required>
+<input type=hidden id=comment-parent name=fields[reply_to]>
+<textarea name=fields[comment] class=post-comment-field placeholder="Comment (markdown is accepted) *" required rows=10></textarea>
+<input type=submit class="post-comment-field btn btn-primary comment-buttons" value=Submit></form></section><div id=comment-submitted class=dialog><h3>Thank you!</h3><p>Your comment has been submitted and will be published once it has been approved. &#128522;</p><p><a href=# class="btn btn-primary comment-buttons ok">OK</a></p></div></section></div></div></div><div class="column is-3"><div class=card><div class=card-content><h1 class="title is-5">Categories</h1><div class=tags><span class=tag><a href=https://yairgd.github.io/categories/computer-vision>computer-vision</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/development>development</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/embbeded>embbeded</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/golang>golang</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/linux>linux</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/python>python</a></span></div></div></div><br><div class=card><div class=card-content><h1 class="title is-5">Tags</h1><div class=tags><span class=tag><a href=https://yairgd.github.io/tags/bayer>bayer</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/development>development</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/go>go</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/golang>golang</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/hugo>hugo</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/kernel>kernel</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/linux>linux</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/rgb>rgb</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/rt>rt</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/templates>templates</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/themes>themes</a></span></div></div></div><br><div class=card><div class=card-content><h1 class="title is-5">Recent posts</h1><h1><a href=https://yairgd.github.io/2020/02/linux-module-magic-info/>Linux module magic info</a></h1><time class="has-text-grey-light is-size-7">20 February 2020</time><h1><a href=https://yairgd.github.io/2020/02/linux-char-device-to-handle-with-irq/>Linux char device to handle with IRQ</a></h1><time class="has-text-grey-light is-size-7">20 February 2020</time><h1><a href=https://yairgd.github.io/2020/02/linux-module-to-disassemble-code-in-the-linux-kernel./>Linux module to disassemble code in the Linux kernel.</a></h1><time class="has-text-grey-light is-size-7">18 February 2020</time><h1><a href=https://yairgd.github.io/2020/02/linux-core-isolation-to-have-a-close-rt-performance./>Linux core isolation to have a close RT performance.</a></h1><time class="has-text-grey-light is-size-7">18 February 2020</time><h1><a href=https://yairgd.github.io/2020/02/bayer-image-to-rgb/>Bayer Image to RGB</a></h1><time class="has-text-grey-light is-size-7">17 February 2020</time></div></div><br><div class=card><div class=card-content><h1 class="title is-5">Related posts</h1><h1><a href=https://yairgd.github.io/2020/02/linux-module-magic-info/>Linux module magic info</a></h1><time class="has-text-grey-light is-size-7">20 February 2020</time><h1><a href=https://yairgd.github.io/2020/02/linux-core-isolation-to-have-a-close-rt-performance./>Linux core isolation to have a close RT performance.</a></h1><time class="has-text-grey-light is-size-7">18 February 2020</time><h1><a href=https://yairgd.github.io/2020/02/linux-module-to-disassemble-code-in-the-linux-kernel./>Linux module to disassemble code in the Linux kernel.</a></h1><time class="has-text-grey-light is-size-7">18 February 2020</time></div></div><br><div class=card><div class=card-content><h1 class="title is-5">Archives</h1><a href=https://yairgd.github.io/archives/2020>2020</a> (6)<br><a href=https://yairgd.github.io/archives/2014>2014</a> (4)<br></div></div></div></div></div></div><footer class="footer has-background-grey-darker has-text-white"><div class="content has-text-centered"><p><span class="icon is-large"><a href=https://twitter.com/ class=mysocial rel=me><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+<span class="icon is-large"><a href=https://www.youtube.com/ class=mysocial rel=me><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+<span class="icon is-large"><a href=https://github.com/yairgd/ class=mysocial rel=me><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;<br><br>Copyright &copy; My Tech Blog 2020 - Theme by <a href=https://jeffprod.com class=mysocial>JeffProd.com</a>
+- <a class=mysocial href=https://yairgd.github.io/about>About</a><br><a href=mailto:yair.gadelov@gmail.com>yair.gadelov@gmail.com</a><br><a href="tel:+972 52 8489064">tel:+972528489064</a></p></div></footer><script defer src=https://use.fontawesome.com/releases/v5.1.0/js/all.js></script></body></html>
