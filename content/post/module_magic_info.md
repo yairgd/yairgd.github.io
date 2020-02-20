@@ -11,7 +11,6 @@ archives : "2020"
 categories : 
  - "linux"
  - "embbeded"
-draft: true
 
 menu : "no-main"
 ---
