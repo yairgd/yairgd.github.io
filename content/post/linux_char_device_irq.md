@@ -224,13 +224,13 @@ echo 0 > /sys/class/gpio/gpio100/value
 ```
 
 # References
-https://yurovsky.github.io/2014/10/10/linux-uio-gpio-interrupt.html  
-https://github.com/torvalds/linux/blob/master/drivers/uio/uio_pdrv_genirq.c  
-https://lwn.net/Articles/127293/  
-https://wiki.embeddedarm.com/wiki/Userspace_IRQ</br>
-https://elinux.org/images/9/9b/GPIO_for_Engineers_and_Makers.pdf</br>
-https://harmoninstruments.com/posts/uio.html</br>
-http://alvarom.com/2014/12/17/linux-user-space-drivers-with-interrupts/</br>
-http://www.discoversdk.com/knowledge-base/interrupt-handling-in-user-space</br>
-https://yurovsky.github.io/2014/10/10/linux-uio-gpio-interrupt.html</br>
-https://fpgacpu.wordpress.com/2013/05/28/how-to-design-and-access-a-memory-mapped-device-part-two/</br>
+[[1] https://yurovsky.github.io/2014/10/10/linux-uio-gpio-interrupt.html](https://yurovsky.github.io/2014/10/10/linux-uio-gpio-interrupt.html)  
+[[2] https://github.com/torvalds/linux/blob/master/drivers/uio/uio_pdrv_genirq.c](https://github.com/torvalds/linux/blob/master/drivers/uio/uio_pdrv_genirq.c)
+[[3] https://lwn.net/Articles/127293/)(https://lwn.net/Articles/127293/)
+[[4] https://wiki.embeddedarm.com/wiki/Userspace_IRQ)(https://wiki.embeddedarm.com/wiki/Userspace_IRQ)
+[[5] https://elinux.org/images/9/9b/GPIO_for_Engineers_and_Makers.pdf](https://elinux.org/images/9/9b/GPIO_for_Engineers_and_Makers.pdf)
+[[6] https://harmoninstruments.com/posts/uio.html](https://harmoninstruments.com/posts/uio.html)
+[[7] http://alvarom.com/2014/12/17/linux-user-space-drivers-with-interrupts](http://alvarom.com/2014/12/17/linux-user-space-drivers-with-interrupts)
+[[8] http://www.discoversdk.com/knowledge-base/interrupt-handling-in-user-space](http://www.discoversdk.com/knowledge-base/interrupt-handling-in-user-space)
+[[9] https://yurovsky.github.io/2014/10/10/linux-uio-gpio-interrupt.html](https://yurovsky.github.io/2014/10/10/linux-uio-gpio-interrupt.html)
+[[10] https://fpgacpu.wordpress.com/2013/05/28/how-to-design-and-access-a-memory-mapped-device-part-two/](https://fpgacpu.wordpress.com/2013/05/28/how-to-design-and-access-a-memory-mapped-device-part-two/)
