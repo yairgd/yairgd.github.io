@@ -1,0 +1,90 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><title>My Tech Blog | Linux module magic info</title><meta name=viewport content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css><link rel=stylesheet href=https://yairgd.github.io/css/blog.css></head><body><nav class="navbar is-fixed-top" role=navigation aria-label="main navigation"><div class=navbar-brand><a class=navbar-item href=https://yairgd.github.io/>Home</a>
+<a class=navbar-item href=/about>About</a>
+<a class=navbar-item href=/blogs>Blogs</a>
+<a class=navbar-item href=/cv>CV</a>
+<a class=navbar-item href=/projects>Projects</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">Linux module magic info</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><h1 id=linux-core-isolation>Linux core isolation</h1><h1 id=change-module-magic-info>Change module magic info</h1><p>Sometimes we want to build a module separate from the kernel. When the kernel is built, it generates a magic number, which probably depends on compiler version, kernel version, git source revision, etc. Time is also probably part of this magic number, since the kernel may build with the same parameters but with a different timestamp, it will have a different magic number, and then we will get this message when we try to insert it:</p><pre><code class=language-bash>root@linux:~# insmod /lib/modules/4.14.78-imx8m+g7808f06d8af2/extra/hello.ko
+insmod: ERROR: could not insert module /lib/modules/4.14.78-imx8m+g7808f06d8af2/extra/hello.ko: Invalid module format
+</code></pre><h2 id=recompile-module>recompile module</h2><p>just got to this file and change UTS_RELEASE:</p><pre><code class=language-bash>$ cat ./include/generated/utsrelease.h
+#define UTS_RELEASE &quot;4.14.78-g8e54a4b719e6&quot;
+</code></pre><h2 id=module-that-we-cannot-recompile>module that we cannot recompile</h2><p>To handle this situation without installing a new kernel + modules, we will replace the module magic number. This not work for some reason that I don&rsquo;t understand. The easy and the right way is to change the <em>utsrelease.h</em> file explained above. I&rsquo;m sure that what I&rsquo;m doing here is correct, but since I already start to investigate it, I will keep it here for sometime else.</p><p>The kernel version can be achieved form this command:</p><pre><code class=language-bash>$strings arch/arm64/boot/Image | grep -i &quot;Linux version&quot; 
+Linux version 4.14.78-g8e54a4b719e6 (yair@yair) (gcc version 7.3.0 (GCC)) #1 SMP PREEMPT Tue Oct 22 11:54:22 IDT 2019
+</code></pre><p>and the module version is archive from :</p><pre><code class=language-bash>modinfo -F vermagic hello.ko
+</code></pre><p>The full modinfo section can be displayed by:</p><pre><code class=language-bash>$ objdump -s -j .modinfo hello.ko
+
+hello.ko:     file format elf64-little
+
+Contents of section .modinfo:
+ 0000 6c696365 6e73653d 47504c00 00000000  license=GPL.....
+ 0010 64657065 6e64733d 006e616d 653d6865  depends=.name=he
+ 0020 6c6c6f00 7665726d 61676963 3d342e31  llo.vermagic=4.1
+ 0030 342e3738 2d673865 35346134 62373139  4.78-g8e54a4b719
+ 0040 65362053 4d502070 7265656d 7074206d  e6 SMP preempt m
+ 0050 6f645f75 6e6c6f61 64206161 72636836  od_unload aarch6
+ 0060 3400
+</code></pre><p>To get the module magic number run:</p><pre><code class=language-bash>$ modinfo hello.ko
+filename:       /home/yair/belkin/EAGLE_V1_RT_APPLICATION/hello-mod/hello.ko
+license:        GPL
+depends:        
+name:           hello
+vermagic:       4.14.78-g8e54a4b719e6 SMP preempt mod_unload aarch64
+</code></pre><p>copy the modinfo section to a file:</p><pre><code class=language-bash>export OBJCOPY=/opt/fsl-imx-xwayland/4.14-sumo/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-objcopy
+$OBJCOPY  ./hello.ko  /dev/null --dump-section .modinfo=mod_info
+</code></pre><p>update the magic number</p><pre><code class=language-bash>sed  's/4.14.78-g8e54a4b719e6/4.14.78+g7808f06d8af2/g' -i mod_info
+</code></pre><p>update the module</p><pre><code class=language-bash>$ $OBJCOPY --remove-section=.modinfo --add-section .modinfo=mod_info  hello.ko
+</code></pre><p>test for the new magic number</p><pre><code class=language-bash>$  modinfo hello.ko
+filename:       /home/yair/belkin/EAGLE_V1_RT_APPLICATION/hello-mod/hello.ko
+license:        GPL
+depends:        
+name:           hello
+vermagic:       4.14.78+g7808f06d8af2 SMP preempt mod_unload aarch64
+</code></pre><h2 id=related-issues>Related issues</h2><p>example of two related issues:</p><ul><li><p>See <a href=https://archives.gentoo.org/gentoo-user/message/3d188075a832cf3ab3926abcf6c7413b>here</a> for a bug report which relates to this issue. The problem there was that the file <em>./include/generated/utsrelease.h</em> did not exist. To fix, it only has to recompile the kernel.</p></li><li><p>Fail during the compilation of <em>sys-kernel/spl-0.7.13</em> at Gentoo system. Again, in this case, just need to build the kernel and make <em>/usr/src/linux</em> points to it.</p><pre><code class=language-bash>checking spl config... all
+checking kernel source directory... /usr/src/linux
+checking kernel build directory... /usr/src/linux
+checking kernel source version... Not found
+configure: error: *** Cannot find UTS_RELEASE definition.
+
+!!! Please attach the following file when seeking support:
+!!! /var/tmp/portage/sys-kernel/spl-0.7.13/work/spl-0.7.13/config.log
+* ERROR: sys-kernel/spl-0.7.13::gentoo failed (configure phase):
+*   econf failed
+* 
+* Call stack:
+*               ebuild.sh, line  125:  Called src_configure
+*             environment, line 4738:  Called autotools-utils_src_configure
+*             environment, line  934:  Called econf '--docdir=/usr/share/doc/spl-0.7.13' '--bindir=/bin' '--sbindir=/sbin' '--with-config=all' '--with-linux=/usr/src/linux' '--with-linux-obj=/usr/src/linux' '--disable-debug'
+*        phase-helpers.sh, line  681:  Called __helpers_die 'econf failed'
+*   isolated-functions.sh, line  112:  Called die
+* The specific snippet of code:
+*           die &quot;$@&quot;
+* 
+* If you need support, post the output of `emerge --info '=sys-kernel/spl-0.7.13::gentoo'`,
+* the complete build log and the output of `emerge -pqv '=sys-kernel/spl-0.7.13::gentoo'`.
+* The complete build log is located at '/var/tmp/portage/sys-kernel/spl-0.7.13/temp/build.log'.
+* The ebuild environment file is located at '/var/tmp/portage/sys-kernel/spl-0.7.13/temp/environment'.
+* Working directory: '/var/tmp/portage/sys-kernel/spl-0.7.13/work/spl-0.7.13'
+* S: '/var/tmp/portage/sys-kernel/spl-0.7.13/work/spl-0.7.13'
+</code></pre></li></ul><h2 id=reference>reference</h2><p><a href=https://www.linuxquestions.org/questions/linux-kernel-70/how-to-change-the-vermagic-of-a-module-728387/>[1] How to change the vermagic of a module</a></p></div><div class=content><section id=comments><h3 class=title><a href=#comments>&#9997; Comments</a></h3><section class="staticman-comments post-comments"><form id=comment-form class=post-new-comment method=post action=https://hidden-harbor-22710.herokuapp.com/v2/entry/yairgd/yairgd.github.io/source/comments><p>Be the first to leave a comment! 🎉</p><h3 class=prompt>Say something</h3><input type=hidden name=options[redirect] value=https://yairgd.github.io/2020/02/linux-module-magic-info/#comment-submitted>
+<input type=hidden name=options[slug] value=module_magic_info>
+<input type=text name=fields[name] class=post-comment-field placeholder="Name *" required>
+<input type=email name=fields[email] class=post-comment-field placeholder="Email address (will not be public) *" required>
+<input type=hidden id=comment-parent name=fields[reply_to]>
+<textarea name=fields[comment] class=post-comment-field placeholder="Comment (markdown is accepted) *" required rows=10></textarea>
+<input type=submit class="post-comment-field btn btn-primary comment-buttons" value=Submit></form></section><div id=comment-submitted class=dialog><h3>Thank you!</h3><p>Your comment has been submitted and will be published once it has been approved. &#128522;</p><p><a href=# class="btn btn-primary comment-buttons ok">OK</a></p></div></section></div></div></div><div class="column is-3"><div class=card><div class=card-content><h1 class="title is-5">Categories</h1><div class=tags><span class=tag><a href=https://yairgd.github.io/categories/computer-vision>computer-vision</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/development>development</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/embbeded>embbeded</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/golang>golang</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/linux>linux</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/python>python</a></span></div></div></div><br><div class=card><div class=card-content><h1 class="title is-5">Tags</h1><div class=tags><span class=tag><a href=https://yairgd.github.io/tags/bayer>bayer</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/development>development</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/go>go</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/golang>golang</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/hugo>hugo</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/kernel>kernel</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/linux>linux</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/rgb>rgb</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/rt>rt</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/templates>templates</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/themes>themes</a></span></div></div></div><br><div class=card><div class=card-content><h1 class="title is-5">Recent posts</h1><h1><a href=https://yairgd.github.io/2020/02/linux-module-magic-info/>Linux module magic info</a></h1><time class="has-text-grey-light is-size-7">20 February 2020</time><h1><a href=https://yairgd.github.io/2020/02/linux-module-to-disassemble-code-in-the-linux-kernel./>Linux module to disassemble code in the Linux kernel.</a></h1><time class="has-text-grey-light is-size-7">18 February 2020</time><h1><a href=https://yairgd.github.io/2020/02/linux-core-isolation-to-have-a-close-rt-performance./>Linux core isolation to have a close RT performance.</a></h1><time class="has-text-grey-light is-size-7">18 February 2020</time><h1><a href=https://yairgd.github.io/2020/02/bayer-image-to-rgb/>Bayer Image to RGB</a></h1><time class="has-text-grey-light is-size-7">17 February 2020</time><h1><a href=https://yairgd.github.io/2020/02/my-first-post/>My First Post</a></h1><time class="has-text-grey-light is-size-7">10 February 2020</time></div></div><br><div class=card><div class=card-content><h1 class="title is-5">Related posts</h1><h1><a href=https://yairgd.github.io/2020/02/linux-core-isolation-to-have-a-close-rt-performance./>Linux core isolation to have a close RT performance.</a></h1><time class="has-text-grey-light is-size-7">18 February 2020</time><h1><a href=https://yairgd.github.io/2020/02/linux-module-to-disassemble-code-in-the-linux-kernel./>Linux module to disassemble code in the Linux kernel.</a></h1><time class="has-text-grey-light is-size-7">18 February 2020</time></div></div><br><div class=card><div class=card-content><h1 class="title is-5">Archives</h1><a href=https://yairgd.github.io/archives/2020>2020</a> (5)<br><a href=https://yairgd.github.io/archives/2014>2014</a> (4)<br></div></div></div></div></div></div><footer class="footer has-background-grey-darker has-text-white"><div class="content has-text-centered"><p><span class="icon is-large"><a href=https://twitter.com/ class=mysocial rel=me><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+<span class="icon is-large"><a href=https://www.youtube.com/ class=mysocial rel=me><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+<span class="icon is-large"><a href=https://github.com/yairgd/ class=mysocial rel=me><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;<br><br>Copyright &copy; My Tech Blog 2020 - Theme by <a href=https://jeffprod.com class=mysocial>JeffProd.com</a>
+- <a class=mysocial href=https://yairgd.github.io/about>About</a><br><a href=mailto:yair.gadelov@gmail.com>yair.gadelov@gmail.com</a><br><a href="tel:+972 52 8489064">tel:+972528489064</a></p></div></footer><script defer src=https://use.fontawesome.com/releases/v5.1.0/js/all.js></script></body></html>
