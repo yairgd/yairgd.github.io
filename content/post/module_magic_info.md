@@ -11,14 +11,13 @@ archives : "2020"
 categories : 
  - "linux"
  - "embbeded"
-draft: true
 
 menu : "no-main"
 ---
 # Linux core isolation
 
 # Change module magic info
-Sometimes we want to build a module separate from the kernel.  When the kernel is built it generates a magic number, which probably depends on compiler version, kernel version, git source revision, etc. Time is also probably part of this magic number, since the kernel may build with the same parameters but with a different timestamp, it will have a different magic number, and then we will get this message when we try to insert it:
+Sometimes we want to build a module separate from the kernel.  When the kernel is built, it generates a magic number, which probably depends on compiler version, kernel version, git source revision, etc. Time is also probably part of this magic number, since the kernel may build with the same parameters but with a different timestamp, it will have a different magic number, and then we will get this message when we try to insert it:
 ```bash
 root@linux:~# insmod /lib/modules/4.14.78-imx8m+g7808f06d8af2/extra/hello.ko
 insmod: ERROR: could not insert module /lib/modules/4.14.78-imx8m+g7808f06d8af2/extra/hello.ko: Invalid module format
@@ -33,7 +32,7 @@ $ cat ./include/generated/utsrelease.h
 ``` 
 
 ## module that we cannot recompile 
-To handle this situation without installing a new kernel + modules we will replace the module magic number. This not work from some reason that I don't understand.  The easy and the right way is to change the *utsrelease.h* file explained above. But since I already start to investigate it, I will keep it here for sometime else. 
+To handle this situation without installing a new kernel + modules, we will replace the module magic number. This not work for some reason that I don't understand.  The easy and the right way is to change the *utsrelease.h* file explained above. I'm sure that what I'm doing here is correct, but since I already start to investigate it, I will keep it here for sometime else.  
 
 The kernel  version can be achieved form this command:
 ```bash
@@ -99,7 +98,7 @@ example of two related issues:
 
 * See [here](https://archives.gentoo.org/gentoo-user/message/3d188075a832cf3ab3926abcf6c7413b) for a bug report which relates to this issue. The problem there was that the file *./include/generated/utsrelease.h* did not exist. To fix, it only has to recompile the kernel.
 
-* Fail during the compilation  of *sys-kernel/spl-0.7.13* at Gentoo system. Again, in this case just need to build the kernel and make */usr/src/linux* points to it.
+* Fail during the compilation of *sys-kernel/spl-0.7.13* at Gentoo system. Again, in this case, just need to build the kernel and make */usr/src/linux* points to it.
 
 ```bash
 checking spl config... all
@@ -120,7 +119,7 @@ configure: error: *** Cannot find UTS_RELEASE definition.
  *        phase-helpers.sh, line  681:  Called __helpers_die 'econf failed'
  *   isolated-functions.sh, line  112:  Called die
  * The specific snippet of code:
- *   		die "$@"
+ *           die "$@"
  * 
  * If you need support, post the output of `emerge --info '=sys-kernel/spl-0.7.13::gentoo'`,
  * the complete build log and the output of `emerge -pqv '=sys-kernel/spl-0.7.13::gentoo'`.
