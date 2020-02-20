@@ -19,6 +19,7 @@ menu : "no-main"
 We have an external FPGA that triggers GPIO. To handle with the IRQ in userspace, it had to write a Linux chr device to handle the IRQ in the kernel space and to signalize the userspace using a standard system call. 
 
 Here is the simple drive:
+
 ```c
 #include <linux/module.h>
 #include <linux/kernel.h>    /* printk() */
@@ -223,10 +224,9 @@ echo 0 > /sys/class/gpio/gpio100/value
 ```
 
 # References
-Here are some reference sources that used to create this module</br>
-https://yurovsky.github.io/2014/10/10/linux-uio-gpio-interrupt.html</br>
-https://github.com/torvalds/linux/blob/master/drivers/uio/uio_pdrv_genirq.c</br>
-https://lwn.net/Articles/127293/</br>
+https://yurovsky.github.io/2014/10/10/linux-uio-gpio-interrupt.html  
+https://github.com/torvalds/linux/blob/master/drivers/uio/uio_pdrv_genirq.c  
+https://lwn.net/Articles/127293/  
 https://wiki.embeddedarm.com/wiki/Userspace_IRQ</br>
 https://elinux.org/images/9/9b/GPIO_for_Engineers_and_Makers.pdf</br>
 https://harmoninstruments.com/posts/uio.html</br>
