@@ -33,7 +33,7 @@ $ cat ./include/generated/utsrelease.h
 ``` 
 
 ## module that we cannot recompile 
-To handle this situation without installing a new kernel + modules, we will replace the module magic number. This not work for some reason that I don't understand.  The easy and the right way is to change the *utsrelease.h* file explained above. But since I already start to investigate it, I will keep it here for sometime else. 
+To handle this situation without installing a new kernel + modules, we will replace the module magic number. This not work for some reason that I don't understand.  The easy and the right way is to change the *utsrelease.h* file explained above. I'm sure that what I'm doing here is correct, but since I already start to investigate it, I will keep it here for sometime else.  
 
 The kernel  version can be achieved form this command:
 ```bash
