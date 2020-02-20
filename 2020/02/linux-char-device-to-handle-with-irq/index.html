@@ -2,7 +2,7 @@
 <a class=navbar-item href=/about>About</a>
 <a class=navbar-item href=/blogs>Blogs</a>
 <a class=navbar-item href=/cv>CV</a>
-<a class=navbar-item href=/projects>Projects</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">Linux char device to handle with IRQ</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><h1 id=linux-chr-device-to-handle-with-external-irq>Linux chr device to handle with external irq</h1><p>We have an external FPGA that triggers GPIO. To handle with the IRQ in userspace it had to write a Linux chr device to handle with the IRQ in the kernel space and to signalize the user space usgin a standad system call.</p><p>Here is the simple drive:</p><pre><code class=language-c>#include &lt;linux/module.h&gt;
+<a class=navbar-item href=/projects>Projects</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">Linux char device to handle with IRQ</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><h1 id=linux-chr-device-to-handle-with-external-irq>Linux chr device to handle with external irq</h1><p>We have an external FPGA that triggers GPIO. To handle with the IRQ in userspace, it had to write a Linux chr device to handle the IRQ in the kernel space and to signalize the userspace using a standard system call.</p><p>Here is the simple drive:</p><pre><code class=language-c>#include &lt;linux/module.h&gt;
 #include &lt;linux/kernel.h&gt;    /* printk() */
 #include &lt;linux/moduleparam.h&gt;
 #include &lt;asm/uaccess.h&gt;
@@ -132,7 +132,7 @@ all:
 clean:
 	make -C /path/to/kernel M=$(PWD)  ARCH=arm64 CROSS_COMPILE=/opt/fsl-imx-xwayland/4.14-sumo/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-  modules  clean
 
-</code></pre><p>Here is a test program which get periodical IRQ. It open and wait for IRQ event and for each event, it trigger another GPIO which can seen on a scope device.</p><pre><code class=language-c>#include&lt;stdio.h&gt;
+</code></pre><p>Here is a test program which gets periodical IRQ. It open and wait for IRQ event and each event, it triggers another GPIO, which can see on a scope device.</p><pre><code class=language-c>#include&lt;stdio.h&gt;
 #include&lt;fcntl.h&gt;
 #include&lt;unistd.h&gt;
 #include&lt;sys/ioctl.h&gt;
