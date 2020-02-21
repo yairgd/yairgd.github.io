@@ -7,6 +7,7 @@ title = "My Tech Blog"
 
 enableRobotsTXT="true"
 googleAnalytics = "UA-43536203-1"
+disqusShortname = "yairgdelov"
 
 theme = "jeffprod"
 
