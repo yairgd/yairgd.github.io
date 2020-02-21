@@ -16,9 +16,9 @@ User-agent: *
 #
 #Disallow: /tags/kernel/
 #
-#Disallow: /categories/linux/
-#
 #Disallow: /tags/linux/
+#
+#Disallow: /categories/linux/
 #
 #Disallow: /2020/02/linux-char-device-to-handle-with-irq/
 #
