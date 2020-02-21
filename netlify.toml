@@ -4,4 +4,4 @@
 [build]
 publish = "public"
 
-command = "hugo --gc --minify --baseURL='https://gadelov.netlify.com/'    --disqusShortname = "yairgd-github-io-1  "
+command = "hugo --gc --minify --baseURL='https://gadelov.netlify.com/'    --disqusShortname="yairgd-github-io-1  "
