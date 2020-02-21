@@ -1,0 +1,79 @@
+
+User-agent: *
+
+#
+#Disallow: /2014/09/creating-a-new-theme/
+#
+#Disallow: /2014/03/migrate-to-hugo-from-jekyll/
+#
+#Disallow: /archives/2020/
+#
+#Disallow: /archives/
+#
+#Disallow: /categories/
+#
+#Disallow: /categories/embbeded/
+#
+#Disallow: /tags/kernel/
+#
+#Disallow: /tags/linux/
+#
+#Disallow: /categories/linux/
+#
+#Disallow: /2020/02/linux-char-device-to-handle-with-irq/
+#
+#Disallow: /2020/02/linux-module-magic-info/
+#
+#Disallow: /post/
+#
+#Disallow: /tags/rt/
+#
+#Disallow: /tags/
+#
+#Disallow: /
+#
+#Disallow: /2020/02/linux-core-isolation-to-have-a-close-rt-performance./
+#
+#Disallow: /2020/02/linux-module-to-disassemble-code-in-the-linux-kernel./
+#
+#Disallow: /tags/bayer/
+#
+#Disallow: /2020/02/bayer-image-to-rgb/
+#
+#Disallow: /categories/computer-vision/
+#
+#Disallow: /categories/python/
+#
+#Disallow: /tags/rgb/
+#
+#Disallow: /2020/02/my-first-post/
+#
+#Disallow: /archives/2014/
+#
+#Disallow: /blogs/
+#
+#Disallow: /2014/04/hugo-template-primer/
+#
+#Disallow: /categories/development/
+#
+#Disallow: /tags/development/
+#
+#Disallow: /2014/04/getting-started-with-hugo/
+#
+#Disallow: /tags/go/
+#
+#Disallow: /categories/golang/
+#
+#Disallow: /tags/golang/
+#
+#Disallow: /tags/hugo/
+#
+#Disallow: /tags/templates/
+#
+#Disallow: /tags/themes/
+#
+#Disallow: /about/
+#
+#Disallow: /cv/
+#
+
