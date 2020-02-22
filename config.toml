@@ -53,10 +53,10 @@ theme = "jeffprod"
     branch = "source"
     moderation =  false
 
-[params]
-     staticman_api=true
+[params.comments]
+    # staticman_api=true
      comments = true
-    # DisqusShortname = true
+     DisqusShortname = true
 
 # Menu Configuration
 [[menu.main]]

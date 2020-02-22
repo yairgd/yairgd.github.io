@@ -8,24 +8,20 @@
             </div>
 	    <div class="content">
       {{ if (.Params.comments) | or (and (or (not (isset .Params "comments")) (eq .Params.comments nil)) (.Site.Params.comments)) }}
-          {{ if .Site.Params.DisqusShortname }}
+          {{ if .Site.Params.comments.DisqusShortname }}
             <div class="disqus-comments">
+		<!-- {{ template "_internal/disqus.html" . }} 
+		  https://gohugo.io/templates/internal/
+		-->
               {{ template "_internal/disqus.html" . }}
            </div>
          {{ end }}
-         {{ if (.Site.Params.staticman_api) }}
+         {{ if (.Site.Params.comments.staticman_api) }}
 	 <div>
             {{ partial "comments.html" . }}
 	 </div>
         {{ end }}
      {{ end }}
-
-     <!-- {{ template "_internal/disqus.html" . }} -->
-		    
-<!--		{{ partial "comments.html" .}} -->
-		<!--	{{ template "_internal/disqus.html" . }} 
-		  https://gohugo.io/templates/internal/
-		-->
 	    </div>
         </div>
     </div>
