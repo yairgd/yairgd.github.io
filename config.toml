@@ -51,6 +51,12 @@ theme = "jeffprod"
     username = "yairgd"
     repository = "yairgd.github.io"
     branch = "source"
+    moderation =  false
+
+[params]
+     staticman_api=true
+     comments = true
+    # DisqusShortname = true
 
 # Menu Configuration
 [[menu.main]]

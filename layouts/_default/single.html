@@ -7,7 +7,20 @@
                 {{ .Content }}
             </div>
 	    <div class="content">
-{{ template "_internal/disqus.html" . }}
+      {{ if (.Params.comments) | or (and (or (not (isset .Params "comments")) (eq .Params.comments nil)) (.Site.Params.comments)) }}
+          {{ if .Site.Params.DisqusShortname }}
+            <div class="disqus-comments">
+              {{ template "_internal/disqus.html" . }}
+           </div>
+         {{ end }}
+         {{ if (.Site.Params.staticman_api) }}
+	 <div>
+            {{ partial "comments.html" . }}
+	 </div>
+        {{ end }}
+     {{ end }}
+
+     <!-- {{ template "_internal/disqus.html" . }} -->
 		    
 <!--		{{ partial "comments.html" .}} -->
 		<!--	{{ template "_internal/disqus.html" . }} 
