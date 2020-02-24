@@ -14,7 +14,7 @@ menu : "no-main"
 ---
 
 # Development tools and kernel installation.
-The purpose of this post is to show the installation proccess of a yocto system on imx8m-var-dart , which is SOM made by varisce.  The kernel is build as part of the image but, for development purposes when custom modules are devdelpoed it is more easy to build it as stand-alone and work on it outside the Yocto image. The GCC toolchain is also required for this task. 
+The purpose of this post is to show the installation process of aYocto system on imx8m-var-dart , which is SOM made by [Variscite](http://variwiki.com/index.php?title=Main_Page).  The is kernel built as part of the image but, for development purposes, when custom modules developed, it is more comfortable with making it stand-alone and working on it outside the Yocto image. The GCC toolchain is also required for this task. 
 
 ## Toolchain
 ```bash
@@ -31,7 +31,7 @@ $ find . -type f -exec scp {} root@a.b.c.d:/  \;
 where *a.b.c.d* is the ip of the target
 
 ## Kernel
-To build the kernel do the following steps:
+To build the kernel, do the following steps:
 * Download the kernel
 ```bash
 git clone https://github.com/varigit/linux-imx.git
@@ -81,12 +81,9 @@ cd ..  # up to roofs
 
 # Install the device trees:
 find . -type f -exec scp {} root@a.b.c.d:/  \;
-scp arch/arm64/boot/dts/freescale/fsl-imx8mq-var-dart-belkin.dtb root@a.b.c.d:/boot
+scp arch/arm64/boot/dts/freescale/fsl-imx8mq-var-dart-your-dtb.dtb root@a.b.c.d:/boot
 ```
 where *a.b.c.d.* is the ip of the target device
-## Testing
-The trivial test is to reboot the SOM more advance test is to try to compile a module.
-use [hello-mod](https://github.com/BelkinLaser/EAGLE_V1_RT_APPLICATION/tree/master/hello-mod) to create a simple module and try to load it.
 
 
 
