@@ -5,6 +5,10 @@ languageCode = "en-us"
 title = "My Tech Blog"
 
 
+enableRobotsTXT="true"
+googleAnalytics = "UA-43536203-1"
+disqusShortname = "yairgd-github-io-1"
+
 theme = "jeffprod"
 
 #publishDir = "yairgd.github.io/"
@@ -38,6 +42,7 @@ theme = "jeffprod"
   # twitter = ""
   # Your google plus profile id. E.g : +ThibaudLepretre or 114625208755123718311
   # googlePlus = ""
+  
 
 #sectionPagesMenu = "main"
 
@@ -46,6 +51,12 @@ theme = "jeffprod"
     username = "yairgd"
     repository = "yairgd.github.io"
     branch = "source"
+    moderation =  false
+
+[params.comments]
+    # staticman_api=true
+     comments = true
+     DisqusShortname = true
 
 # Menu Configuration
 [[menu.main]]

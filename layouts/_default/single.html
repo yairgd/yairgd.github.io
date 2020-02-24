@@ -7,7 +7,21 @@
                 {{ .Content }}
             </div>
 	    <div class="content">
-		{{ partial "comments.html" .}}
+      {{ if (.Params.comments) | or (and (or (not (isset .Params "comments")) (eq .Params.comments nil)) (.Site.Params.comments)) }}
+          {{ if .Site.Params.comments.DisqusShortname }}
+            <div class="disqus-comments">
+		<!-- {{ template "_internal/disqus.html" . }} 
+		  https://gohugo.io/templates/internal/
+		-->
+              {{ template "_internal/disqus.html" . }}
+           </div>
+         {{ end }}
+         {{ if (.Site.Params.comments.staticman_api) }}
+	 <div>
+            {{ partial "comments.html" . }}
+	 </div>
+        {{ end }}
+     {{ end }}
 	    </div>
         </div>
     </div>

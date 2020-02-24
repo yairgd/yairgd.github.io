@@ -3,4 +3,5 @@
 
 [build]
 publish = "public"
-command = "hugo --gc --minify --baseURL='https://gadelov.netlify.com/'"
+
+command = "hugo --gc --minify  --baseURL='https://gadelov.netlify.com/'    --config=config.toml,a.toml  "
