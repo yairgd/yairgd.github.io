@@ -2,12 +2,12 @@
 <a class=navbar-item href=/about>About</a>
 <a class=navbar-item href=/blogs>Blogs</a>
 <a class=navbar-item href=/cv>CV</a>
-<a class=navbar-item href=/projects>Projects</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">Install yocto and kernel development tools of IMX8</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><h1 id=development-tools-and-kernel-installation>Development tools and kernel installation.</h1><p>The purpose of this post is to show the installation proccess of a yocto system on imx8m-var-dart , which is SOM made by varisce. The kernel is build as part of the image but, for development purposes when custom modules are devdelpoed it is more easy to build it as stand-alone and work on it outside the Yocto image. The GCC toolchain is also required for this task.</p><h2 id=toolchain>Toolchain</h2><pre><code class=language-bash>cd ~/var-fsl-yocto
+<a class=navbar-item href=/projects>Projects</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">Install yocto and kernel development tools of IMX8</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><h1 id=development-tools-and-kernel-installation>Development tools and kernel installation.</h1><p>The purpose of this post is to show the installation process of aYocto system on imx8m-var-dart , which is SOM made by <a href="http://variwiki.com/index.php?title=Main_Page">Variscite</a>. The is kernel built as part of the image but, for development purposes, when custom modules developed, it is more comfortable with making it stand-alone and working on it outside the Yocto image. The GCC toolchain is also required for this task.</p><h2 id=toolchain>Toolchain</h2><pre><code class=language-bash>cd ~/var-fsl-yocto
 MACHINE=imx8m-var-dart DISTRO=fsl-imx-xwayland . var-setup-release.sh -b build_xwayland
 bitbake meta-toolchain
 </code></pre><p>and then install it:</p><pre><code class=language-bash>cd rootfs
 $ find . -type f -exec scp {} root@a.b.c.d:/  \;
-</code></pre><p>where <em>a.b.c.d</em> is the ip of the target</p><h2 id=kernel>Kernel</h2><p>To build the kernel do the following steps:
+</code></pre><p>where <em>a.b.c.d</em> is the ip of the target</p><h2 id=kernel>Kernel</h2><p>To build the kernel, do the following steps:
 * Download the kernel</p><pre><code class=language-bash>git clone https://github.com/varigit/linux-imx.git
 cd linux-imx
 git checkout imx_4.14.78_1.0.0_ga_var01
@@ -33,9 +33,8 @@ cd ..  # up to roofs
 
 # Install the device trees:
 find . -type f -exec scp {} root@a.b.c.d:/  \;
-scp arch/arm64/boot/dts/freescale/fsl-imx8mq-var-dart-belkin.dtb root@a.b.c.d:/boot
-</code></pre></li></ul><p>where <em>a.b.c.d.</em> is the ip of the target device</p><h2 id=testing>Testing</h2><p>The trivial test is to reboot the SOM more advance test is to try to compile a module.
-use <a href=https://github.com/BelkinLaser/EAGLE_V1_RT_APPLICATION/tree/master/hello-mod>hello-mod</a> to create a simple module and try to load it.</p></div><div class=content><div class=disqus-comments><div id=disqus_thread></div><script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return;}
+scp arch/arm64/boot/dts/freescale/fsl-imx8mq-var-dart-your-dtb.dtb root@a.b.c.d:/boot
+</code></pre></li></ul><p>where <em>a.b.c.d.</em> is the ip of the target device</p></div><div class=content><div class=disqus-comments><div id=disqus_thread></div><script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return;}
 var d=document,s=d.createElement('script');s.async=true;s.src='//'+"yairgd-github-io-1"+'.disqus.com/embed.js';s.setAttribute('data-timestamp',+new Date());(d.head||d.body).appendChild(s);})();</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></div></div></div><div class="column is-3"><div class=card><div class=card-content><h1 class="title is-5">Categories</h1><div class=tags><span class=tag><a href=https://yairgd.github.io/categories/computer-vision>computer-vision</a></span>
 <span class=tag><a href=https://yairgd.github.io/categories/development>development</a></span>
 <span class=tag><a href=https://yairgd.github.io/categories/embbeded>embbeded</a></span>
