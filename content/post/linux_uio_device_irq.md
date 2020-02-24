@@ -1,6 +1,6 @@
 ---
-title: "Linux char device to handle with IRQ "
-description: "Linux char device to handle with IRQ"
+title: "Linux uio driver to handle with external IRQ "
+description: "Linux uio driver to handle with external IRQ"
 tags : 
  - "linux"
  - "kernel"
@@ -14,7 +14,7 @@ categories :
 
 menu : "no-main"
 ---
-# Linux uio device to handle with external IRQ
+# Linux uio driver to handle with external IRQ
 
 
 # References
