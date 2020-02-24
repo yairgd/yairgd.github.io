@@ -6,7 +6,7 @@ tags :
  - "kernel"
  - "rt"
 
-date : "2020-02-27
+date : "2020-02-27"
 archives : "2020"
 categories : 
  - "linux"
