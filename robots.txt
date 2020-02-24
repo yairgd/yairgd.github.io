@@ -12,25 +12,29 @@ User-agent: *
 #
 #Disallow: /categories/
 #
-#Disallow: /categories/embbeded/
+#Disallow: /2020/02/install-yocto-and-kernel-development-tools-of-imx8/
 #
 #Disallow: /tags/kernel/
 #
-#Disallow: /tags/linux/
-#
 #Disallow: /categories/linux/
+#
+#Disallow: /post/
+#
+#Disallow: /tags/
+#
+#Disallow: /
+#
+#Disallow: /tags/yocto/
+#
+#Disallow: /categories/embbeded/
+#
+#Disallow: /tags/linux/
 #
 #Disallow: /2020/02/linux-char-device-to-handle-with-irq/
 #
 #Disallow: /2020/02/linux-module-magic-info/
 #
-#Disallow: /post/
-#
 #Disallow: /tags/rt/
-#
-#Disallow: /tags/
-#
-#Disallow: /
 #
 #Disallow: /2020/02/linux-core-isolation-to-have-a-close-rt-performance./
 #
@@ -62,9 +66,9 @@ User-agent: *
 #
 #Disallow: /tags/go/
 #
-#Disallow: /categories/golang/
-#
 #Disallow: /tags/golang/
+#
+#Disallow: /categories/golang/
 #
 #Disallow: /tags/hugo/
 #
