@@ -19,6 +19,7 @@ I have a real-time task that needed to run periodically at a constant rate at a 
 
 
 
+setenv mmcargs "setenv bootargs console=${console} root=${mmcroot} video=${video} isolcpus=2"
 
 # References
 Here are some reference sources that used to create this post  
