@@ -10,6 +10,7 @@
       {{ if (.Params.comments) | or (and (or (not (isset .Params "comments")) (eq .Params.comments nil)) (.Site.Params.comments)) }}
           {{ if .Site.Params.comments.DisqusShortname }}
             <div class="disqus-comments">
+		   Comments
 		<!-- {{ template "_internal/disqus.html" . }} 
 		  https://gohugo.io/templates/internal/
 		-->
