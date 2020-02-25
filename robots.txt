@@ -12,13 +12,21 @@ User-agent: *
 #
 #Disallow: /categories/
 #
+#Disallow: /categories/embbeded/
+#
 #Disallow: /2020/02/install-yocto-and-kernel-development-tools-of-imx8/
 #
 #Disallow: /tags/kernel/
 #
+#Disallow: /tags/linux/
+#
 #Disallow: /categories/linux/
 #
+#Disallow: /2020/02/linux-uio-driver-to-handle-with-external-irq/
+#
 #Disallow: /post/
+#
+#Disallow: /tags/rt/
 #
 #Disallow: /tags/
 #
@@ -26,15 +34,9 @@ User-agent: *
 #
 #Disallow: /tags/yocto/
 #
-#Disallow: /categories/embbeded/
-#
-#Disallow: /tags/linux/
-#
 #Disallow: /2020/02/linux-char-device-to-handle-with-irq/
 #
 #Disallow: /2020/02/linux-module-magic-info/
-#
-#Disallow: /tags/rt/
 #
 #Disallow: /2020/02/linux-core-isolation-to-have-a-close-rt-performance./
 #
