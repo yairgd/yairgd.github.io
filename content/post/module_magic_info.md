@@ -14,8 +14,6 @@ categories :
 
 menu : "no-main"
 ---
-# Linux core isolation
-
 # Change module magic info
 Sometimes we want to build a module separate from the kernel.  When the kernel is built, it generates a magic number, which probably depends on compiler version, kernel version, git source revision, etc. Time is also probably part of this magic number, since the kernel may build with the same parameters but with a different timestamp, it will have a different magic number, and then we will get this message when we try to insert it:
 ```bash
