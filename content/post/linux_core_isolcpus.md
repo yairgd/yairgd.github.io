@@ -26,3 +26,4 @@ setenv mmcargs "setenv bootargs console=${console} root=${mmcroot} video=${video
 Here are some reference sources that used to create this post  
 [[1] Whole one core dedicated to a single process](https://stackoverflow.com/questions/13583146/whole-one-core-dedicated-to-single-process)  
 [[2]  INTERRUPTS AND IRQ TUNING](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/performance_tuning_guide/s-cpu-irq)  
+[[3] how to detect if isolcpus is activated?](https://unix.stackexchange.com/questions/336017/how-to-detect-if-isolcpus-is-activated)
