@@ -1,0 +1,17 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookiebar/1.0.5/jquery.cookiebar.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookiebar/1.0.5/jquery.cookiebar.css" />
+<script type="text/javascript"> 
+	$(document).ready(function(){
+		$.cookieBar({
+			fixed: true,
+			acceptOnScroll: 600,
+			policyURL: '/privacy-policy/',          
+			policyButton: true,
+			policyText: 'Privacy Policy',
+			expireDays: 45        
+		});
+
+	});
+</script>
+
