@@ -123,20 +123,25 @@ plt.imsave('gray_level.png', gray)
 
 
 # break to RGB  channels
-RGB = channel_break(rgb_res)
-plt.imshow(RGB[0])
-plt.title ('red only')
-plt.imsave('red_only.png',RGB[0]  )
-#plt.show()
-
-plt.imshow(RGB[1])
+RGB = channel_break(bayer_img)
+blue_only = pixel (RGB[0])
+plt.imshow(blue_only)
 plt.title ('blue only')
-plt.imsave('blue_only.png',RGB[1]  )
-#plt.show()
+plt.imsave('blue_only.png',blue_only)
+plt.show()
 
-plt.imshow(RGB[2])
+green_only = pixel (RGB[1])
+plt.imshow(green_only)
 plt.title ('green only')
-plt.imsave('green_only.png',RGB[2]  )
+plt.imsave('green_only.png',green_only)
+plt.show()
+
+red_only = pixel (RGB[2])
+plt.imshow(red_only)
+plt.title ('red only')
+plt.imsave('red_only.png',red_only)
+plt.show()
+
 #plt.show()
 ```
 # Results
