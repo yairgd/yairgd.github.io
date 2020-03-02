@@ -154,3 +154,10 @@ plt.show()
 {{< figure src="/post/bayer_conversion/blue_only.png" title="Blue Only" >}}
 
 
+# References
+Here are some reference sources that used to create this post  
+[[1] Bayer to RGB](https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html?highlight=cvtcolor)  
+[[2] RGB color conversions matrixes ](http://poynton.ca/notes/colour_and_gamma/ColorFAQ.html)  
+[[3] Bayer to RGB algorithm](http://www.peter-cockerell.net/Bayer/bayer2.html)  
+[[4] Bayer Patterns in Digicam CCDs](http://www.peter-cockerell.net/Bayer/bayer.html)  
+[[5] RGB to gray](https://groups.google.com/forum/#!topic/sci.image.processing/Jf-aTjPEgjc)  
