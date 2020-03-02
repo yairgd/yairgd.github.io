@@ -123,16 +123,16 @@ plt.imsave('gray_level.png', gray)
 
 
 # break to RGB  channels
-RGB = channel_break(bayer_img)
+RGB = channel_break(rgb_res)
 plt.imshow(RGB[0])
 plt.title ('red only')
 plt.imsave('red_only.png',RGB[0]  )
-plt.show()
+#plt.show()
 
 plt.imshow(RGB[1])
 plt.title ('blue only')
 plt.imsave('blue_only.png',RGB[1]  )
-plt.show()
+#plt.show()
 
 plt.imshow(RGB[2])
 plt.title ('green only')
