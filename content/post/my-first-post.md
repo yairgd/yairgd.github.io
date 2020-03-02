@@ -8,8 +8,12 @@ author: Yair Gadelov
 
 # first post
 
-It is My first Hugo post. I decided to work with Hugo after I had an experience with word press. For me, writing documents in [Markdown](https://daringfireball.net/projects/markdown/syntax#p) format and using GitHub to manage my files, tags, and categories instead of using MySQL database is much easier to manage and deploy.  To learn how to create such a blog in Hugo, you can try this [blog](https://dreambooker.site/2019/08/17/Hugo-Staticman-Travis/), also learn how to plot the kinds of figures [here](https://it.knightnet.org.uk/kb/hugo/embed-diagram/) and [hugo shortcodes](https://gohugo.io/content-management/shortcodes/).
+It is My first Hugo post. I decided to work with Hugo after I had an experience with word press. For me, writing documents in [Markdown](https://daringfireball.net/projects/markdown/syntax#p) format and using GitHub to manage my files, tags, and categories instead of using MySQL database is much easier to manage and deploy.  To learn how to create such a blog in Hugo, you can try this [blog](https://dreambooker.site/2019/08/17/Hugo-Staticman-Travis/),
 
+## diagram
+Learn how to plot the kinds of figures andso see [hugo shortcodes](https://gohugo.io/content-management/shortcodes/).
+
+* [gravizo](https://it.knightnet.org.uk/kb/hugo/embed-diagram/) 
 {{< gravizo "DOT Language (GraphViz) Example" >}}
   digraph G {
     aize ="4,4";
@@ -27,3 +31,12 @@ It is My first Hugo post. I decided to work with Hugo after I had an experience 
     execute -> compare;
   }
 {{< /gravizo >}}
+
+* [mermaid](https://codewithhugo.com/mermaid-js-hugo-shortcode/)
+{{< mermaid >}}
+graph TD;
+  A-->B;
+  A-->C;
+  B-->D;
+  C-->D;
+{{</mermaid>}}
