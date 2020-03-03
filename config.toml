@@ -45,7 +45,9 @@ theme = "jeffprod"
   
 
 #sectionPagesMenu = "main"
-
+[params]
+    enablecookiebar = true
+    
 [params.staticman]
     endpoint = "https://hidden-harbor-22710.herokuapp.com/v2/entry"
     username = "yairgd"

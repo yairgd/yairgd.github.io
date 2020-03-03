@@ -50,8 +50,10 @@ classDiagram
 	Class08 <--> C2: Cool label
 {{</mermaid>}}
 
+
+* [flowcharts setup](https://github.com/adrai/flowchart.js) and [examples](https://support.typora.io/Draw-Diagrams-With-Markdown/)
 {{< flowcharts >}}
-st=>start: Start|past:>http://www.google.com[blank]
+st=>start: Start|past:>https://github.com/adrai/flowchart.js[blank]
 e=>end: End:>http://www.google.com
 op1=>operation: My Operation|past:$myFunction
 op2=>operation: Stuff|current

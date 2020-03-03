@@ -3,9 +3,12 @@
 <head>
 	{{ template "_internal/google_analytics.html" . }}
 	<!-- {{ template "_internal/google_analytics_async.html" . }} -->
-	{{ template "partials/cookiebar.html" . }}
 
-	
+	{{ if .Site.Params.enablecookiebar }} 
+		{{ template "partials/cookiebar.html" . }}
+	{{ end }} 
+
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{ .Site.Title }} {{ with .Title }} | {{ . }}{{ end }}</title>
