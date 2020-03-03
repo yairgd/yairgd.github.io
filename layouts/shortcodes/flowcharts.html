@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		'line-width': 3,
 		'maxWidth': 3,//ensures the flowcharts fits within a certian width
 		'line-length': 50,
-		'text-margin': 10,
+		'text-margin': 1,
 		'font-size': 14,
 		'font': 'normal',
 		'font-family': 'Helvetica',
@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		'no-text': 'no',
 		'arrow-end': 'block',
 		'scale': 1,
+		'maxWidth': 1,
 		'symbols': {
 			'start': {
 				'font-color': 'blue',
@@ -46,6 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
 },false);
 </script>
 
-<div>
-	<div id="canvas"></div>
-</div>
+<style>
+div#canvas svg  {width:100%;}
+</style>
+
+	<div id="canvas" ></div>
