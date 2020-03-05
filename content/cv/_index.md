@@ -18,6 +18,12 @@ draft : false
 I Have more than 15 years of experience in the Israeli Hi-Tech. I began as an Algorithm Engineer and switched role to  RT/Embedded Software engineer.
 
 ### BELKIN Laser Ltd - Medical device company. Embedded System Software Engineer
+Fully responsible for developing Linux embedded application for a medical vision system that tracks the eye limbus and shuts laser at predefined points along the limbus to relieve glaucoma patients.
+
+* IMX8,yocto,gcc,gdb,makefiles
+* embedded Linux - user & kernel space
+* opencv, basler USB3 camera, color conversion
+* c/c++,python,bash
 
 ### 2017-2019: AppCard Inc - Manages customers clubs, Senior Software Engineer
 
@@ -33,7 +39,7 @@ bring up and testing, Lab equipment
 * System architecture, IoT, Rest API, client programming
 * Working with different functionalities: QA & Product, DevOps, Backend team
 
-### January 2016 - December 2016 Senior: Nano Dimension - Builds and produces 3d printers,  Embedded SW Engineer 
+### 2016 - 2017 : Nano Dimension - Builds and produces 3d printers,  Embedded SW Engineer 
 I was in both teams: SW: C++programming for printer management
 application team, HW: Building from scratch a printer head controller using
 Xilinx Zynq7000. The job involved the following tasks:
@@ -66,7 +72,7 @@ prediction of coloring based on physical models.
 * Numerical analysis | statistical algorithms | multidimensional optimization problems | Parameters estimations|regression
 * Java | Matlab
 
-### June 2008 - August 2010: Galileo Satellite Navigation, Algorithm Engineer
+### 2008-2010: Galileo Satellite Navigation, Algorithm Engineer
 Responsible for algorithm simulation and implementation using MATLAB C/C++, DSP and FPGA.
 
 * Kalman Filters | Wavelets |Weighted Robust LMS | fixed point | FFT
