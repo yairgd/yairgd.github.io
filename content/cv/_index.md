@@ -34,7 +34,7 @@ an application processor, USB components and more. The product was done
 from scratch and had installed in fields.
 
 *  Embedded Linux and BSP: IMX6, c/c++ programming under Linux Kernel/Userspace, Yocto build system, bash, python, GCC, gdb, makefiles, Autotools
-* Xilinx FPGA & Board design: Verilog programming, I2C, SPI, UART, Board
+* Xilinx FPGA & HW: Verilog programming, I2C, SPI, UART, Board
 bring up and testing, Lab equipment
 * System architecture, IoT, Rest API, client programming
 * Working with different functionalities: QA & Product, DevOps, Backend team
