@@ -79,7 +79,7 @@ Responsible for algorithm simulation and implementation using MATLAB C/C++, DSP 
 * Implementation and simulation of the GPS receiver and transmit CDMA channel.
 * HDL Implementation
 
-### June 2006 - July 2008, Algorithm Development
+### 2006 - 2008: Elisra,  Algorithm Development
 Member at the machine learning group. Responsible for solving clustering problems, data mining, feature exaction. supervised/unsupervised learning, GMM, PCA, K-means, statistics, and
 
 
