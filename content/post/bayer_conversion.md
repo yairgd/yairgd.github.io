@@ -141,7 +141,7 @@ plt.show()
 
 #plt.show()
 ```
-# Results
+## Results
 {{< figure src="/post/bayer_conversion/bayer_img.png" title="Raw Bayer Image" >}}
 {{< figure src="/post/bayer_conversion/rgb_res.png" title="Conversion to RGB" >}}
 {{< figure src="/post/bayer_conversion/color_image_by_opencv.png" title="Conversion by OpenCV" >}}
@@ -151,7 +151,7 @@ plt.show()
 {{< figure src="/post/bayer_conversion/blue_only.png" title="Blue Only" >}}
 
 
-# References
+## References
 Here are some reference sources that used to create this post  
 [[1] Bayer to RGB](https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html?highlight=cvtcolor)  
 [[2] RGB color conversions matrixes ](http://poynton.ca/notes/colour_and_gamma/ColorFAQ.html)  
