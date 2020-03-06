@@ -22,7 +22,7 @@ User-agent: *
 #
 #Disallow: /categories/linux/
 #
-#Disallow: /2020/02/linux-uio-driver-to-handle-with-external-irq/
+#Disallow: /2020/02/linux-uio-driver-to-handle-with-irq-source/
 #
 #Disallow: /post/
 #
@@ -38,7 +38,7 @@ User-agent: *
 #
 #Disallow: /2020/02/linux-module-magic-info/
 #
-#Disallow: /2020/02/linux-core-isolation-to-have-a-close-rt-performance./
+#Disallow: /2020/02/linux-core-isolation/
 #
 #Disallow: /2020/02/linux-module-to-disassemble-code-in-the-linux-kernel./
 #
