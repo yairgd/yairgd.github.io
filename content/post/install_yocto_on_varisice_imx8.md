@@ -13,7 +13,7 @@ categories :
 menu : "no-main"
 ---
 
-# The GCC toolchain and kernel installation.
+## The GCC toolchain and kernel installation.
 The purpose of this post is to show the installation process of development tools for imx8m-var-dart, which is SOM made by [Variscite](http://variwiki.com/index.php?title=Main_Page). Usually, a kernel, userspace applications, and toolchain built as part of a Yocto image but, for continuous development purposes, when custom kernel modules or userspace applications  developed, it is more comfortable with making it stand-alone and working on it outside the Yocto image.
 
 ## Toolchain
@@ -59,7 +59,7 @@ make mrproper
 make imx8_var_defconfig ARCH=arm64
 ```
 ```bash
-# Customize the kernel configuration (optional step):
+## Customize the kernel configuration (optional step):
 make menuconfig ARCH=arm64
 ```
 ```bash
@@ -84,6 +84,6 @@ find . -type f -exec scp {} root@a.b.c.d:/  \;
 scp arch/arm64/boot/dts/freescale/fsl-imx8mq-var-dart-your-dtb.dtb root@a.b.c.d:/boot
 ```
 where *a.b.c.d.* is the ip of the target device
-# compiling userspace application with external library
+## compiling userspace application with external library
 when a userspace application makes use with an external library, this library can add as a dependency to the [bitbake](https://www.yoctoproject.org/docs/1.6/bitbake-user-manual/bitbake-user-manual.html) file, which creates the application. The yocto process will take the library, will build and link it with the application.  If we want to compile the application in userspace as part of a continuous development process, we can build it using *bitbake* command and place it under the root system of the compiler.
 

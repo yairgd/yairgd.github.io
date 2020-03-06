@@ -1,5 +1,5 @@
 ---
-title: "Linux core isolation to have a close RT performance."
+title: "Linux core isolation"
 description: "Linux core isolation to have a close RT performance "
 tags : 
 - "linux"
@@ -14,7 +14,6 @@ categories :
 
 menu : "no-main"
 ---
-# Linux core isolation
 I have a real-time task that needed to run periodically at a constant rate - a continuous IRQ drives it.  Just running this task on a multithreaded environment can cause it to run in different timing values. When the system runs on stress (using stress [utility](https://www.cyberciti.biz/faq/stress-test-linux-unix-server-with-stress-ng/)) the system is not a response to all IRQ requests.  A possible solution to this problem is to use Linux core isolation. In this case, we assign a specific core for the task, and the Linux kernel is getting out from the SMP balancing, and this core can use for a particular job with minimal interrupts.
 
 
@@ -28,7 +27,7 @@ after boot,  type and see the isolated core.
 2
 ```
 
-# References
+## References
 Here are some reference sources that used to create this post  
 [[1] Whole one core dedicated to a single process](https://stackoverflow.com/questions/13583146/whole-one-core-dedicated-to-single-process)  
 [[2]  INTERRUPTS AND IRQ TUNING](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/performance_tuning_guide/s-cpu-irq)  

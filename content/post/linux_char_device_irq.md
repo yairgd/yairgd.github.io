@@ -193,7 +193,7 @@ echo 1 > /sys/class/gpio/gpio100/value
 echo 0 > /sys/class/gpio/gpio100/value
 ```
 
-# References
+## References
 [[1] https://yurovsky.github.io/2014/10/10/linux-uio-gpio-interrupt.html](https://yurovsky.github.io/2014/10/10/linux-uio-gpio-interrupt.html)  
 [[2] https://github.com/torvalds/linux/blob/master/drivers/uio/uio_pdrv_genirq.c](https://github.com/torvalds/linux/blob/master/drivers/uio/uio_pdrv_genirq.c)  
 [[3] https://lwn.net/Articles/127293/](https://lwn.net/Articles/127293/)  

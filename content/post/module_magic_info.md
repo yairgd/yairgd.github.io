@@ -14,7 +14,6 @@ categories :
 
 menu : "no-main"
 ---
-# Change module magic info
 Sometimes we want to build a module separate from the kernel.  When the kernel is built, it generates a magic number, which probably depends on compiler version, kernel version, git source revision, etc. Time is also probably part of this magic number, since the kernel may build with the same parameters but with a different timestamp, it will have a different magic number, and then we will get this message when we try to insert it:
 ```bash
 root@linux:~# insmod /lib/modules/4.14.78-imx8m+g7808f06d8af2/extra/hello.ko
@@ -60,7 +59,7 @@ Contents of section .modinfo:
 To get the module magic number run:
 ```bash
 $ modinfo hello.ko
-filename:       /home/yair/belkin/EAGLE_V1_RT_APPLICATION/hello-mod/hello.ko
+filename:       hello.ko
 license:        GPL
 depends:        
 name:           hello
@@ -84,14 +83,14 @@ $ $OBJCOPY --remove-section=.modinfo --add-section .modinfo=mod_info  hello.ko
 test for the new magic number
 ```bash
 $  modinfo hello.ko
-filename:       /home/yair/belkin/EAGLE_V1_RT_APPLICATION/hello-mod/hello.ko
+filename:       hello.ko
 license:        GPL
 depends:        
 name:           hello
 vermagic:       4.14.78+g7808f06d8af2 SMP preempt mod_unload aarch64
 ```
 
-## Related issues
+### Related issues
 example of two related issues:
 
 * See [here](https://archives.gentoo.org/gentoo-user/message/3d188075a832cf3ab3926abcf6c7413b) for a bug report which relates to this issue. The problem there was that the file *./include/generated/utsrelease.h* did not exist. To fix, it only has to recompile the kernel.

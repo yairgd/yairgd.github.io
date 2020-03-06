@@ -12,10 +12,10 @@ categories :
 
 menu : "no-main"
 ---
-# disa
 A simple module to disassembly memory using a Linux kernel module. This module is based on [Zydis](https://github.com/zyantific/zydis) and integrated into this module. Also, there is a userspace application to demonstrate the Zydis library on a test function in user space and disassembly of the same c  function at the kernel space. Also can dissemble internal c functions of the kernel like printk, kmalloc etc'.
 
-# Module structure
+
+## Module structure
 The module allows two interfaces from userspace: 
 * Using kernel parameters API:</br>
     This part of the module demonstrates the use of module parameters API to control the module. There is one parameter named *func* and it uses to select from userspace the internal function to disassemble. 
@@ -27,14 +27,14 @@ The module allows two interfaces from userspace:
     
 
 
-# Build the module
+## Build the module
 ```bash
 git clone https://github.com/yairgd/disa.git
 cd disa
 make 
 ```
 
-# Testing the module
+## Testing the module
 Run test1,test2.py are unit tests for this module and to load into the kernel use this command:
 ```bash
 sudo insmod module/disa.ko
@@ -127,7 +127,7 @@ To use the module in bash command line type:
 sudo cat /dev/disa | sed -e $'s/;/\\\n/g'
 ```
 
-# References
+## References
 Here are some reference sources that used to create this module</br>
 http://www.embeddedlinux.org.cn/essentiallinuxdevicedrivers/final/ch05lev1sec7.html</br>
 http://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/</br>
