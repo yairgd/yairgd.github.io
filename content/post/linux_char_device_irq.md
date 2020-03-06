@@ -14,9 +14,7 @@ categories :
 
 menu : "no-main"
 ---
-We have an external FPGA that triggers GPIO. To handle the IRQ in userspace, it had to write a Linux chr device to control the IRQ in the kernel space and than signalize the userspace using a standard system call. 
-
-Here is the simple drive:
+We have an external FPGA that triggers GPIO. To handle the IRQ in userspace, it had to write a Linux chr device to control the IRQ in the kernel space and than signalize the userspace using a standard system call. Here is the simple drive:
 
 ```c
 #include <linux/module.h>

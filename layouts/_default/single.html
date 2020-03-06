@@ -11,9 +11,7 @@
 																												<p class="subtitle is-size-6 has-text-grey-light">
 																												Published at {{ .Date.Format "January 2, 2006" }} &middot;
 																												<i class="far fa-clock"></i>&nbsp;{{.ReadingTime}} min read
-																												</p>
-																												<p class="subtitle is-size-6 has-text-grey-light">
-																												Tags:
+																											  &middot; Tags:
 																												{{ $taxo := "tags" }} 
 																												{{ range .Param $taxo }}
 																												{{ $name := . }}
