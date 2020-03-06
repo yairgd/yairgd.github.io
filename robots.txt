@@ -44,7 +44,7 @@ User-agent: *
 #
 #Disallow: /tags/bayer/
 #
-#Disallow: /2020/02/bayer-image-to-rgb/
+#Disallow: /2020/02/color-transformation-from-bayer-to-rgb/
 #
 #Disallow: /categories/computer-vision/
 #
