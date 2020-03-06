@@ -52,6 +52,8 @@ User-agent: *
 #
 #Disallow: /tags/rgb/
 #
+#Disallow: /tags/hugo/
+#
 #Disallow: /2020/02/my-first-post/
 #
 #Disallow: /archives/2014/
@@ -71,8 +73,6 @@ User-agent: *
 #Disallow: /categories/golang/
 #
 #Disallow: /tags/golang/
-#
-#Disallow: /tags/hugo/
 #
 #Disallow: /tags/templates/
 #
