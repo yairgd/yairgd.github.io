@@ -76,7 +76,7 @@ theme = "jeffprod"
 [[menu.main]]
   weight = 3
   identifier = "blogs"
-  name = "Blogs"
+  name = "Blog"
   pre = "<i class=\"sidebar-button-icon fas fa-edit\"></i>"
   url = "/blogs"
 [[menu.main]]
