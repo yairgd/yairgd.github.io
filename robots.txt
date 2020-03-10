@@ -70,9 +70,9 @@ User-agent: *
 #
 #Disallow: /tags/go/
 #
-#Disallow: /categories/golang/
-#
 #Disallow: /tags/golang/
+#
+#Disallow: /categories/golang/
 #
 #Disallow: /tags/templates/
 #
