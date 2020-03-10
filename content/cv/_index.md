@@ -48,7 +48,7 @@ Xilinx Zynq7000. The job involved the following tasks:
 * FPGA coding with Verilog, C/C++ programming,
 * Bare metal and FreeRTOS programming of ARM cortex-m7
 
-### Sep 2010 - December 2015: Coloright -  designed and developed hair coloring systems
+### 2010-2016: Coloright -  designed and developed hair coloring systems
 I began as an algorithm engineer and switched role to SW/FW/HW Embedded engineer
 
 #### 2011-2016: SW & HW Engineer
