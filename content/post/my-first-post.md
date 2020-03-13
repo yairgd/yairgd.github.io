@@ -79,6 +79,6 @@ See [here](https://github.com/KaTeX/KaTeX) for more info on how to integrate lat
 ```latex
 $$\int_{a}^{b} x^2 dx$$
 ```
-will reder to:
+will render to:
 $$\int_{a}^{b} x^2 dx$$
 
