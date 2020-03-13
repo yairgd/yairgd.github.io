@@ -74,4 +74,12 @@ st@>op1({"stroke":"Red"})@>cond({"stroke":"Red","stroke-width":6,"arrow-end":"cl
 
 {{< /flowcharts >}}
 
+## mathematial eauations
+See [here](https://github.com/KaTeX/KaTeX) for more info how to integrate katex in html page. The following:
+```latex
+$$\int_{a}^{b} x^2 dx$$
+```
+will reder to:
+$$\int_{a}^{b} x^2 dx$$
+
 
