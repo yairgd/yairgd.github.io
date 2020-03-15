@@ -16,7 +16,7 @@ A Bayer filter mosaic is a color filter array (CFA) for arranging RGB color filt
 ![Bayer filter](https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Bayer_pattern_on_sensor.svg/500px-Bayer_pattern_on_sensor.svg.png)
 
 ## Color conversion algorithm
-The conversion algorithm is based on simple linear interpolation of pixels to find the missing value. Since Bayer filer dived into 4 pixels (red, green, green, blue), there are four types of equations for each pixel in the square.
+The conversion algorithm is based on simple linear interpolation of pixels to find the missing value. Since Bayer filter dived into 4 pixels (red, green, green, blue), there are four types of equations for each pixel in the square.
 
 The following is RGB triple for the pixels on red channel:
 {{< katex >}}
