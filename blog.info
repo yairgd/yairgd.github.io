@@ -1,3 +1,6 @@
 ssh-keygen -t rsa -b4096 -C  -f  gh-pages - to genetage public key
 md2pdf content/cv/_index.md --theme=mou
 md2pdf  --theme=mou --output content/cv/yair_gadelov_cv.pdf  <(cat content/cv/_index.md |tail -n +7|sed '/Download/d')
+
+
+https://dev.to/xabeng/my-hugo-shortcode-for-including-image-from-cloudinary-1l46
