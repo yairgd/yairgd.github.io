@@ -16,8 +16,8 @@ I have tried to debug the Linux kernel using GDB and a system emulator [qemu](ht
 
 ## kernel config
 The kernel has to modify as the following:
-* Add debug symbols by adding this option author: CONFIG_DEBUG_INFO=y
-* Remove KASLR definition from kernel by unset: CONFIG_RANDOMIZE_BASE. This is from kernel help:
+* Add debug symbols by adding this option author: CONFIG_DEBUG_INFO=y  
+* Remove KASLR definition from kernel by unset: CONFIG_RANDOMIZE_BASE. This is from kernel help:  
 >In support of Kernel Address Space Layout Randomization (KASLR),
 >this randomizes the physical address at which the kernel image
 >is decompressed and the virtual address where the kernel
