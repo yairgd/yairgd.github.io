@@ -15,7 +15,7 @@ menu : "no-main"
 I have tried to debug the Linux kernel using GDB and a system emulator [qemu](https://www.qemu.org/). I use YOCTO and standard [pokey](https://www.yoctoproject.org/software-item/poky/)  distribution to build Linux image and kernel. I made changes to the standard [.config](post/content/post/debug-linux-kernel-with-qemu/config) file to support debug symbols and remove the [KASLR option from the kernel](https://www.spinics.net/lists/newbies/msg59708.html)
 
 ## kernel config
-The kernel has to modify as the following:
+The kernel has to modify as the following:  
 * Add debug symbols by adding this option author: CONFIG_DEBUG_INFO=y  
 * Remove KASLR definition from kernel by unset: CONFIG_RANDOMIZE_BASE. This is from kernel help:  
 >In support of Kernel Address Space Layout Randomization (KASLR),
