@@ -5,8 +5,8 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
-                <h3>Welcome to my thecnical blog</h3>
-		<p> This blog is about technical stuff about Linux, embedded, RT, algorithm, web, etc'</p>
+							<h3> {{ .Title }} </h3>
+								<p> {{ .Content }}</p>
                 <hr>
                 {{ range $paginator.Pages }}
                     <article class="media">
