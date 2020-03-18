@@ -3,44 +3,44 @@ gtag('js',new Date());gtag('config','UA-158845844-1');</script><script src=https
 <a class=navbar-item href=/about>About</a>
 <a class=navbar-item href=/blogs>Blog</a>
 <a class=navbar-item href=/cv>CV</a>
-<a class=navbar-item href=/projects>Projects</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog1.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">Debug Linux Kernel With Qemu</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><article class=media><div class=media-content><div class=content><p class="title is-5"><a href=https://yairgd.github.io/2020/03/debug-linux-kernel-with-qemu/>Debug Linux Kernel With Qemu</a></p><p class="subtitle is-size-6 has-text-grey-light">Published at March 18, 2020 &middot;
+<a class=navbar-item href=/projects>Projects</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog1.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">Debug Linux Kernel With Qemu</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><article class=media><div class=media-content><div class=content><p class="title is-5"><a href=https://yairgd.github.io/2020/03/debug-linux-kernel-with-qemu/>Debug Linux Kernel With Qemu</a></p><p class="subtitle is-size-6 has-text-grey-light">Published at March 18, 2020 &#183;
 <i class="far fa-clock"></i>&nbsp;2 min read
-&middot; Tags:
+&#183; Tags:
 <a href=https://yairgd.github.io/tags/linux/>linux</a>
-<a href=https://yairgd.github.io/tags/kernel/>kernel</a></p></br></div></div></article><p>I have tried to debug the Linux kernel using GDB and a system emulator <a href=https://www.qemu.org/>qemu</a>. I use YOCTO and standard <a href=https://www.yoctoproject.org/software-item/poky/>pokey</a>  distribution to build Linux image and kernel. I made changes to the standard <a href=post/content/post/debug-linux-kernel-with-qemu/config>.config</a> file to support debug symbols and remove the <a href=https://www.spinics.net/lists/newbies/msg59708.html>KASLR option from the kernel</a></p><h2 id=kernel-config>kernel config</h2><p>The kernel has to modify as the following:<br>* Add debug symbols by adding this option author: CONFIG_DEBUG_INFO=y<br>* Remove KASLR definition from kernel by unset: CONFIG_RANDOMIZE_BASE. This is from kernel help:<br>&gt;In support of Kernel Address Space Layout Randomization (KASLR),
-&gt;this randomizes the physical address at which the kernel image
-&gt;is decompressed and the virtual address where the kernel
-&gt;image is mapped, as a security feature that deters exploit
-&gt;attempts relying on knowledge of the location of kernel
-&gt;code internals</p><h2 id=run-qemu>run qemu</h2><p>The qemu can run like that:</p><pre><code class=language-bash>qemu-system-x86_64 -append 'console=/dev/ttyS0' \
-		   -kernel /path/to/kernel-source/arch/x86_64/boot/bzImage \
-		   -nographic \ 
+<a href=https://yairgd.github.io/tags/kernel/>kernel</a></p></br></div></div></article><p>I have tried to debug the Linux kernel using GDB and a system emulator <a href=https://www.qemu.org/>qemu</a>. I use YOCTO and standard <a href=https://www.yoctoproject.org/software-item/poky/>pokey</a>  distribution to build Linux image and kernel. I made changes to the standard <a href=post/content/post/debug-linux-kernel-with-qemu/config>.config</a> file to support debug symbols and remove the <a href=https://www.spinics.net/lists/newbies/msg59708.html>KASLR option from the kernel</a></p><h2 id=kernel-config>kernel config</h2><p>The kernel has to modify as the following:</p><ul><li>Add debug symbols by adding this option author: CONFIG_DEBUG_INFO=y</li><li>Remove KASLR definition from kernel by unset: CONFIG_RANDOMIZE_BASE. This is from kernel help:</li></ul><blockquote><p>In support of Kernel Address Space Layout Randomization (KASLR),
+this randomizes the physical address at which the kernel image
+is decompressed and the virtual address where the kernel
+image is mapped, as a security feature that deters exploit
+attempts relying on knowledge of the location of kernel
+code internals</p></blockquote><h2 id=run-qemu>run qemu</h2><p>The qemu can run like that:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>qemu-system-x86_64 -append <span style=color:#e6db74>&#39;console=/dev/ttyS0&#39;</span> <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>		   -kernel /path/to/kernel-source/arch/x86_64/boot/bzImage <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span>		   -nographic <span style=color:#ae81ff>\ </span>
 		   -serial mon:stdio -S -s  -enable-kvm 
-		   -drive file=/path/to/rootfs.ext4,if=virtio,format=raw
-</code></pre><p>The roofts and the kernel made by Yocto. The -S tells the qemu to freeze after when it ready to run and -s pe gdbserver at 1234 by default.</p><h2 id=setup-the-gdb>setup the gdb</h2><p>Afther compiling the kernel run this command in the kernel directory:</p><pre><code class=language-bash>gdb ./vmlinux
-</code></pre><p>or, it also possible to extract the debug symbols from <em>vmlinux</em> like that:</p><pre><code class=language-bash>objcopy --only-keep-debug vmlinux kernel.sym
-</code></pre><p>and in the gdb console type:</p><pre><code class=language-bash>file kernel.sym 
-</code></pre><p>from GDB console use target remote and <em>monitor system_reset</em>  to controller the machine:</p><pre><code class=language-bash>(gdb) target remote :1234
-(gdb) hbreak start_kernel   # to stop at start_kernel function
-(gdb) monitor system_reset  # if restart is needed
-(gdb) monitor system_reset
-(gdb) c
+		   -drive file<span style=color:#f92672>=</span>/path/to/rootfs.ext4,if<span style=color:#f92672>=</span>virtio,format<span style=color:#f92672>=</span>raw
+</code></pre></div><p>The roofts and the kernel made by Yocto. The -S tells the qemu to freeze after when it ready to run and -s pe gdbserver at 1234 by default.</p><h2 id=setup-the-gdb>setup the gdb</h2><p>Afther compiling the kernel run this command in the kernel directory:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>gdb ./vmlinux
+</code></pre></div><p>or, it also possible to extract the debug symbols from <em>vmlinux</em> like that:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>objcopy --only-keep-debug vmlinux kernel.sym
+</code></pre></div><p>and in the gdb console type:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>file kernel.sym 
+</code></pre></div><p>from GDB console use target remote and <em>monitor system_reset</em>  to controller the machine:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#f92672>(</span>gdb<span style=color:#f92672>)</span> target remote :1234
+<span style=color:#f92672>(</span>gdb<span style=color:#f92672>)</span> hbreak start_kernel   <span style=color:#75715e># to stop at start_kernel function</span>
+<span style=color:#f92672>(</span>gdb<span style=color:#f92672>)</span> monitor system_reset  <span style=color:#75715e># if restart is needed</span>
+<span style=color:#f92672>(</span>gdb<span style=color:#f92672>)</span> monitor system_reset
+<span style=color:#f92672>(</span>gdb<span style=color:#f92672>)</span> c
 Continuing.
 
-Breakpoint 3, start_kernel () at init/main.c:514
-514	{
-(gdb) l
+Breakpoint 3, start_kernel <span style=color:#f92672>(</span><span style=color:#f92672>)</span> at init/main.c:514
+514	<span style=color:#f92672>{</span>
+<span style=color:#f92672>(</span>gdb<span style=color:#f92672>)</span> l
 509		/* Should be run after espfix64 is set up. */
-510		pti_init();
-511	}
+510		pti_init<span style=color:#f92672>(</span><span style=color:#f92672>)</span>;
+511	<span style=color:#f92672>}</span>
 512	
-513	asmlinkage __visible void __init start_kernel(void)
-514	{
+513	asmlinkage __visible void __init start_kernel<span style=color:#f92672>(</span>void<span style=color:#f92672>)</span>
+514	<span style=color:#f92672>{</span>
 515		char *command_line;
 516		char *after_dashes;
 517	
-518		set_task_stack_end_magic(&amp;init_task);
-</code></pre><h2 id=references>References</h2><p><a href=https://yulistic.gitlab.io/2018/12/debugging-linux-kernel-with-gdb-and-qemu/>https://yulistic.gitlab.io/2018/12/debugging-linux-kernel-with-gdb-and-qemu/</a>  
+518		set_task_stack_end_magic<span style=color:#f92672>(</span>&amp;init_task<span style=color:#f92672>)</span>;
+</code></pre></div><h2 id=references>References</h2><p><a href=https://yulistic.gitlab.io/2018/12/debugging-linux-kernel-with-gdb-and-qemu/>https://yulistic.gitlab.io/2018/12/debugging-linux-kernel-with-gdb-and-qemu/</a>  
 <a href=https://unix.stackexchange.com/questions/396013/hardware-breakpoint-in-gdb-qemu-missing-start-kernel>https://unix.stackexchange.com/questions/396013/hardware-breakpoint-in-gdb-qemu-missing-start-kernel</a>  
 <a href=https://stackoverflow.com/questions/6710555/how-to-use-qemu-to-run-a-non-gui-os-on-the-terminal>https://stackoverflow.com/questions/6710555/how-to-use-qemu-to-run-a-non-gui-os-on-the-terminal</a>  </p></div><div class=content><div class=disqus-comments>Comments<div id=disqus_thread></div><script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return;}
 var d=document,s=d.createElement('script');s.async=true;s.src='//'+"yairgd-github-io-1"+'.disqus.com/embed.js';s.setAttribute('data-timestamp',+new Date());(d.head||d.body).appendChild(s);})();</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></div></div></div><div class="column is-3"><div class=card><div class=card-content><h1 class="title is-5">Categories</h1><div class=tags><span class=tag><a href=https://yairgd.github.io/categories/computer-vision>computer-vision</a></span>

@@ -3,9 +3,9 @@ gtag('js',new Date());gtag('config','UA-158845844-1');</script><script src=https
 <a class=navbar-item href=/about>About</a>
 <a class=navbar-item href=/blogs>Blog</a>
 <a class=navbar-item href=/cv>CV</a>
-<a class=navbar-item href=/projects>Projects</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog1.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">(Hu)go Template Primer</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><article class=media><div class=media-content><div class=content><p class="title is-5"><a href=https://yairgd.github.io/2014/04/hugo-template-primer/>(Hu)go Template Primer</a></p><p class="subtitle is-size-6 has-text-grey-light">Published at April 2, 2014 &middot;
+<a class=navbar-item href=/projects>Projects</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog1.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">(Hu)go Template Primer</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><article class=media><div class=media-content><div class=content><p class="title is-5"><a href=https://yairgd.github.io/2014/04/hugo-template-primer/>(Hu)go Template Primer</a></p><p class="subtitle is-size-6 has-text-grey-light">Published at April 2, 2014 &#183;
 <i class="far fa-clock"></i>&nbsp;7 min read
-&middot; Tags:
+&#183; Tags:
 <a href=https://yairgd.github.io/tags/go/>go</a>
 <a href=https://yairgd.github.io/tags/golang/>golang</a>
 <a href=https://yairgd.github.io/tags/templates/>templates</a>
@@ -54,18 +54,18 @@ range.</p><p><strong>Example 1: Using Context</strong></p><pre><code>{{ range ar
     {{ $index }}
     {{ $element }}
 {{ end }}
-</code></pre><h3 id=conditionals>Conditionals</h3><p>If, else, with, or, &amp; and provide the framework for handling conditional
+</code></pre><h3 id=conditionals>Conditionals</h3><p>If, else, with, or, & and provide the framework for handling conditional
 logic in Go Templates. Like range, each statement is closed with <code>end</code>.</p><p>Go Templates treat the following values as false:</p><ul><li>false</li><li>0</li><li>any array, slice, map, or string of length zero</li></ul><p><strong>Example 1: If</strong></p><pre><code>{{ if isset .Params &quot;title&quot; }}&lt;h4&gt;{{ index .Params &quot;title&quot; }}&lt;/h4&gt;{{ end }}
-</code></pre><p><strong>Example 2: If -&gt; Else</strong></p><pre><code>{{ if isset .Params &quot;alt&quot; }}
+</code></pre><p><strong>Example 2: If -> Else</strong></p><pre><code>{{ if isset .Params &quot;alt&quot; }}
     {{ index .Params &quot;alt&quot; }}
 {{else}}
     {{ index .Params &quot;caption&quot; }}
 {{ end }}
-</code></pre><p><strong>Example 3: And &amp; Or</strong></p><pre><code>{{ if and (or (isset .Params &quot;title&quot;) (isset .Params &quot;caption&quot;)) (isset .Params &quot;attr&quot;)}}
+</code></pre><p><strong>Example 3: And & Or</strong></p><pre><code>{{ if and (or (isset .Params &quot;title&quot;) (isset .Params &quot;caption&quot;)) (isset .Params &quot;attr&quot;)}}
 </code></pre><p><strong>Example 4: With</strong></p><p>An alternative way of writing &ldquo;if&rdquo; and then referencing the same value
 is to use &ldquo;with&rdquo; instead. With rebinds the context <code>.</code> within its scope,
 and skips the block if the variable is absent.</p><p>The first example above could be simplified as:</p><pre><code>{{ with .Params.title }}&lt;h4&gt;{{ . }}&lt;/h4&gt;{{ end }}
-</code></pre><p><strong>Example 5: If -&gt; Else If</strong></p><pre><code>{{ if isset .Params &quot;alt&quot; }}
+</code></pre><p><strong>Example 5: If -> Else If</strong></p><pre><code>{{ if isset .Params &quot;alt&quot; }}
     {{ index .Params &quot;alt&quot; }}
 {{ else if isset .Params &quot;caption&quot; }}
     {{ index .Params &quot;caption&quot; }}
@@ -121,11 +121,11 @@ notoc: true
     &lt;/div&gt;
   {{ end }}
 </code></pre><h2 id=using-site-config-parameters>Using Site (config) Parameters</h2><p>In your top-level configuration file (eg, <code>config.yaml</code>) you can define site
-parameters, which are values which will be available to you in chrome.</p><p>For instance, you might declare:</p><pre><code class=language-yaml>params:
-  CopyrightHTML: &quot;Copyright &amp;#xA9; 2013 John Doe. All Rights Reserved.&quot;
-  TwitterUser: &quot;spf13&quot;
-  SidebarRecentLimit: 5
-</code></pre><p>Within a footer layout, you might then declare a <code>&lt;footer&gt;</code> which is only
+parameters, which are values which will be available to you in chrome.</p><p>For instance, you might declare:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#66d9ef>params</span>:
+  <span style=color:#66d9ef>CopyrightHTML</span>: <span style=color:#e6db74>&#34;Copyright &amp;#xA9; 2013 John Doe. All Rights Reserved.&#34;</span>
+  <span style=color:#66d9ef>TwitterUser</span>: <span style=color:#e6db74>&#34;spf13&#34;</span>
+  <span style=color:#66d9ef>SidebarRecentLimit</span>: <span style=color:#ae81ff>5</span>
+</code></pre></div><p>Within a footer layout, you might then declare a <code>&lt;footer></code> which is only
 provided if the <code>CopyrightHTML</code> parameter is provided, and if it is given,
 you would declare it to be HTML-safe, so that the HTML entity is not escaped
 again. This would let you easily update just your top-level config file each

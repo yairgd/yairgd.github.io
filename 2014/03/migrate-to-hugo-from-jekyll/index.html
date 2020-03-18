@@ -3,9 +3,9 @@ gtag('js',new Date());gtag('config','UA-158845844-1');</script><script src=https
 <a class=navbar-item href=/about>About</a>
 <a class=navbar-item href=/blogs>Blog</a>
 <a class=navbar-item href=/cv>CV</a>
-<a class=navbar-item href=/projects>Projects</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog1.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">Migrate to Hugo from Jekyll</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><article class=media><div class=media-content><div class=content><p class="title is-5"><a href=https://yairgd.github.io/2014/03/migrate-to-hugo-from-jekyll/>Migrating from Jekyll</a></p><p class="subtitle is-size-6 has-text-grey-light">Published at March 10, 2014 &middot;
+<a class=navbar-item href=/projects>Projects</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog1.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">Migrate to Hugo from Jekyll</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><article class=media><div class=media-content><div class=content><p class="title is-5"><a href=https://yairgd.github.io/2014/03/migrate-to-hugo-from-jekyll/>Migrating from Jekyll</a></p><p class="subtitle is-size-6 has-text-grey-light">Published at March 10, 2014 &#183;
 <i class="far fa-clock"></i>&nbsp;4 min read
-&middot; Tags:</p></br></div></div></article><h2 id=move-static-content-to-static>Move static content to <code>static</code></h2><p>Jekyll has a rule that any directory not starting with <code>_</code> will be copied as-is to the <code>_site</code> output. Hugo keeps all static content under <code>static</code>. You should therefore move it all there.
+&#183; Tags:</p></br></div></div></article><h2 id=move-static-content-to-static>Move static content to <code>static</code></h2><p>Jekyll has a rule that any directory not starting with <code>_</code> will be copied as-is to the <code>_site</code> output. Hugo keeps all static content under <code>static</code>. You should therefore move it all there.
 With Jekyll, something that looked like</p><pre><code>▾ &lt;root&gt;/
     ▾ images/
         logo.png
@@ -13,14 +13,14 @@ With Jekyll, something that looked like</p><pre><code>▾ &lt;root&gt;/
     ▾ static/
         ▾ images/
             logo.png
-</code></pre><p>Additionally, you&rsquo;ll want any files that should reside at the root (such as <code>CNAME</code>) to be moved to <code>static</code>.</p><h2 id=create-your-hugo-configuration-file>Create your Hugo configuration file</h2><p>Hugo can read your configuration as JSON, YAML or TOML. Hugo supports parameters custom configuration too. Refer to the <a href=/overview/configuration/>Hugo configuration documentation</a> for details.</p><h2 id=set-your-configuration-publish-folder-to-site>Set your configuration publish folder to <code>_site</code></h2><p>The default is for Jekyll to publish to <code>_site</code> and for Hugo to publish to <code>public</code>. If, like me, you have <a href=http://blog.blindgaenger.net/generate_github_pages_in_a_submodule.html><code>_site</code> mapped to a git submodule on the <code>gh-pages</code> branch</a>, you&rsquo;ll want to do one of two alternatives:</p><ol><li><p>Change your submodule to point to map <code>gh-pages</code> to public instead of <code>_site</code> (recommended).</p><pre><code>git submodule deinit _site
-git rm _site
-git submodule add -b gh-pages git@github.com:your-username/your-repo.git public
-</code></pre></li><li><p>Or, change the Hugo configuration to use <code>_site</code> instead of <code>public</code>.</p><pre><code>{
-    ..
-    &quot;publishdir&quot;: &quot;_site&quot;,
-    ..
-}
+</code></pre><p>Additionally, you&rsquo;ll want any files that should reside at the root (such as <code>CNAME</code>) to be moved to <code>static</code>.</p><h2 id=create-your-hugo-configuration-file>Create your Hugo configuration file</h2><p>Hugo can read your configuration as JSON, YAML or TOML. Hugo supports parameters custom configuration too. Refer to the <a href=/overview/configuration/>Hugo configuration documentation</a> for details.</p><h2 id=set-your-configuration-publish-folder-to-_site>Set your configuration publish folder to <code>_site</code></h2><p>The default is for Jekyll to publish to <code>_site</code> and for Hugo to publish to <code>public</code>. If, like me, you have <a href=http://blog.blindgaenger.net/generate_github_pages_in_a_submodule.html><code>_site</code> mapped to a git submodule on the <code>gh-pages</code> branch</a>, you&rsquo;ll want to do one of two alternatives:</p><ol><li><p>Change your submodule to point to map <code>gh-pages</code> to public instead of <code>_site</code> (recommended).</p><pre><code> git submodule deinit _site
+ git rm _site
+ git submodule add -b gh-pages git@github.com:your-username/your-repo.git public
+</code></pre></li><li><p>Or, change the Hugo configuration to use <code>_site</code> instead of <code>public</code>.</p><pre><code> {
+     ..
+     &quot;publishdir&quot;: &quot;_site&quot;,
+     ..
+ }
 </code></pre></li></ol><h2 id=convert-jekyll-templates-to-hugo-templates>Convert Jekyll templates to Hugo templates</h2><p>That&rsquo;s the bulk of the work right here. The documentation is your friend. You should refer to <a href=http://jekyllrb.com/docs/templates/>Jekyll&rsquo;s template documentation</a> if you need to refresh your memory on how you built your blog and <a href=/layout/templates/>Hugo&rsquo;s template</a> to learn Hugo&rsquo;s way.</p><p>As a single reference data point, converting my templates for <a href=http://heyitsalex.net/>heyitsalex.net</a> took me no more than a few hours.</p><h2 id=convert-jekyll-plugins-to-hugo-shortcodes>Convert Jekyll plugins to Hugo shortcodes</h2><p>Jekyll has <a href=http://jekyllrb.com/docs/plugins/>plugins</a>; Hugo has <a href=/doc/shortcodes/>shortcodes</a>. It&rsquo;s fairly trivial to do a port.</p><h3 id=implementation>Implementation</h3><p>As an example, I was using a custom <a href=https://github.com/alexandre-normand/alexandre-normand/blob/74bb12036a71334fdb7dba84e073382fc06908ec/_plugins/image_tag.rb><code>image_tag</code></a> plugin to generate figures with caption when running Jekyll. As I read about shortcodes, I found Hugo had a nice built-in shortcode that does exactly the same thing.</p><p>Jekyll&rsquo;s plugin:</p><pre><code>module Jekyll
   class ImageTag &lt; Liquid::Tag
     @url = nil

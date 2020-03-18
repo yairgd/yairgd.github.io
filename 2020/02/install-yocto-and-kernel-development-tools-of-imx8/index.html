@@ -3,43 +3,42 @@ gtag('js',new Date());gtag('config','UA-158845844-1');</script><script src=https
 <a class=navbar-item href=/about>About</a>
 <a class=navbar-item href=/blogs>Blog</a>
 <a class=navbar-item href=/cv>CV</a>
-<a class=navbar-item href=/projects>Projects</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog1.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">Install Yocto and kernel development tools of IMX8</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><article class=media><div class=media-content><div class=content><p class="title is-5"><a href=https://yairgd.github.io/2020/02/install-yocto-and-kernel-development-tools-of-imx8/>Install Yocto and kernel development tools of IMX8</a></p><p class="subtitle is-size-6 has-text-grey-light">Published at February 24, 2020 &middot;
+<a class=navbar-item href=/projects>Projects</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog1.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">Install Yocto and kernel development tools of IMX8</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><article class=media><div class=media-content><div class=content><p class="title is-5"><a href=https://yairgd.github.io/2020/02/install-yocto-and-kernel-development-tools-of-imx8/>Install Yocto and kernel development tools of IMX8</a></p><p class="subtitle is-size-6 has-text-grey-light">Published at February 24, 2020 &#183;
 <i class="far fa-clock"></i>&nbsp;2 min read
-&middot; Tags:
+&#183; Tags:
 <a href=https://yairgd.github.io/tags/kernel/>kernel</a>
-<a href=https://yairgd.github.io/tags/yocto/>yocto</a></p></br></div></div></article><h2 id=the-gcc-toolchain-and-kernel-installation>The GCC toolchain and kernel installation.</h2><p>The purpose of this post is to show the installation process of development tools for imx8m-var-dart, which is SOM made by <a href="http://variwiki.com/index.php?title=Main_Page">Variscite</a>. Usually, a kernel, userspace applications, and toolchain built as part of a Yocto image but, for continuous development purposes, when custom kernel modules or userspace applications developed, it is more comfortable with making it stand-alone and working on it outside the Yocto image.</p><h2 id=toolchain>Toolchain</h2><pre><code class=language-bash>cd ~/var-fsl-yocto
-MACHINE=imx8m-var-dart DISTRO=fsl-imx-xwayland . var-setup-release.sh -b build_xwayland
+<a href=https://yairgd.github.io/tags/yocto/>yocto</a></p></br></div></div></article><h2 id=the-gcc-toolchain-and-kernel-installation>The GCC toolchain and kernel installation.</h2><p>The purpose of this post is to show the installation process of development tools for imx8m-var-dart, which is SOM made by <a href="http://variwiki.com/index.php?title=Main_Page">Variscite</a>. Usually, a kernel, userspace applications, and toolchain built as part of a Yocto image but, for continuous development purposes, when custom kernel modules or userspace applications developed, it is more comfortable with making it stand-alone and working on it outside the Yocto image.</p><h2 id=toolchain>Toolchain</h2><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>cd ~/var-fsl-yocto
+MACHINE<span style=color:#f92672>=</span>imx8m-var-dart DISTRO<span style=color:#f92672>=</span>fsl-imx-xwayland . var-setup-release.sh -b build_xwayland
 bitbake meta-toolchain
-</code></pre><p>and then install it:</p><pre><code class=language-bash>cd rootfs
-$ find . -type f -exec scp {} root@a.b.c.d:/  \;
-</code></pre><p>where <em>a.b.c.d</em> is the ip of the target</p><h2 id=kernel>Kernel</h2><p>To build the kernel, do the following steps:
-* Download the kernel</p><pre><code class=language-bash>git clone https://github.com/varigit/linux-imx.git
+</code></pre></div><p>and then install it:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>cd rootfs
+$ find . -type f -exec scp <span style=color:#f92672>{</span><span style=color:#f92672>}</span> root@a.b.c.d:/  <span style=color:#ae81ff>\;</span>
+</code></pre></div><p>where <em>a.b.c.d</em> is the ip of the target</p><h2 id=kernel>Kernel</h2><p>To build the kernel, do the following steps:</p><ul><li>Download the kernel</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>git clone https://github.com/varigit/linux-imx.git
 cd linux-imx
 git checkout imx_4.14.78_1.0.0_ga_var01
-</code></pre><p>edit this file:</p><pre><code class=language-bash>vim arch/arm64/boot/dts/freescale/Makefile
-</code></pre><p>and add to its end the following line:</p><pre><code class=language-bash>dtb-y                         += fsl-imx8mq-var-dart-your-dtb.dtb
-</code></pre><ul><li><p>compile build</p><pre><code class=language-bash>source /opt/fsl-imx-xwayland/4.14-sumo/environment-setup-aarch64-poky-linux
-export LDFLAGS=
-</code></pre><pre><code class=language-bash>make mrproper 
-make imx8_var_defconfig ARCH=arm64
-</code></pre><pre><code class=language-bash>## Customize the kernel configuration (optional step):
-make menuconfig ARCH=arm64
-</code></pre><pre><code class=language-bash>make ARCH=arm64 CROSS_COMPILE=/opt/fsl-imx-xwayland/4.14-sumo/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-
-make modules ARCH=arm64 CROSS_COMPILE=/opt/fsl-imx-xwayland/4.14-sumo/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-
-make dtbs ARCH=arm64 CROSS_COMPILE=/opt/fsl-imx-xwayland/4.14-sumo/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-
-</code></pre></li><li><p>installation - change directory to <strong>linux-imx-src</strong> and run the following code:</p><pre><code class=language-bash># Install the kernel image and modules:
+</code></pre></div><p>edit this file:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>vim arch/arm64/boot/dts/freescale/Makefile
+</code></pre></div><p>and add to its end the following line:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>dtb-y                         +<span style=color:#f92672>=</span> fsl-imx8mq-var-dart-your-dtb.dtb
+</code></pre></div><ul><li>compile build</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>source /opt/fsl-imx-xwayland/4.14-sumo/environment-setup-aarch64-poky-linux
+export LDFLAGS<span style=color:#f92672>=</span>
+</code></pre></div><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>make mrproper 
+make imx8_var_defconfig ARCH<span style=color:#f92672>=</span>arm64
+</code></pre></div><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e>## Customize the kernel configuration (optional step):</span>
+make menuconfig ARCH<span style=color:#f92672>=</span>arm64
+</code></pre></div><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>make ARCH<span style=color:#f92672>=</span>arm64 CROSS_COMPILE<span style=color:#f92672>=</span>/opt/fsl-imx-xwayland/4.14-sumo/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-
+make modules ARCH<span style=color:#f92672>=</span>arm64 CROSS_COMPILE<span style=color:#f92672>=</span>/opt/fsl-imx-xwayland/4.14-sumo/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-
+make dtbs ARCH<span style=color:#f92672>=</span>arm64 CROSS_COMPILE<span style=color:#f92672>=</span>/opt/fsl-imx-xwayland/4.14-sumo/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux/aarch64-poky-linux-
+</code></pre></div><ul><li>installation - change directory to <strong>linux-imx-src</strong> and run the following code:</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#75715e># Install the kernel image and modules:</span>
 mkdir rootfs/boot -p
-kver=$(strings arch/arm64/boot/Image | grep -i &quot;Linux version&quot; | awk '{print $3}')
-sudo cp arch/arm64/boot/Image.gz rootfs/boot/Image.gz-${kver}
-sudo make ARCH=arm64 modules_install INSTALL_MOD_PATH=rootfs
+kver<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>strings arch/arm64/boot/Image | grep -i <span style=color:#e6db74>&#34;Linux version&#34;</span> | awk <span style=color:#e6db74>&#39;{print $3}&#39;</span><span style=color:#66d9ef>)</span>
+sudo cp arch/arm64/boot/Image.gz rootfs/boot/Image.gz-<span style=color:#e6db74>${</span>kver<span style=color:#e6db74>}</span>
+sudo make ARCH<span style=color:#f92672>=</span>arm64 modules_install INSTALL_MOD_PATH<span style=color:#f92672>=</span>rootfs
 cd rootfs/boot
-sudo ln -fs Image.gz-${kver} Image.gz
-cd ..  # up to roofs
+sudo ln -fs Image.gz-<span style=color:#e6db74>${</span>kver<span style=color:#e6db74>}</span> Image.gz
+cd ..  <span style=color:#75715e># up to roofs</span>
 
-# Install the device trees:
-find . -type f -exec scp {} root@a.b.c.d:/  \;
+<span style=color:#75715e># Install the device trees:</span>
+find . -type f -exec scp <span style=color:#f92672>{</span><span style=color:#f92672>}</span> root@a.b.c.d:/  <span style=color:#ae81ff>\;</span>
 scp arch/arm64/boot/dts/freescale/fsl-imx8mq-var-dart-your-dtb.dtb root@a.b.c.d:/boot
-</code></pre></li></ul><p>where <em>a.b.c.d.</em> is the ip of the target device</p><h2 id=compiling-userspace-application-with-external-library>compiling userspace application with external library</h2><p>when a userspace application makes use with an external library, this library can add as a dependency to the <a href=https://www.yoctoproject.org/docs/1.6/bitbake-user-manual/bitbake-user-manual.html>bitbake</a> file, which creates the application. The yocto process will take the library, will build and link it with the application. If we want to compile the application in userspace as part of a continuous development process, we can build it using <em>bitbake</em> command and place it under the root system of the compiler.</p></div><div class=content><div class=disqus-comments>Comments<div id=disqus_thread></div><script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return;}
+</code></pre></div><p>where <em>a.b.c.d.</em> is the ip of the target device</p><h2 id=compiling-userspace-application-with-external-library>compiling userspace application with external library</h2><p>when a userspace application makes use with an external library, this library can add as a dependency to the <a href=https://www.yoctoproject.org/docs/1.6/bitbake-user-manual/bitbake-user-manual.html>bitbake</a> file, which creates the application. The yocto process will take the library, will build and link it with the application. If we want to compile the application in userspace as part of a continuous development process, we can build it using <em>bitbake</em> command and place it under the root system of the compiler.</p></div><div class=content><div class=disqus-comments>Comments<div id=disqus_thread></div><script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return;}
 var d=document,s=d.createElement('script');s.async=true;s.src='//'+"yairgd-github-io-1"+'.disqus.com/embed.js';s.setAttribute('data-timestamp',+new Date());(d.head||d.body).appendChild(s);})();</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></div></div></div><div class="column is-3"><div class=card><div class=card-content><h1 class="title is-5">Categories</h1><div class=tags><span class=tag><a href=https://yairgd.github.io/categories/computer-vision>computer-vision</a></span>
 <span class=tag><a href=https://yairgd.github.io/categories/development>development</a></span>
 <span class=tag><a href=https://yairgd.github.io/categories/embbeded>embbeded</a></span>
