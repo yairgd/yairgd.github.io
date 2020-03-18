@@ -16,9 +16,9 @@ User-agent: *
 #
 #Disallow: /tags/kernel/
 #
-#Disallow: /categories/linux/
-#
 #Disallow: /tags/linux/
+#
+#Disallow: /categories/linux/
 #
 #Disallow: /post/
 #
