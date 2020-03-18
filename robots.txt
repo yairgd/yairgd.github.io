@@ -60,8 +60,6 @@ User-agent: *
 #
 #Disallow: /archives/2014/
 #
-#Disallow: /blogs/
-#
 #Disallow: /2014/04/hugo-template-primer/
 #
 #Disallow: /categories/development/
@@ -72,15 +70,17 @@ User-agent: *
 #
 #Disallow: /tags/go/
 #
-#Disallow: /categories/golang/
-#
 #Disallow: /tags/golang/
+#
+#Disallow: /categories/golang/
 #
 #Disallow: /tags/templates/
 #
 #Disallow: /tags/themes/
 #
 #Disallow: /about/
+#
+#Disallow: /blogs/
 #
 #Disallow: /cv/
 #
