@@ -12,25 +12,27 @@ User-agent: *
 #
 #Disallow: /categories/
 #
-#Disallow: /categories/embbeded/
-#
-#Disallow: /2020/02/install-yocto-and-kernel-development-tools-of-imx8/
+#Disallow: /2020/03/debug-linux-kernel-with-qemu/
 #
 #Disallow: /tags/kernel/
 #
-#Disallow: /tags/linux/
-#
 #Disallow: /categories/linux/
 #
-#Disallow: /2020/02/linux-uio-driver-to-handle-with-irq-source/
+#Disallow: /tags/linux/
 #
 #Disallow: /post/
-#
-#Disallow: /tags/rt/
 #
 #Disallow: /tags/
 #
 #Disallow: /
+#
+#Disallow: /categories/embbeded/
+#
+#Disallow: /2020/02/install-yocto-and-kernel-development-tools-of-imx8/
+#
+#Disallow: /2020/02/linux-uio-driver-to-handle-with-irq-source/
+#
+#Disallow: /tags/rt/
 #
 #Disallow: /tags/yocto/
 #
