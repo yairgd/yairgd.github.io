@@ -1,58 +1,58 @@
 {{ define "main" }}
 
 <div class="columns">
-				<div class="column is-9">
-								<div class="tile is-child box">
-												<div class="content">
-																<article class="media">
-																				<div class="media-content">
-																								<div class="content">
-																												<p class="title is-5"><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></p>
-																												<p class="subtitle is-size-6 has-text-grey-light">
-																												Published at {{ .Date.Format "January 2, 2006" }} &middot;
-																												<i class="far fa-clock"></i>&nbsp;{{.ReadingTime}} min read
-																											  &middot; Tags:
-																												{{ $taxo := "tags" }} 
-																												{{ range .Param $taxo }}
-																												{{ $name := . }}
-																												{{ with $.Site.GetPage (printf "/%s/%s" $taxo ($name | urlize)) }}
-																												<a href="{{ .Permalink }}">{{ $name }}</a>
-																												{{ end }}
-																												{{ end }}
-																												</p></br>																											
-																								</div>
-																				</div>
-																</article>
+	<div class="column is-9">
+		<div class="tile is-child box">
+			<div class="content">
+				<article class="media">
+					<div class="media-content">
+						<div class="content">
+							<p class="title is-5"><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></p>
+							<p class="subtitle is-size-6 has-text-grey-light">
+							Published at {{ .Date.Format "January 2, 2006" }} &middot;
+							<i class="far fa-clock"></i>&nbsp;{{.ReadingTime}} min read
+							&middot; Tags:
+							{{ $taxo := "tags" }} 
+							{{ range .Param $taxo }}
+							{{ $name := . }}
+							{{ with $.Site.GetPage (printf "/%s/%s" $taxo ($name | urlize)) }}
+							<a href="{{ .Permalink }}">{{ $name }}</a>
+							{{ end }}
+							{{ end }}
+							</p></br>																											
+						</div>
+					</div>
+				</article>
 
-																{{ .Content }}
-												</div>
-												<div class="content">
-																{{ if (.Params.comments) | or (and (or (not (isset .Params "comments")) (eq .Params.comments nil)) (.Site.Params.comments)) }}
-																{{ if .Site.Params.comments.DisqusShortname }}
-																<div class="disqus-comments">
-																				Comments
-																				<!-- {{ template "_internal/disqus.html" . }} 
-														https://gohugo.io/templates/internal/
-																				-->
-																				{{ template "_internal/disqus.html" . }}
-																</div>
-																{{ end }}
-																{{ if (.Site.Params.comments.staticman_api) }}
-																<div>
-																				{{ partial "comments.html" . }}
-																</div>
-																{{ end }}
-																{{ end }}
-												</div>
-								</div>
+				{{ .Content }}
+			</div>
+			<div class="content">
+				{{ if (.Params.comments) | or (and (or (not (isset .Params "comments")) (eq .Params.comments nil)) (.Site.Params.comments)) }}
+				{{ if .Site.Params.comments.DisqusShortname }}
+				<div class="disqus-comments">
+					Comments
+					<!-- {{ template "_internal/disqus.html" . }} 
+	     https://gohugo.io/templates/internal/
+					-->
+					{{ template "_internal/disqus.html" . }}
 				</div>
-				<div class="column is-3">
-								{{ partial "widget-categories.html" . }}<br>
-								{{ partial "widget-tags.html" . }}<br>
-								{{ partial "widget-recent.html" . }}<br>
-								{{ partial "widget-related.html" . }}<br>
-								{{ partial "widget-archives.html" . }}
+				{{ end }}
+				{{ if (.Site.Params.comments.staticman_api) }}
+				<div>
+					{{ partial "comments.html" . }}
 				</div>
+				{{ end }}
+				{{ end }}
+			</div>
+		</div>
+	</div>
+	<div class="column is-3">
+		{{ partial "widget-categories.html" . }}<br>
+		{{ partial "widget-tags.html" . }}<br>
+		{{ partial "widget-recent.html" . }}<br>
+		{{ partial "widget-related.html" . }}<br>
+		{{ partial "widget-archives.html" . }}
+	</div>
 </div>
 
 {{ end }}
