@@ -12,9 +12,7 @@ User-agent: *
 #
 #Disallow: /categories/
 #
-#Disallow: /2020/03/debug-linux-kernel-with-qemu/
-#
-#Disallow: /tags/kernel/
+#Disallow: /tags/embedded/
 #
 #Disallow: /tags/linux/
 #
@@ -22,9 +20,19 @@ User-agent: *
 #
 #Disallow: /post/
 #
+#Disallow: /tags/qt5/
+#
+#Disallow: /categories/qt5/
+#
+#Disallow: /2020/04/simple-hello-world-application-using-qt5-for-embedded-linux-device./
+#
 #Disallow: /tags/
 #
 #Disallow: /
+#
+#Disallow: /2020/03/debug-linux-kernel-with-qemu/
+#
+#Disallow: /tags/kernel/
 #
 #Disallow: /categories/embbeded/
 #
@@ -58,14 +66,6 @@ User-agent: *
 #
 #Disallow: /2020/02/my-first-post/
 #
-#Disallow: /tags/embedded/
-#
-#Disallow: /tags/qt5/
-#
-#Disallow: /categories/qt5/
-#
-#Disallow: /2020/01/simple-hello-world-application-using-qt5-for-embedded-linux-device./
-#
 #Disallow: /archives/2014/
 #
 #Disallow: /2014/04/hugo-template-primer/
@@ -78,9 +78,9 @@ User-agent: *
 #
 #Disallow: /tags/go/
 #
-#Disallow: /tags/golang/
-#
 #Disallow: /categories/golang/
+#
+#Disallow: /tags/golang/
 #
 #Disallow: /tags/templates/
 #
