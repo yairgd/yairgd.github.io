@@ -6,8 +6,7 @@ tags :
  - "linux"
  - "qt5"
  - "embedded"
-
-date : "2020-04-02"
+date : "2020-04-01"
 archives : "2020"
 categories : 
  - "linux"
