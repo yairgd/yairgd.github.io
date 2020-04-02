@@ -18,10 +18,10 @@ menu : "no-main"
 This is a simple  example how to a create a qt5 application for linux embbeded device that runs wayland or x-server. I'm using yocto build system. I already have a bsp for IMX8 + toolchain so , I just have to install qt5 on it. In the time that I wrote this page I worked with *sumo* branch and had to make some work around  over 3 bugs that I found during the comilation of qt5. See [here](https://github.com/varigit/variscite-bsp-platform) a refferece to yocto project.
 
 ## bug workaroud
-* applay this [patch](https://codereview.qt-project.org/c/qt/qtbase/+/245425/3/src/corelib/global/qrandom.cpp#b219)
-* tmp/work/x86_64-linux/qtbase-native/5.10.1+gitAUTOINC+6c6ace9d23-r0/git/src/corelib/io/qfilesystemengine_unix.cpp
-* line 101,107 - remove static keywork - sice it was feined as extern in another file
-* remove line 106 since is couse to mulity definition
+1.  applay this [patch](https://codereview.qt-project.org/c/qt/qtbase/+/245425/3/src/corelib/global/qrandom.cpp#b219)
+2.  apllay changes to this file: qfilesystemengine_unix.cpp (I found it under *tmp/work/x86_64-linux/qtbase-native/5.10.1+gitAUTOINC+6c6ace9d23-r0/git/src/corelib/io/qfilesystemengine_unix.cpp*)
+    * line 101,107 - remove static keyword - since it was deined as extern in another file.
+    * remove line 106 since is couse to mulity definition
 
 
 ## install qt5-layer 
@@ -49,7 +49,7 @@ I created a very simple application using qt-creator and I had to run this comma
 ```bash
 . /opt/fsl-imx-xwayland/4.14-sumo/environment-setup-aarch64-poky-linux
 ```
-before I run qmake:
+before I run qmake & make:
 ```
 qmake app.pro
 make
