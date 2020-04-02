@@ -44,7 +44,7 @@ aarch64-poky-linux-gcc --sysroot=/opt/fsl-imx-xwayland/4.14-sumo/sysroots/aarch6
 
 
 ## Simple application
-I created a straightforward application using qt-creator, and I had to run this command:
+I created a straightforward application using [qt-creator](https://doc.qt.io/qt-5/topics-app-development.html), and I had to run this command:
 ```bash
 . /opt/fsl-imx-xwayland/4.14-sumo/environment-setup-aarch64-poky-linux
 ```
