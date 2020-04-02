@@ -19,7 +19,7 @@ This post presents a simple example of how to create a qt5 application for a Lin
 ## bug workaroud
 1.  applay this [patch](https://codereview.qt-project.org/c/qt/qtbase/+/245425/3/src/corelib/global/qrandom.cpp#b219)
 2.  apllay changes to this file: qfilesystemengine_unix.cpp (I found it under *tmp/work/x86_64-linux/qtbase-native/5.10.1+gitAUTOINC+6c6ace9d23-r0/git/src/corelib/io/qfilesystemengine_unix.cpp*)
-    * line 101,107 - remove static keyword ,  since since the funcation allredy defined as an extern in another file.
+    * line 101,107 - remove static keyword , since the funcation allredy defined as an extern in another file.
     *  line 106 -removed, is made a multiplay definition compilation error message. 
 
 
