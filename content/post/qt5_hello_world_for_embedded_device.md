@@ -68,4 +68,4 @@ In Gentoo desktop, the plugin path is */usr/lib/qt5/plugins/platforms/*, so when
 
 
 ## References
-[[1]] https://stackoverflow.com/questions/17106315/failed-to-load-platform-plugin-xcb-while-launching-qt5-app-on-linux-without  
+[1] https://stackoverflow.com/questions/17106315/failed-to-load-platform-plugin-xcb-while-launching-qt5-app-on-linux-without  
