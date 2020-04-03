@@ -69,3 +69,4 @@ In Gentoo desktop, the plugin path is */usr/lib/qt5/plugins/platforms/*, so when
 
 ## References
 [1] https://stackoverflow.com/questions/17106315/failed-to-load-platform-plugin-xcb-while-launching-qt5-app-on-linux-without  
+[2] https://stackoverflow.com/questions/50119427/how-can-i-capture-terminal-output-from-a-bash-script-and-display-it-in-my-qt-ui
