@@ -14,12 +14,13 @@ categories :
 
 menu : "no-main"
 ---
-This post presents a simple example of how to create a qt5 application for a Linux embedded device that runs Wayland or x-server. I'm using Yocto build system. I already have a BSP for IMX8 + toolchain so. I just have to install qt5 on it. In the time that I wrote this page, I worked with *sumo* branch and had to do some work around over three bugs that I found during the compilation of qt5. See [here](https://github.com/varigit/variscite-bsp-platform) a reference to Yocto project.
+This post presents a simple example of how to create a qt5 application for a Linux embedded device that runs Wayland or x-server. I'm using Yocto build system. I already have a BSP for IMX8 + toolchain so. I just have to install qt5 on it. In the time that I wrote this page. See [here](https://github.com/varigit/variscite-bsp-platform) a reference to use Yocto project.
 
 ## bug workaroud
-1.  applay this [patch](https://codereview.qt-project.org/c/qt/qtbase/+/245425/3/src/corelib/global/qrandom.cpp#b219)
-2.  apllay changes to this file: qfilesystemengine_unix.cpp (I found it under *tmp/work/x86_64-linux/qtbase-native/5.10.1+gitAUTOINC+6c6ace9d23-r0/git/src/corelib/io/qfilesystemengine_unix.cpp*)
-    * line 101,107 - remove static keyword , since the funcation allredy defined as an extern in another file.
+I worked with *sumo* branch and had to do some work around over three bugs that I found during the compilation of qt5. 
+1.  apply this [patch](https://codereview.qt-project.org/c/qt/qtbase/+/245425/3/src/corelib/global/qrandom.cpp#b219)
+2.  apply changes to this file: qfilesystemengine_unix.cpp (I found it under *tmp/work/x86_64-linux/qtbase-native/5.10.1+gitAUTOINC+6c6ace9d23-r0/git/src/corelib/io/qfilesystemengine_unix.cpp*)
+    * line 101,107 - remove the static keyword, since the function already defined as an extern in another file.
     *  line 106 -removed, is made a multiplay definition compilation error message. 
 
 
@@ -61,7 +62,7 @@ after the ELF file for arm should have to create.
 ```bash
 QT_QPA_PLATFORM_PLUGIN_PATH=/ptath/to/plugins ./app 
 ```
-wherein Gentoo desktop the plugin path is: */usr/lib/qt5/plugins/platforms/*, so when we install the qt5 libraries that application depends on, we should install it in the correct location. To install the application as part of an image, we have to write an appropriate bitbabke file that will install all dependencies. See [recipes-qt](https://github.com/meta-qt5/meta-qt5/tree/40054db1de152d85c22aefdae50b136ca56967c5/recipes-qt)  to uderstand which files are requires to be intsalled.
+In Gentoo desktop, the plugin path is */usr/lib/qt5/plugins/platforms/*, so when we install the qt5 libraries that application depends on, we should install it in the correct location. To install the application as part of an image, we have to write an appropriate bitbabke file that will install all dependencies. See [recipes-qt](https://github.com/meta-qt5/meta-qt5/tree/40054db1de152d85c22aefdae50b136ca56967c5/recipes-qt)  to understand which files it requires to install. 
 
 {{< figure src="/post/qt5_hello_world_for_embedded_device/demo_app.jpeg" title="Demo Application" >}}
 
