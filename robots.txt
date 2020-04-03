@@ -14,9 +14,9 @@ User-agent: *
 #
 #Disallow: /tags/embedded/
 #
-#Disallow: /tags/linux/
-#
 #Disallow: /categories/linux/
+#
+#Disallow: /tags/linux/
 #
 #Disallow: /post/
 #
