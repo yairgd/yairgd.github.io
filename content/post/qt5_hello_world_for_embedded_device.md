@@ -54,7 +54,7 @@ before I run qmake & make:
 qmake app.pro
 make
 ```
-after the ELF file for arm should have to create.
+These two commands should create the ELF file ready to run under the ARM.
 
 
 
