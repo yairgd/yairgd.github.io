@@ -6,13 +6,11 @@ tags :
  - "linux"
  - "qt5"
  - "embedded"
-
-date : "2020-04-1"
+date : "2020-07-07"
 archives : "2020"
 categories : 
  - "linux"
  - "qt5"
-
 menu : "no-main"
 ---
 This is a simple  example how to a create a qt5 application for linux embbeded device that runs wayland or x-server. I'm using yocto build system. I already have a bsp for IMX8 + toolchain so , I just have to install qt5 on it. In the time that I wrote this page I worked with *sumo* branch and had to make some work around  over 3 bugs that I found during the comilation of qt5. See [here](https://github.com/varigit/variscite-bsp-platform) a refferece to yocto project.
@@ -65,6 +63,8 @@ QT_QPA_PLATFORM_PLUGIN_PATH=/ptath/to/plugins ./app
 where in gentoo desktop the plug in path is: */usr/lib/qt5/plugins/platforms/* , so when we install the qt5 libraries that application  depends on, we should install it in the correct location. To install the application as part of image , we have to write an apreporiate bitbabke file that will install the whole dependecies. See [recipes-qt](https://github.com/meta-qt5/meta-qt5/tree/40054db1de152d85c22aefdae50b136ca56967c5/recipes-qt)  to uderstand which files are requires to be intsalled.
 
 {{< figure src="/post/qt5_hello_world_for_embedded_device/demo_app.jpeg" title="Demo Application" >}}
+
+The [demo](/post/qt5_hello_world_for_embedded_device/app.tar.gz) application runs two scipts: install.sh and reboot.sh as child proccess and its standrd output is displayed on the touch screen.
 
 
 ## References
