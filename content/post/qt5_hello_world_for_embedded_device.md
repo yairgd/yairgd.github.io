@@ -66,7 +66,7 @@ In Gentoo desktop, the plugin path is */usr/lib/qt5/plugins/platforms/*, so when
 
 {{< figure src="/post/qt5_hello_world_for_embedded_device/demo_app.jpeg" title="Demo Application" >}}
 
-The [demo](/post/qt5_hello_world_for_embedded_device/app.tar.gz) application runs two scripts: install.sh and reboot.sh as a child process. The application displays the standard output on the text editor widget.  
+The [demo](/post/qt5_hello_world_for_embedded_device/app.tar.gz) application runs two scripts as a response to a button press: install.sh and reboot.sh, each runs as a child process, and it displays the standard output on the text editor widget.  
 
 ## References
 [1] https://stackoverflow.com/questions/17106315/failed-to-load-platform-plugin-xcb-while-launching-qt5-app-on-linux-without  
