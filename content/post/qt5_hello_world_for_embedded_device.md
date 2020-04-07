@@ -62,11 +62,11 @@ These two commands should create the ELF file ready to run under the ARM.
 ```bash
 QT_QPA_PLATFORM_PLUGIN_PATH=/ptath/to/plugins ./app 
 ```
-In Gentoo desktop, the plugin path is */usr/lib/qt5/plugins/platforms/*, so when we install the qt5 libraries that application depends on, we should install it in the correct location. To install the application as part of an image, we have to write an appropriate bitbabke file that will install all dependencies. See [recipes-qt](https://github.com/meta-qt5/meta-qt5/tree/40054db1de152d85c22aefdae50b136ca56967c5/recipes-qt)  to understand which files it requires to install. 
+In Gentoo desktop, the plugin path is */usr/lib/qt5/plugins/platforms/*, so when we install the qt5 libraries that application depends on, we should also install it in the correct location. To install the application as part of an image, we have to write an appropriate bitbabke file that will install all dependencies. See [recipes-qt](https://github.com/meta-qt5/meta-qt5/tree/40054db1de152d85c22aefdae50b136ca56967c5/recipes-qt)  to understand which files it requires to install. 
 
 {{< figure src="/post/qt5_hello_world_for_embedded_device/demo_app.jpeg" title="Demo Application" >}}
 
-The [demo](/post/qt5_hello_world_for_embedded_device/app.tar.gz) application runs two scripts as a response to a button press: install.sh and reboot.sh, each runs as a child process, and it displays the standard output on the text editor widget.  
+The [demo](/post/qt5_hello_world_for_embedded_device/app.tar.gz) application runs two scripts as a response to a button press: install.sh and reboot.sh, each runs as a child process, and it displays its standard output on the text editor widget.  
 
 ## References
 [1] https://stackoverflow.com/questions/17106315/failed-to-load-platform-plugin-xcb-while-launching-qt5-app-on-linux-without  
