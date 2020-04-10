@@ -21,7 +21,7 @@ I worked with *sumo* branch and had to do some work around over three bugs that 
 1.  apply this [patch](https://codereview.qt-project.org/c/qt/qtbase/+/245425/3/src/corelib/global/qrandom.cpp#b219)
 2.  apply changes to this file: qfilesystemengine_unix.cpp. I found it under *tmp/work/x86_64-linux/qtbase-native/5.10.1+gitAUTOINC+6c6ace9d23-r0/git/src/corelib/io/qfilesystemengine_unix.cpp*.
     * line 101,107 - remove the static keyword, since the function already defined as an extern in another file.
-    *  line 106 -removed, is made a multiplay definition compilation error message. 
+    *  line 106 -removed - it caused to multiplay definition compilation error message. 
 
 
 ## install qt5-layer 
