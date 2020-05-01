@@ -4,12 +4,13 @@ description : "Bayer to RGB conversion"
 tags : 
  - "bayer"
  - "rgb"
-
+ - "computer-vision"
 date : "2020-02-17"
 archives : "2020"
 categories : 
- - "computer-vision"
+ - "algorithm"
  - "python"
+
 menu : "no-main"
 ---
 A Bayer filter mosaic is a color filter array (CFA) for arranging RGB color filters on a square grid of photosensors. Its particular arrangement of color filters is used in most single-chip digital image sensors used in digital cameras, camcorders, and scanners to create a color image. The filter pattern is 50% green, 25% red and 25% blue - [see here](https://en.wikipedia.org/wiki/Bayer_filter).
