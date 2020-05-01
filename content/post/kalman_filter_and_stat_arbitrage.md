@@ -48,7 +48,7 @@ R=sqrt (0.001);
 Q=sqrt(0.00001);
 beta=1+cumsum (Q*randn(size(t)));
 ```
-{{< figure src="/post/kalmal_filter_and_stat_arbitrage/beta.png" title="Raw Bayer Image" >}}
+{{< figure src="/post/kalman_filter_and_stat_arbitrage/beta.png" title="Raw Bayer Image" >}}
 
 The observed processes of stock prices Y(t) and X(t) and V  is gaussion disribued process with men 0 standard deviation  R.
 {{< katex >}}
@@ -67,7 +67,7 @@ end
 x=G(2,:);
 y=x.*beta + R*randn(size(t));
 ```
-{{< figure src="/post/kalmal_filter_and_stat_arbitrage/x_and_y.png" title="Generated stocks X & Y" >}}
+{{< figure src="/post/kalman_filter_and_stat_arbitrage/x_and_y.png" title="Generated stocks X & Y" >}}
 
 ## kalman filer
 Istead of the typical approach to estimate beta using least squares regression, or some kind of rolling regression (to try to take account of the fact that beta may change over time).  In this traditional framework, beta is static, or slowly changing.  
@@ -99,7 +99,7 @@ end
 ```
 The following figure diplaye kalman filter resolt. The blue graph is the orignal beta, which is  hidden variable and cannot diplayed directly. The green one is the preidcted beta which is used by the  trade algorithm to take descitiopn about trade. The red graph is estimated beta which calculated right after the update stage.
 
-{{< figure src="/post/kalmal_filter_and_stat_arbitrage/kalman.png" title="Kalman filter resolts" >}}
+{{< figure src="/post/kalman_filter_and_stat_arbitrage/kalman.png" title="Kalman filter resolts" >}}
 
 ## trading algoritm
 The trading algorithm is very simple and show great resoluts:
@@ -116,7 +116,7 @@ ii=find  (y-beta_pred.*x>0.0);
 s=y-x;
 s=[0 diff(s)]; % lag it
 ```
-{{< figure src="/post/kalmal_filter_and_stat_arbitrage/equity.png" title="Equity Curve" >}}
+{{< figure src="/post/kalman_filter_and_stat_arbitrage/equity.png" title="Equity Curve" >}}
 
 
 ## conclusions
@@ -124,7 +124,7 @@ The resoluts above are only theoretical and to apply this approch to real stock 
 1. to find a cointgradet pair  of stocks.
 2. to fins automatic way to csaliobate the Klman-filter parameters Q
 3. find more complicated trading algorithm. for example: train a neural network model to get maximum equity curve with maximum shar ration.
-4. The code for this exmple is writtn in matlab/octave and can be found [here](/post/kalmal_filter_and_stat_arbitrage/kf.m).
+4. The code for this exmple is writtn in matlab/octave and can be found [here](/post/kalman_filter_and_stat_arbitrage/kf.m).
 
 
 ## References
