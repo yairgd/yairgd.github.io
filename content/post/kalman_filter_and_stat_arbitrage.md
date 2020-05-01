@@ -12,11 +12,11 @@ categories :
 
 menu : "no-main"
 ---
-Pairs trading is type of cointegration approch to statistcal arbitrage trading strategy in which usually a pair of stocks are traded in a market-neutral strategy, i.e. it doesn’t matter whether the market is trending upwards or downwards, the two open positions for each stock hedge against each other. The key challenges in pairs trading are to:  
+Pair trading is a type of cointegration approach to statistical arbitrage trading strategy in which usually a pair of stocks are traded in a market-neutral strategy, i.e. it doesn’t matter whether the market is trending upwards or downwards, the two open positions for each stock hedge against each other. The key challenges in pairs trading are to:  
 * Choose a pair which will give you good statistical arbitrage opportunities over time
 * Choose the entry/exit points  
 
-One of the challenges with the pair tragding is that cointegration relationships are seldom static. m In this post will use Kalman filter for statistical Arbitrage with sythesied data and will present imlemenation ok kalman filter.
+One of the challenges with the pair trading is that cointegration relationships are seldom static. m In this post will use Kalman filter for statistical Arbitrage with synthesized data and will present implementation ok Kalman filter.
 
 
 ## data sythesis
@@ -41,7 +41,7 @@ I will use the simplest form to model the relationship between a pair of securit
 \omega \sim N(0,Q)\\
 
 {{< /katex >}}
-where beta is the unobserved state variable, that follows a random walk and  W is gaussion disribued process with men 0 standard deviation  Q.
+where beta is the unobserved state variable that follows a random walk, and  W is gaussian distributed process with men 0 standard deviation  Q.
 
 ```matlab
 R=sqrt (0.001);
@@ -69,12 +69,12 @@ y=x.*beta + R*randn(size(t));
 ```
 {{< figure src="/post/kalman_filter_and_stat_arbitrage/x_and_y.png" title="Generated stocks X & Y" >}}
 
-## kalman filer
-Istead of the typical approach to estimate beta using least squares regression, or some kind of rolling regression (to try to take account of the fact that beta may change over time).  In this traditional framework, beta is static, or slowly changing.  
-In the Kalman framework, beta is itself a random process that evolves continuously over time, as a random walk.  Because it is random and contaminated by noise we cannot observe beta directly, but must infer its (changing) value from the observable stock prices X and Y.  
-Kalman filter has very complicated matematical and statistical theory behind it. See [here](https://www.intechopen.com/books/introduction-and-implementations-of-the-kalman-filter/introduction-to-kalman-filter-and-its-applications) for turorial. Kalman filter algorithm has two stategs:
-* prediction: in this stage the algorithm will predict the next beta before it has the stocks prices. The preiction is at time t and based on beta values from previous times.
-* update: in this stage the algorithm will update the prediction of beta after it will hae the stocks  price at time t.
+## Kalman filer
+Instead of the typical approach to estimate beta using least squares regression, or some kind of rolling regression (to try to take account of the fact that beta may change over time).  In this traditional framework, beta is static or slowly changing.  
+In the Kalman framework, beta is itself a random process that evolves continuously over time, as a random walk.  Because it is random and contaminated by the noise, we cannot observe beta directly but must infer its (changing) value from the observable stock prices X and Y.  
+Kalman filter has very complicated mathematical and statistical theory behind it. See [here](https://www.intechopen.com/books/introduction-and-implementations-of-the-kalman-filter/introduction-to-kalman-filter-and-its-applications) for tutorial. Kalman filter algorithm has two states:
+* prediction: in this stage, the algorithm will predict the next beta before it has the stock prices. The prediction is at time t and based on beta values from previous times.
+* update: in this stage, the algorithm will update the prediction of beta after it has the stock price at time t.
 ```matlab
 Q=0.8
 P=1;
@@ -101,7 +101,7 @@ The following figure diplaye kalman filter resolt. The blue graph is the orignal
 
 {{< figure src="/post/kalman_filter_and_stat_arbitrage/kalman.png" title="Kalman filter resolts" >}}
 
-## trading algoritm
+## trading algorithm
 The trading algorithm is very simple and show great resoluts:
 {{< katex >}}
 position(t)=\left\{
@@ -120,14 +120,15 @@ s=[0 diff(s)]; % lag it
 
 
 ## conclusions
-The resoluts above are only theoretical and to apply this approch to real stock thre is aloto todo:
-1. to find a cointgradet pair  of stocks.
-2. to fins automatic way to csaliobate the Klman-filter parameters Q
-3. find more complicated trading algorithm. for example: train a neural network model to get maximum equity curve with maximum shar ration.
-4. The code for this exmple is writtn in matlab/octave and can be found [here](/post/kalman_filter_and_stat_arbitrage/kf.m).
+The results above are only theoretical and to apply this approach to real stock there arise a lot todo:
+1. to find a cointegrated pair of stocks.
+2. to find an automatic way to calibrate the Kalman-filter Q parameter.
+3. find a more complicated trading algorithm. For example: train a neural network model to get a maximum equity curve with maximum share ration.
+4. A more complicated and precise ratio between the stocks of the pair may found.
+
+ The code for this example is written in Matlab/octave and can be found [here](/post/kalman_filter_and_stat_arbitrage/kf.m).
 
 
 ## References
 [1] http://jonathankinlay.com/2018/09/statistical-arbitrage-using-kalman-filter/  
 [2] https://www.intechopen.com/books/introduction-and-implementations-of-the-kalman-filter/introduction-to-kalman-filter-and-its-applications  
-
