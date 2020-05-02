@@ -16,7 +16,7 @@ Pair trading is a type of cointegration approach to statistical arbitrage tradin
 * Choose a pair which will give you good statistical arbitrage opportunities over time
 * Choose the entry/exit points  
 
-One of the challenges with the pair trading is that cointegration relationships are seldom static. m In this post will use Kalman filter for statistical Arbitrage with synthesized data and will present implementation ok Kalman filter.
+One of the challenges with the pair trading is that cointegration relationships are seldom static. I implemened a Kalman filter to track to changes in this relationships between the stocks with synthesized stocks data. 
 
 
 ## data sythesis
@@ -128,7 +128,7 @@ The results above are only theoretical and to apply this approach to real stock 
 1. to find a cointegrated pair of stocks.
 2. to find an automatic way to calibrate the Kalman-filter Q parameter.
 3. find a more complicated trading algorithm. For example: train a neural network model to get a maximum equity curve with maximum share ration.
-4. A more complicated and precise ratio between the stocks of the pair may found.
+4. A better relationships model between stock may used.
 5. The equity curve is theoretical since, in reality, the statistical characteristics of X&Y  and beta are rapidly changed. In this example, the statistical features are constants, and therefor the equity curve continuously grows. 
 
  The code for this example is written in Matlab/octave and can be found [here](/post/kalman_filter_and_stat_arbitrage/kf.m).
