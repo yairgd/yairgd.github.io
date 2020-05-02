@@ -113,8 +113,12 @@ position(t)=\left\{
 {{< /katex >}}
 ```matlab
 ii=find  (y-beta_pred.*x>0.0);
-s=y-x;
-s=[0 diff(s)]; % lag it
+s=y- beta_pred.*x;
+s=[0 diff(s)];
+ii=ii(10:end); % ignore the converegance time of kalman filter
+figure;plot (cumsum(s(ii)))
+xlabel('time');
+ylabel('equity curve');
 ```
 {{< figure src="/post/kalman_filter_and_stat_arbitrage/equity.png" title="Equity Curve" >}}
 
