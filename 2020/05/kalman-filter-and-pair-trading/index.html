@@ -60,9 +60,9 @@ clear PP
 </code></pre></div><p>The following figure diplaye kalman filter resolt. The blue graph is the orignal beta, which is hidden variable and cannot diplayed directly. The green one is the preidcted beta which is used by the trade algorithm to take descitiopn about trade. The red graph is estimated beta which calculated right after the update stage.</p><figure><img src=/post/kalman_filter_and_stat_arbitrage/kalman.png><figcaption><h4>Kalman filter resolts</h4></figcaption></figure><h2 id=trading-algorithm>trading algorithm</h2><p>The trading algorithm is very simple and show great resoluts:<div style=overflow:auto;width:auto>$$
 position(t)=\left\{
 \begin{array}{ll}
-1 , beta>0 \\
--1 , beta<0
-\end{array}
+1 &  , beta>0  \\
+                  -1 & , beta<0 
+                \end{array}
 \right.
 $$</div></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-matlab data-lang=matlab>ii=find  (y<span style=color:#f92672>-</span>beta_pred<span style=color:#f92672>.*</span>x<span style=color:#f92672>&gt;</span><span style=color:#ae81ff>0.0</span>);
 s=y<span style=color:#f92672>-</span>x;
