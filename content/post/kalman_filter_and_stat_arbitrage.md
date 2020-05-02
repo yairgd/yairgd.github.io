@@ -106,8 +106,8 @@ The trading algorithm is very simple and show great resoluts:
 {{< katex >}}
 position(t)=\left\{
                 \begin{array}{ll}
-                  1 , beta>0  \\
-                  -1 , beta<0 
+                  1 &  , beta>0  \\
+                  -1 & , beta<0 
                 \end{array}
               \right.
 {{< /katex >}}

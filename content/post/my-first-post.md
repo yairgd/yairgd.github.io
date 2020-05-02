@@ -81,4 +81,5 @@ $$\int_{a}^{b} x^2 dx$$
 ```
 will render to:
 $$\int_{a}^{b} x^2 dx$$
+Also see [here](https://latex.wikia.org/wiki/Array_(LaTeX_environment)) for more latex sysntax information.
 
