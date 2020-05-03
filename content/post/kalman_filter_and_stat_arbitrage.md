@@ -1,4 +1,4 @@
-not stationary r onstants---
+---
 title: "Kalman filter and pair trading"
 description: "Implemantion of kalman filter for  statistical arbitrage purpose"
 draft: false
