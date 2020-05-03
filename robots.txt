@@ -8,27 +8,35 @@ User-agent: *
 #
 #Disallow: /archives/2020/
 #
+#Disallow: /categories/algorithm/
+#
 #Disallow: /archives/
 #
 #Disallow: /categories/
 #
-#Disallow: /tags/embedded/
+#Disallow: /2020/05/kalman-filter-and-pair-trading/
 #
-#Disallow: /tags/linux/
+#Disallow: /tags/kalman-filter/
+#
+#Disallow: /post/
+#
+#Disallow: /tags/statstical-abitrage/
+#
+#Disallow: /tags/
+#
+#Disallow: /
+#
+#Disallow: /tags/embedded/
 #
 #Disallow: /categories/linux/
 #
-#Disallow: /post/
+#Disallow: /tags/linux/
 #
 #Disallow: /tags/qt5/
 #
 #Disallow: /categories/qt5/
 #
 #Disallow: /2020/04/simple-hello-world-application-using-qt5-for-embedded-linux-device./
-#
-#Disallow: /tags/
-#
-#Disallow: /
 #
 #Disallow: /2020/03/debug-linux-kernel-with-qemu/
 #
@@ -51,8 +59,6 @@ User-agent: *
 #Disallow: /2020/02/linux-core-isolation/
 #
 #Disallow: /2020/02/linux-module-to-disassemble-code-in-the-linux-kernel./
-#
-#Disallow: /categories/algorithm/
 #
 #Disallow: /tags/bayer/
 #
@@ -87,8 +93,6 @@ User-agent: *
 #Disallow: /tags/templates/
 #
 #Disallow: /tags/themes/
-#
-#Disallow: /1/01/
 #
 #Disallow: /about/
 #
