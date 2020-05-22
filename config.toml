@@ -22,6 +22,12 @@ theme = "jeffprod"
 #    post = ""
 #	top = "/:year/:filename/"
 
+
+[sitemap]
+  changefreq = "monthly"
+  filename = "sitemap.xml"
+  priority = 0.5
+
 [taxonomies]
     tag = "tags"
     archive = "archives"

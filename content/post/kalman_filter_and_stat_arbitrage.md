@@ -20,7 +20,7 @@ One of the challenges with the pair trading is that cointegration relationships 
 
 
 ## data sythesis
-This qre some initil paramaters for octabe/matlab simulation:
+These are some initil paramaters for octabe/matlab simulation:
 ```matlab
 mu=0.1;
 t=1:1000;
@@ -34,14 +34,14 @@ sh=sqrt(h);
 mh=r*h;
 x0=100;
 ```
-I will use the simplest form to model the relationship between a pair of securities in the following way:
+I have used the simplest form to model the relationship between a pair of securities in the following way:
 {{< katex >}}
 \beta(t) = \beta(t-1) + \omega\\
 
 \omega \sim N(0,Q)\\
 
 {{< /katex >}}
-where beta is the unobserved state variable that follows a random walk, and  W is gaussian distributed process with men 0 standard deviation  Q.
+where beta is the unobserved state variable that follows a random walk, and  W is gaussian distributed process with zero mean and standard deviation  Q.
 
 ```matlab
 R=sqrt (0.001);
@@ -76,7 +76,8 @@ Kalman filter has very complicated mathematical and statistical theory behind it
 * prediction: in this stage, the algorithm will predict the next beta before it has the stock prices. The prediction is at time t and based on beta values from previous times.
 * update: in this stage, the algorithm will update the prediction of beta after it has the stock price at time t.
 ```matlab
-Q=0.8
+Q=0.8;
+H=1;
 P=1;
 K=1;
 F=[0.1  0.1 .8  ];n=3;
@@ -137,3 +138,5 @@ The results above are only theoretical and to apply this approach to real stock 
 ## References
 [1] http://jonathankinlay.com/2018/09/statistical-arbitrage-using-kalman-filter/  
 [2] https://www.intechopen.com/books/introduction-and-implementations-of-the-kalman-filter/introduction-to-kalman-filter-and-its-applications  
+[3] https://robotwealth.com/kalman-filter-pairs-trading-r/
+[4]
