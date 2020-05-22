@@ -12,11 +12,11 @@ categories :
 
 menu : "no-main"
 ---
-Pair trading is a type of cointegration approach to statistical arbitrage trading strategy in which usually a pair of stocks are traded in a market-neutral strategy, i.e. it doesn’t matter whether the market is trending upwards or downwards, the two open positions for each stock hedge against each other. The key challenges in pairs trading are to:  
+Pair trading is a type of cointegration approach to statistical arbitrage trading strategy in which usually a pair of stocks are tcraded in a market-neutral strategy, i.e. it doesn’t matter whether the market is trending upwards or downwards, the two open positions for each stock hedge against each other. The key challenges in pairs trading are to:  
 * Choose a pair which will give you good statistical arbitrage opportunities over time
 * Choose the entry/exit points  
 
-One of the challenges with the pair trading is that cointegration relationships are seldom static. I implemened a Kalman filter to track to changes in this relationships between the stocks with synthesized stocks data. 
+One of the challenges with the pair trading is that cointegration relationships are seldom static. I implemented a Kalman filter to track changes in this relationship between the stocks with synthesized stocks data. 
 
 
 ## data sythesis
@@ -41,7 +41,7 @@ I have used the simplest form to model the relationship between a pair of securi
 \omega \sim N(0,Q)\\
 
 {{< /katex >}}
-where beta is the unobserved state variable that follows a random walk, and  W is gaussian distributed process with zero mean and standard deviation  Q.
+where beta is the unobserved state variable that follows a random walk, and  W is a Gaussian distributed process with men 0 standard deviation  Q.
 
 ```matlab
 R=sqrt (0.001);
@@ -58,10 +58,11 @@ v \sim N(0,R)\\
 
 ```matlab
 clear G
+X=x0;
 G(:,1)=[0 x0];
 for j=2:N
 	z=randn;
-	X=X*exp(mh+sh*sigma*z);
+	X=X*exp(mh+sh*sig*z);
 	G(:,j) = [j*h X];
 end
 x=G(2,:);
@@ -86,11 +87,13 @@ clear PP
 for i=n+1:size(t,2)
 	%Prediction
 	beta_est(i)=F*beta_est(i-n:i-1)';
+        P=F*P*F'+Q;
+
+       % uses to decide for trade since index 'i'  is a later time, and we have info till time 'i-1'.
 	beta_pred(i)=F*beta_est(i-n:i-1)';
+	
 
-	P=F*P*F'+Q;
-
-	% update
+	% update , it time 'i' and the stock info at this time is known
 	r= y(i)/x(i) -beta_est(i);
 	K=P^1*H'*(R+H*P^-1*H')^-1;
 	beta_est(i)=beta_est(i) + K*r;
@@ -129,8 +132,8 @@ The results above are only theoretical and to apply this approach to real stock 
 1. to find a cointegrated pair of stocks.
 2. to find an automatic way to calibrate the Kalman-filter Q parameter.
 3. find a more complicated trading algorithm. For example: train a neural network model to get a maximum equity curve with maximum share ration.
-4. A better relationships model between stock may used.
-5. The equity curve is theoretical since, in reality, the statistical characteristics of X&Y  and beta are rapidly changed. In this example, the statistical features are constants, and therefor the equity curve continuously grows. 
+4. One can choose a better relationship model between stocks of the pair.
+5. The above equity curve is theoretical only since the synthesized data is stationary, and therefor the equity curve continuously grows. In a real stock pairing, the information is a complete mess, and the statistical characteristics are not known and not stationary.  Nevertheless, it seems that the Kalman filter does an outstanding job with beta tracking and has a very high potential to work in the real trading strategy.
 
  The code for this example is written in Matlab/octave and can be found [here](/post/kalman_filter_and_stat_arbitrage/kf.m).
 
@@ -138,5 +141,3 @@ The results above are only theoretical and to apply this approach to real stock 
 ## References
 [1] http://jonathankinlay.com/2018/09/statistical-arbitrage-using-kalman-filter/  
 [2] https://www.intechopen.com/books/introduction-and-implementations-of-the-kalman-filter/introduction-to-kalman-filter-and-its-applications  
-[3] https://robotwealth.com/kalman-filter-pairs-trading-r/
-[4]
