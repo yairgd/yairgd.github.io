@@ -141,3 +141,5 @@ The results above are only theoretical and to apply this approach to real stock 
 ## References
 [1] http://jonathankinlay.com/2018/09/statistical-arbitrage-using-kalman-filter/  
 [2] https://www.intechopen.com/books/introduction-and-implementations-of-the-kalman-filter/introduction-to-kalman-filter-and-its-applications  
+[3] https://robotwealth.com/kalman-filter-pairs-trading-r/  
+[4] Algorithmic Trading: Winning Strategies and their Rationale, Wiley, 2013)  
