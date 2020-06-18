@@ -8,27 +8,33 @@ User-agent: *
 #
 #Disallow: /archives/2020/
 #
-#Disallow: /categories/algorithm/
-#
 #Disallow: /archives/
 #
 #Disallow: /categories/
 #
-#Disallow: /2020/05/kalman-filter-and-pair-trading/
+#Disallow: /2020/06/custom-opkg-repository/
 #
-#Disallow: /tags/kalman-filter/
+#Disallow: /categories/linux/
+#
+#Disallow: /tags/opkg/
 #
 #Disallow: /post/
-#
-#Disallow: /tags/statstical-abitrage/
 #
 #Disallow: /tags/
 #
 #Disallow: /
 #
-#Disallow: /tags/embedded/
+#Disallow: /tags/yocto/
 #
-#Disallow: /categories/linux/
+#Disallow: /categories/algorithm/
+#
+#Disallow: /2020/05/kalman-filter-and-pair-trading/
+#
+#Disallow: /tags/kalman-filter/
+#
+#Disallow: /tags/statstical-abitrage/
+#
+#Disallow: /tags/embedded/
 #
 #Disallow: /tags/linux/
 #
@@ -49,8 +55,6 @@ User-agent: *
 #Disallow: /2020/02/linux-uio-driver-to-handle-with-irq-source/
 #
 #Disallow: /tags/rt/
-#
-#Disallow: /tags/yocto/
 #
 #Disallow: /2020/02/linux-char-device-to-handle-with-irq/
 #
