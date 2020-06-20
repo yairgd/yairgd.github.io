@@ -3,7 +3,6 @@ title : "About Me"
 date : "2020-14-02"
 draft: false
 ---
-
 My name is Yair Gadelov, and I had worked as professional RT/Embedded Software Engineer for almost a decade, before that that I worked an algorithm engineer about five years and worked with machine learning, signal processing, and numerical analysis. I have leadership capabilities work in a team and as a self-depended.
 I hold an MSc degree from Ben-Gurion University, Israel, in electrical engineering and have a vast experience in the development of algorithms, SW and HW. I’m highly skilled in multiple coding languages. I have experience in leading projects, developing and designing products from scratch in fields of navigation and cutting-edge technologies such as 3d printing and computer vision.
 These are some of the technologies I know and have experienced:
