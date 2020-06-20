@@ -78,7 +78,7 @@ http {
 		server_name localhost;
 
 		location / {
-			root /home/yair/belkin/yocto/var-fsl-yocto/build_xwayland/tmp/deploy/ipk;
+			root /path-to-yocto-build/build/tmp/deploy/ipk;
 			rewrite  ^/repo(.*)$ /$1  last;
   			break;
 		}
