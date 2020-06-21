@@ -18,7 +18,16 @@ IMAGE_INSTALL_append = "
 	opkg \
 "
 ```
+downlad and install opkg utils:
+```bash
+git://git.yoctoproject.org/opkg-utils
+```
 
+and create Packages.gz file:
+```bash
+cd /path-to-yocto-build/build/tmp/deploy/ipk
+~/opkg-utils/opkg-make-index . > Packages.gz
+```
 
 ## install nginx
 I haved used gentoo system , so inorder to install nginx on gentoo type:
@@ -87,7 +96,7 @@ http {
 }
 ```
 
-and ten restart nginx:
+and then restart nginx:
 ```bash
 /etc/init.d/nginx restart
 ```
