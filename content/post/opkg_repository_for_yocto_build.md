@@ -20,7 +20,7 @@ IMAGE_INSTALL_append = "
 ```
 downlad and install opkg utils:
 ```bash
-git://git.yoctoproject.org/opkg-utils
+git clonbe git://git.yoctoproject.org/opkg-utils
 ```
 
 and create Packages.gz file:
