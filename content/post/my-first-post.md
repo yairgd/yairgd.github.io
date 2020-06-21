@@ -83,7 +83,3 @@ will render to:
 $$\int_{a}^{b} x^2 dx$$
 Also see [here](https://latex.wikia.org/wiki/Array_(LaTeX_environment)) for more latex sysntax information.
 
-## images
-{{< img src="/img/bg-blog1.jpg" type="jpg" alt="" caption="Ascendia - ProgPower 2016" >}}
-
-
