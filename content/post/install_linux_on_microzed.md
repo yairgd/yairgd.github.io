@@ -99,24 +99,14 @@ bootm  0x3000000  0x2000000 0x2a00000
 
 The stages for flashing image on sdcard are similiar to those that has on the qspi. But I was to use comleptle open source without FSBL. The idea is to take the *boot.bin* file that is generated using vivado tools and replace it with the secondary boot loader (SPL). The most important file is [ps7_init_gpl.c](https://gitlab.denx.de/u-boot/u-boot/-/blob/master/board/xilinx/zynq/zynq-microzed/ps7_init_gpl.c) and it  was generrated using Vivado , it is platform unique and reposible to initilize the most critical peripherials in the board: The DDR contoller, clocks and mio pins. If a new platform is design then, is has to genertae a new file for the new platorm.  The following bash script creates a binary boot image file and its name should be *boot.bin*. The following files were copy to the sdcard , reffer [here](https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18841976/Prepare+boot+image) for more details:
 
-<style>
-table th:first-of-type {
-    width: 30%;
-}
-table th:nth-of-type(2) {
-    width: 20%;
-}
-table th:nth-of-type(3) {
-    width: 50%;
-}
-</style>
-
+{{< table >}}
 | file | name on sdcard | note                         |
 |--------------|----------------|-------------------------------
 | boot.bin     | BOOT.bin       | replace the previous boot.bin| 
 | yocto/build/tmp/work/microzed_zynq7-poky-linux-gnueabi/linux-xlnx/4.19-xilinx-v2019.2+gitAUTOINC+b983d5fd71-r0/deploy-linux-xnx/uImage|  uImage| u-boot image of linux kernel|
 | yocto/build/tmp/deploy/images/microzed-zynq7/core-image-minimal-microzed-zynq7.cpio.gz.u-boot |  uramdisk.image.gz |u-boot image of compressed pio file system|
 | yocto/build/tmp/work/microzed_zynq7-poky-linux-gnueabi/u-boot/1_2019.07-r0/build/u-boot.img |  u-boot.img| This is a u-boot image that contains u-boot.bin. It is loaded by SPL. [Reffer](https://github.com/Xilinx/u-boot-xlnx/blob/master/include/configs/zynq-common.h) here to the default name *u-boot.img* that is used by SPL|
+{{<table>}}
 
 The names above arrivbed from the *boot.cmd* which is genrated during the yocto build.
 ```bash
@@ -129,6 +119,8 @@ bootm 0x2080000 0x4000000 0x2000000
 
 ### TO do: Intall boot image on qspi with SPL
 To eliminate the FSBL when using QSPI.
+
+
 
 ## References
 [1] [Creating a Bootable Image and Program the Flash](https://www.xilinx.com/html_docs/xilinx2018_1/SDK_Doc/xsct/use_cases/xsct_create_bootable_image.html)

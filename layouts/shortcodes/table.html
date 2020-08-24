@@ -1,0 +1,25 @@
+<style>
+ table {
+	display: block;
+	max-width: -moz-fit-content;
+	max-width: fit-content;
+	margin: 0 auto;
+	overflow-x: auto;
+}
+
+table:nth-of-type(1) {
+    display:table;
+    width:100%;
+}
+table:nth-of-type(1) th:nth-of-type(2) {
+    width:10%;
+}
+
+</style>
+<div style="overflow: auto;; width:auto;">
+
+	{{ .Inner | markdownify }}
+</div>
+
+
+
