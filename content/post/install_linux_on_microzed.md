@@ -106,9 +106,10 @@ The stages for flashing image on sdcard are similiar to those that has on the qs
 | yocto/build/tmp/work/microzed_zynq7-poky-linux-gnueabi/linux-xlnx/4.19-xilinx-v2019.2+gitAUTOINC+b983d5fd71-r0/deploy-linux-xnx/uImage|  uImage| u-boot image of linux kernel|
 | yocto/build/tmp/deploy/images/microzed-zynq7/core-image-minimal-microzed-zynq7.cpio.gz.u-boot |  uramdisk.image.gz |u-boot image of compressed pio file system|
 | yocto/build/tmp/work/microzed_zynq7-poky-linux-gnueabi/u-boot/1_2019.07-r0/build/u-boot.img |  u-boot.img| This is a u-boot image that contains u-boot.bin. It is loaded by SPL. [Reffer](https://github.com/Xilinx/u-boot-xlnx/blob/master/include/configs/zynq-common.h) here to the default name *u-boot.img* that is used by SPL|
-{{<table>}}
+{{</table>}}
 
 The names above arrivbed from the *boot.cmd* which is genrated during the yocto build.
+
 ```bash
 $ yocto/build/tmp/work/microzed_zynq7-poky-linux-gnueabi/u-boot-zynq-scr/1.0-r0 $ cat boot.cmd
 fatload mmc 0 0x2000000 zynq-microzed.dtb
