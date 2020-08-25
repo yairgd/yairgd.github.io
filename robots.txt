@@ -12,9 +12,11 @@ User-agent: *
 #
 #Disallow: /categories/
 #
-#Disallow: /2020/08/install-linux-on-microzed-board/
+#Disallow: /2020/06/custom-opkg-repository/
 #
 #Disallow: /categories/linux/
+#
+#Disallow: /tags/opkg/
 #
 #Disallow: /post/
 #
@@ -23,12 +25,6 @@ User-agent: *
 #Disallow: /
 #
 #Disallow: /tags/yocto/
-#
-#Disallow: /tags/zynq/
-#
-#Disallow: /2020/06/custom-opkg-repository/
-#
-#Disallow: /tags/opkg/
 #
 #Disallow: /categories/algorithm/
 #
@@ -94,13 +90,15 @@ User-agent: *
 #
 #Disallow: /tags/go/
 #
-#Disallow: /tags/golang/
-#
 #Disallow: /categories/golang/
+#
+#Disallow: /tags/golang/
 #
 #Disallow: /tags/templates/
 #
 #Disallow: /tags/themes/
+#
+#Disallow: /1/01/
 #
 #Disallow: /about/
 #
