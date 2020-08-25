@@ -87,7 +87,7 @@ program_flash -f /path/to/boot.bin -offset 0 -flash_type qspi_single -fsbl /path
 ```
 
 #### manual boot
-This u-boot commands will read files from qspi and will loade the inux kernel. it can als automate using u-boot enviroment variables and scripts.
+This u-boot commands will read files from QSPI and will load the Linux kernel it can also automated using u-boot enviroment variables and scripts. 
 ```bash
 sf read 0x2000000 0x620000 0x500000
 sf read 0x3000000 0x100000 0x5e0000
