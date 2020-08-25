@@ -43,7 +43,7 @@ cat <span style=color:#e6db74>&lt;&lt; EOF &gt; boot.bif
 </span><span style=color:#e6db74>EOF</span>
 bootgen  -image boot.bif -o i boot.bin -w 
 </code></pre></div><h4 id=flash-the-board>flash the board</h4><p>To flash the image on the qspi is has to set the board at jtag init mode and run the following command:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>program_flash -f /path/to/boot.bin -offset <span style=color:#ae81ff>0</span> -flash_type qspi_single -fsbl /path/to/fsbl_microzed.elf -blank_check -verify -cable type xilinx_tcf url TCP:127.0.0.1:3121
-</code></pre></div><h4 id=manual-boot>manual boot</h4><p>This u-boot commands will read files from qspi and will loade the inux kernel. it can als automate using u-boot enviroment variables and scripts.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>sf read 0x2000000 0x620000 0x500000
+</code></pre></div><h4 id=manual-boot>manual boot</h4><p>This u-boot commands will read files from QSPI and will load the Linux kernel it can also automated using u-boot enviroment variables and scripts.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>sf read 0x2000000 0x620000 0x500000
 sf read 0x3000000 0x100000 0x5e0000
 sf read 0x2a00000 0x600000 0x20000
 bootm  0x3000000  0x2000000 0x2a00000
