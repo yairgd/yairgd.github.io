@@ -13,14 +13,14 @@ categories :
 menu : "no-main"
 ---
 The [microzed](http://zedboard.org/product/microzed) development board has Xilinx zynq7000 chip. It has an application process unit with cortex a9  and FPGA fabric. The board also contains interfaces like SDIO and QSPI. I want to install Linux on it directly with yocto and without petalinux, which runs yocto behind the scene, so I tried to eliminate the need to use it. Why do so? 
-* It is interesting, and I have a lot of experience with yocto it very easy to work with its script once you know it 
-* work the same as other processors: IMX, stm32Mp157, etc'
+* It is interesting, and I have a lot of experience with yocto and it very easy to work with its script once you know it 
+* easy porting to other processors: IMX, stm32Mp157, etc'
 * using build tools like CMake,Autotools, and yocto scripts make it very easy to port SW between different processors.
 
 I found the [meta-xilinx](https://github.com/Xilinx/meta-xilinx) layer and used it to build a Linux system for the microzed board. Refer [here](https://github.com/Xilinx/meta-xilinx/tree/master/meta-xilinx-bsp/conf/machine)  for a list supported bords and creating a custom board can be very easy if one tracks the existing ones.
 
 
-## yocto instlation
+## yocto installation
 The basic yocto installation includes poky and meta-Xilinx layers; check out the following yocto layers and switch to zeus branch:
 ```bash
 mkdir yocto
@@ -45,12 +45,12 @@ TOOLCHAIN_TARGET_TASK_append = " libstdc++-staticdev"
 ```
  Use the following yocto builds:
 ```bash
-# to create minimal cpio image (3M Bytes) + kernel + u-boot
+# to create minimal CPIO image (3M Bytes) + kernel + u-boot
 bitbake core-image-minimal
 bitbake u-boot
 ```
 
-### flash image on qspi
+### flash image on QSPI
 
 #### FSBL
 generate FSBL for microzed platform board. The board definition files (BDF) sould be instaled on vivado as reffer [here](https://github.com/Avent/bdf).
