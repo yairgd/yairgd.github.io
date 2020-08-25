@@ -1,4 +1,5 @@
-: "install linux on microzed board "
+---
+title : "install linux on microzed board "
 description: " linux image for microzed development board with yocto "
 draft: false
 tags : 
