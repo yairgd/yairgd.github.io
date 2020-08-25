@@ -102,7 +102,7 @@ The stages for flashing images on the sd card are similar to those that have on 
 {{< table >}}
 | file | name on sd card | note                         |
 |--------------|----------------|-------------------------------
-| boot.bin     | BOOT.bin       | replace the previous boot.bin| 
+| boot.bin     | BOOT.bin       | It is the SPL and replace the previous boot.bin| 
 | yocto/build/tmp/work/microzed_zynq7-poky-linux-gnueabi/linux-xlnx/4.19-xilinx-v2019.2+gitAUTOINC+b983d5fd71-r0/deploy-linux-xnx/uImage|  uImage| u-boot image of linux kernel|
 | yocto/build/tmp/deploy/images/microzed-zynq7/core-image-minimal-microzed-zynq7.cpio.gz.u-boot |  uramdisk.image.gz |u-boot image of compressed CPIO file system|
 | yocto/build/tmp/work/microzed_zynq7-poky-linux-gnueabi/u-boot/1_2019.07-r0/build/u-boot.img |  u-boot.img| It is a u-boot image that contains u-boot.bin, and the SPL loads it from sd card extract the u-boot.bin and loads it to memory. [Reffer](https://github.com/Xilinx/u-boot-xlnx/blob/master/include/configs/zynq-common.h) here to the default name *u-boot.img* that is used by SPL|
