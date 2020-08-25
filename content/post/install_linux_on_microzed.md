@@ -1,5 +1,4 @@
----
-title: "install linux on microzed board "
+: "install linux on microzed board "
 description: " linux image for microzed development board with yocto "
 draft: false
 tags : 
@@ -12,16 +11,16 @@ categories :
 
 menu : "no-main"
 ---
-The [microzed](http://zedboard.org/product/microzed) developmnet board has zilinx zynq7000 chip. It has application proccess unit with cortex a9  and FPGA fabric. The board also contains interfaces like SDIO and QSPI. I want to install linux on it directly with yocto and without petalinux, which  runs yocto behind the scene so I tried to eliminate the need of using it.  why to so ? 
-* It is intersting and I have alot of experiance with yocto an it very easy to work with its script once you know it 
-* work the same as other proccessos: IMX , stm32Mp157 etc'
-* using build tools like cmake,autotools and yocto script make it very easy to port SW between different proccessors.
+The [microzed](http://zedboard.org/product/microzed) development board has Xilinx zynq7000 chip. It has an application process unit with cortex a9  and FPGA fabric. The board also contains interfaces like SDIO and QSPI. I want to install Linux on it directly with yocto and without petalinux, which runs yocto behind the scene, so I tried to eliminate the need to use it. Why do so? 
+* It is interesting, and I have a lot of experience with yocto it very easy to work with its script once you know it 
+* work the same as other processors: IMX, stm32Mp157, etc'
+* using build tools like CMake,Autotools, and yocto scripts make it very easy to port SW between different processors.
 
-I found the [meta-xilinx](https://github.com/Xilinx/meta-xilinx) layer and used it to build a linux system for the microzed board. Reffer [here](https://github.com/Xilinx/meta-xilinx/tree/master/meta-xilinx-bsp/conf/machine)  for a list  supported boards and creating a custom board can be very easy if one tracks the exsisting ones.
+I found the [meta-xilinx](https://github.com/Xilinx/meta-xilinx) layer and used it to build a Linux system for the microzed board. Refer [here](https://github.com/Xilinx/meta-xilinx/tree/master/meta-xilinx-bsp/conf/machine)  for a list supported bords and creating a custom board can be very easy if one tracks the existing ones.
 
 
 ## yocto instlation
-The basic yocto installation inludes poky and meta-xilinx layers; Just  check out the following yocto layers and switch to zeus barach:
+The basic yocto installation includes poky and meta-Xilinx layers; check out the following yocto layers and switch to zeus branch:
 ```bash
 mkdir yocto
 cd yocto
@@ -43,9 +42,9 @@ MACHINE ??= "microzed-zynq7"
 IMAGE_INSTALL_append = " libstdc++"
 TOOLCHAIN_TARGET_TASK_append = " libstdc++-staticdev"
 ```
- USe the follwoing yocto builds:
+ Use the following yocto builds:
 ```bash
-# to crate minimal cpio image (3M Bytes) + kernel + u-boot
+# to create minimal cpio image (3M Bytes) + kernel + u-boot
 bitbake core-image-minimal
 bitbake u-boot
 ```
@@ -56,7 +55,7 @@ bitbake u-boot
 generate FSBL for microzed platform board. The board definition files (BDF) sould be instaled on vivado as reffer [here](https://github.com/Avent/bdf).
 
 #### boot.bin
-To create boot we can use bootgen which is tool of xilinf or to use [mkbootimage](https://github.com/antmicro/zynq-mkbootimage) which is open source replacement for xilinx bootgen tool. The parameters of the boot image file: load and offset address were taken from u-boot file [zynq-common.h](https://gitlab.denx.de/u-boot/u-boot/-/blob/master/include/configs/zynq-common.h) .
+To create the boot.bin file, we can use bootgen, which is a tool of Xilinx or to use [mkbootimage](https://github.com/antmicro/zynq-mkbootimage) which is an open-source replacement for Xilinx bootgen tool. I took the values of the parameters load and offset address from the u-boot file [zynq-common.h](https://gitlab.denx.de/u-boot/u-boot/-/blob/master/include/configs/zynq-common.h).
 
 ```bash
 #!/bin/bash
@@ -95,20 +94,21 @@ sf read 0x2a00000 0x600000 0x20000
 bootm  0x3000000  0x2000000 0x2a00000
 ```
 
-### boot image on sdcard
+### boot image on sd card
 
-The stages for flashing image on sdcard are similiar to those that has on the qspi. But I was to use comleptle open source without FSBL. The idea is to take the *boot.bin* file that is generated using vivado tools and replace it with the secondary boot loader (SPL). The most important file is [ps7_init_gpl.c](https://gitlab.denx.de/u-boot/u-boot/-/blob/master/board/xilinx/zynq/zynq-microzed/ps7_init_gpl.c) and it  was generrated using Vivado , it is platform unique and reposible to initilize the most critical peripherials in the board: The DDR contoller, clocks and mio pins. If a new platform is design then, is has to genertae a new file for the new platorm.  The following bash script creates a binary boot image file and its name should be *boot.bin*. The following files were copy to the sdcard , reffer [here](https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18841976/Prepare+boot+image) for more details:
+The stages for flashing images on the sd card are similar to those that have on the QSPI. But I was to use a completely open-source without FSBL. The idea is to take the *boot.bin* file ( generated using vivado tools) and replace it with the secondary boot loader (SPL). The most important file is [ps7_init_gpl.c](https://gitlab.denx.de/u-boot/u-boot/-/blob/master/board/xilinx/zynq/zynq-microzed/ps7_init_gpl.c) which one create it using vivado tools, and it also platforms unique and responsible to initialize the most critical peripherals in the board: The DDR controller, clocks and MIO pins. If a new platform is a design, then, is has to generate a new file for the new platform.  The following bash script creates a binary boot image file, and its name should be *boot.bin*. It has to copy the following files to the sd card, refer [here](https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18841976/Prepare+boot+image) for more details:
 
 {{< table >}}
-| file | name on sdcard | note                         |
+| file | name on sd card | note                         |
 |--------------|----------------|-------------------------------
 | boot.bin     | BOOT.bin       | replace the previous boot.bin| 
 | yocto/build/tmp/work/microzed_zynq7-poky-linux-gnueabi/linux-xlnx/4.19-xilinx-v2019.2+gitAUTOINC+b983d5fd71-r0/deploy-linux-xnx/uImage|  uImage| u-boot image of linux kernel|
-| yocto/build/tmp/deploy/images/microzed-zynq7/core-image-minimal-microzed-zynq7.cpio.gz.u-boot |  uramdisk.image.gz |u-boot image of compressed pio file system|
-| yocto/build/tmp/work/microzed_zynq7-poky-linux-gnueabi/u-boot/1_2019.07-r0/build/u-boot.img |  u-boot.img| This is a u-boot image that contains u-boot.bin. It is loaded by SPL. [Reffer](https://github.com/Xilinx/u-boot-xlnx/blob/master/include/configs/zynq-common.h) here to the default name *u-boot.img* that is used by SPL|
+| yocto/build/tmp/deploy/images/microzed-zynq7/core-image-minimal-microzed-zynq7.cpio.gz.u-boot |  uramdisk.image.gz |u-boot image of compressed CPIO file system|
+| yocto/build/tmp/work/microzed_zynq7-poky-linux-gnueabi/u-boot/1_2019.07-r0/build/u-boot.img |  u-boot.img| It is a u-boot image that contains u-boot.bin, and the SPL loads it from sd card extract the u-boot.bin and loads it to memory. [Reffer](https://github.com/Xilinx/u-boot-xlnx/blob/master/include/configs/zynq-common.h) here to the default name *u-boot.img* that is used by SPL|
 {{</table>}}
 
-The names above arrivbed from the *boot.cmd* which is genrated during the yocto build.
+The names mentioned in the table above, are arrived from the file  *boot.cmd* which process of yocto build generates that file.
+
 
 ```bash
 $ yocto/build/tmp/work/microzed_zynq7-poky-linux-gnueabi/u-boot-zynq-scr/1.0-r0 $ cat boot.cmd
@@ -118,7 +118,7 @@ fatload mmc 0 0x4000000 uramdisk.image.gz
 bootm 0x2080000 0x4000000 0x2000000
 ```
 
-### TO do: Intall boot image on qspi with SPL
+### TO do: Install boot image on QSPI with SPL
 To eliminate the FSBL when using QSPI.
 
 
