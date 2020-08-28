@@ -5,22 +5,33 @@
 	max-width: fit-content;
 	margin: 0 auto;
 	overflow-x: auto;
-}
-
- table th:nth-of-type(1) {
-	width: 10%;
-}
- table th:nth-of-type(2) {
-	width: 10%;
-}
- table th:nth-of-type(3) {
-	width: 80%;
-	white-space: nowrap;
 	
 }
 
+ table thead tr th:nth-of-type(1) {
+	width: 10%;
+	background-color: #777
+
+}
+ table thead tr th:nth-of-type(2) {
+	width: 10%;
+	background-color: #777
+}
+ table thead tr th:nth-of-type(3) {
+	width: 80%;
+	background-color: #777
+	
+}
+
+ table tbody  td:nth-of-type(1) {
+	width: 10%;
+	background-color: #ccc
+	
+}
+
+
 </style>
-<div style="overflow: auto;; width:auto;">
+<div style="overflow: auto; width:auto;word-wrap: break-word; ">
 
 	{{ .Inner | markdownify }}
 </div>

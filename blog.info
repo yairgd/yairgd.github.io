@@ -4,3 +4,4 @@ md2pdf  --theme=mou --output content/cv/yair_gadelov_cv.pdf  <(cat content/cv/_i
 
 
 https://dev.to/xabeng/my-hugo-shortcode-for-including-image-from-cloudinary-1l46
+https://gohugo.io/tools/search/ blog search

@@ -17,7 +17,7 @@ The [microzed](http://zedboard.org/product/microzed) development board has Xilin
 * easy porting to other processors: IMX, stm32Mp157, etc'
 * using build tools like CMake,Autotools, and yocto scripts make it very easy to port SW between different processors.
 
-I found the [meta-xilinx](https://github.com/Xilinx/meta-xilinx) layer and used it to build a Linux system for the microzed board. Refer [here](https://github.com/Xilinx/meta-xilinx/tree/master/meta-xilinx-bsp/conf/machine)  for a list supported bords and creating a custom board can be very easy if one tracks the existing ones.
+I found that [meta-xilinx](https://github.com/Xilinx/meta-xilinx) layer and used it to build a Linux system for the microzed board. Refer [here](https://github.com/Xilinx/meta-xilinx/tree/master/meta-xilinx-bsp/conf/machine)  for a list supported bords and creating a custom board can be very easy if one tracks the existing ones.
 
 
 ## yocto installation
@@ -89,6 +89,7 @@ program_flash -f /path/to/boot.bin -offset 0 -flash_type qspi_single -fsbl /path
 #### manual boot
 This u-boot commands will read files from QSPI and will load the Linux kernel it can also automated using u-boot enviroment variables and scripts. 
 ```bash
+sf probe 0 0 0 
 sf read 0x2000000 0x620000 0x500000
 sf read 0x3000000 0x100000 0x5e0000
 sf read 0x2a00000 0x600000 0x20000
