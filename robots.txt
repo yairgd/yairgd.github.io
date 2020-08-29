@@ -16,9 +16,9 @@ User-agent: *
 #
 #Disallow: /categories/linux/
 #
-#Disallow: /post/
-#
 #Disallow: /tags/
+#
+#Disallow: /post/
 #
 #Disallow: /
 #
