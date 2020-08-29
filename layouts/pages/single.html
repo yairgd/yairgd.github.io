@@ -1,0 +1,16 @@
+{{ define "main" }}
+
+<div class="columns">
+	<div class="column is-9">
+		<div class="tile is-child box">
+			<div class="content">
+				{{ .Content }}
+			</div>
+		</div>
+	</div>
+	<div class="column is-3">
+		{{ partial "side-widgets.html" . }}
+	</div>
+</div>
+
+{{ end }}
