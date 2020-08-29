@@ -11,16 +11,19 @@ disqusShortname = "yairgd-github-io-1"
 
 theme = "jeffprod"
 
-#publishDir = "yairgd.github.io/"
+publishDir = "public/"
 
 #[blackfriday]
  #  extensions = ["hardLineBreak"]
 
 [permalinks]
-  post = "/:year/:month/:slug/"
+  post = "/posts/:year/:month/:slug/"
 
 #    post = ""
 #	top = "/:year/:filename/"
+
+[outputs]
+    section = ["JSON","HTML"]
 
 
 [sitemap]
@@ -72,31 +75,42 @@ theme = "jeffprod"
   identifier = "home"
   name = "Home"
   pre = "<i class=\"sidebar-button-icon fas fa-home\"></i>"
-  url = "/"
+  url = "/pages"
 [[menu.main]]
   weight = 2
   identifier = "about"
   name = "About"
   pre = "<i class=\"sidebar-button-icon fas fa-question\"></i>"
-  url = "/about"
+  url = "/pages/about"
 [[menu.main]]
   weight = 3
-  identifier = "blogs"
+  identifier = "blog"
   name = "Blog"
   pre = "<i class=\"sidebar-button-icon fas fa-edit\"></i>"
-  url = "/blogs"
+  url = "/post"
 [[menu.main]]
   weight = 4
   identifier = "cv"
   name = "CV"
   pre = "<i class=\"sidebar-button-icon fas fa-flask\"></i>"
-  url = "/cv"
+  url = "/pages/cv"
 [[menu.main]]
   weight = 5
   identifier = "prjects"
   name = "Projects"
   pre = "<i class=\"sidebar-button-icon fas fa-laptop-code\"></i>"
   url = "/projects"
+
+[[menu.main]]
+  weight = 5
+  identifier = "search"
+  name = "Search"
+  pre = "<i class=\"sidebar-button-icon fas fa-laptop-code\"></i>"
+  url = "/pages/search"
+
+
+
+
 
 [[menu.links]]
   weight = 1

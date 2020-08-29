@@ -6,6 +6,8 @@
 
 	{{ template "partials/google-analytics.html"  }}
 
+	<!-- {{ template "partials/search.html"  }} -->
+
 	{{ if .Site.Params.enablecookiebar }} 
 		{{ template "partials/cookiebar.html" . }}
 	{{ end }} 
@@ -45,6 +47,7 @@
     </nav>
     <!-- /nav -->
 
+ 
     <!-- hero -->
     <section class="hero is-info is-medium">
         <div class="hero-body" style="background-image: url({{ "img/bg-blog1.jpg" | absURL }});">
