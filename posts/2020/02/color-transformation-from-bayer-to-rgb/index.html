@@ -1,0 +1,144 @@
+<!doctype html><html lang=en-us><head><script async src="https://www.googletagmanager.com/gtag/js?id=UA-158845844-1"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','UA-158845844-1');</script><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery-cookiebar/1.0.5/jquery.cookiebar.min.js></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/jquery-cookiebar/1.0.5/jquery.cookiebar.css><script type=text/javascript>$(document).ready(function(){$.cookieBar({fixed:true,acceptOnScroll:600,policyURL:'/privacy-policy/',policyButton:true,policyText:'Privacy Policy',expireDays:45});});</script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css integrity=sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js integrity=sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js integrity=sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI crossorigin=anonymous onload=renderMathInElement(document.body);></script><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><title>Color transformation from Bayer to RGB</title><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Bayer to RGB conversion"><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css><link rel=stylesheet href=https://yairgd.github.io/css/blog.css></head><body><nav class="navbar is-fixed-top" role=navigation aria-label="main navigation"><div class=navbar-brand><a class=navbar-item href=https://yairgd.github.io/>Home</a>
+<a class=navbar-item href=/pages/about>About</a>
+<a class=navbar-item href=/post>Blog</a>
+<a class=navbar-item href=/pages/cv>CV</a>
+<a class=navbar-item href=/projects>Projects</a>
+<a class=navbar-item href=/pages/search>Search</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog1.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">Color transformation from Bayer to RGB</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><article class=media><div class=media-content><div class=content><p class="title is-5"><a href=https://yairgd.github.io/posts/2020/02/color-transformation-from-bayer-to-rgb/>Color transformation from Bayer to RGB</a></p><p class="subtitle is-size-6 has-text-grey-light">Published at February 17, 2020 &#183;
+<i class="far fa-clock"></i>&nbsp;4 min read
+&#183; Tags:
+<a href=https://yairgd.github.io/tags/bayer/>bayer</a>
+<a href=https://yairgd.github.io/tags/rgb/>rgb</a>
+<a href=https://yairgd.github.io/tags/computer-vision/>computer-vision</a></p></br></div></div></article><p>A Bayer filter mosaic is a color filter array (CFA) for arranging RGB color filters on a square grid of photosensors. Its particular arrangement of color filters is used in most single-chip digital image sensors used in digital cameras, camcorders, and scanners to create a color image. The filter pattern is 50% green, 25% red and 25% blue - <a href=https://en.wikipedia.org/wiki/Bayer_filter>see here</a>.
+<img src=https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Bayer_pattern_on_sensor.svg/500px-Bayer_pattern_on_sensor.svg.png alt="Bayer filter"></p><h2 id=color-conversion-algorithm>Color conversion algorithm</h2><p>The conversion algorithm is based on simple linear interpolation of pixels to find the missing value. Since Bayer filter dived into 4 pixels (red, green, green, blue), there are four types of equations for each pixel in the square.</p><p>The following is RGB triple for the pixels on red channel:<div style=overflow:auto;width:auto>$$
+RGB_{} = ( I_{n,m} , \frac{I_{n-1,m} +I_{n+1,m}+I_{n,m-1} + I_{n,m+1}}{4} , \frac{I_{n-1,m-1} +I_{n+1,m+1}+I_{n-1,m+1} + I_{n+1,m-1}}{4} )
+$$</div></p><p>The following is RGB triple for the pixels on green1 channel:</p><p>The following is RGB triple for the pixels on green2 channel:</p><p>The following is RGB triple for the pixels on blue channel:</p><p>where<div style=overflow:auto;width:auto>$$
+I_{n,m}
+$$</div>is raw bayer pixel</p><h2 id=implemantation>Implemantation</h2><p>Implementation using python including that modules: matplotlib, numpy,cv2. To install these modules with pip:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>pip install matplotlib --user
+pip install numpy --user
+<span style=color:#75715e>#pip install cv2 --user  - not sure this will work , I did it with the gentoo package manager (in debian/ubuntu you can try apt-cache search)</span>
+</code></pre></div><p>Some images to work with can be download from here
+<a href=/post/bayer_conversion/bayer.raw>1</a>
+<a href=/post/bayer_conversion/movie-0443.raw>2</a>
+<a href=/post/bayer_conversion/movie-0601.raw>3</a>
+<a href=/post/bayer_conversion/movie-0697.raw>4</a></p><ul><li>read raw image at a size of <em>540x600</em> in Bayer format</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> matplotlib.pyplot <span style=color:#f92672>as</span> plt
+<span style=color:#f92672>import</span> numpy <span style=color:#f92672>as</span> np
+<span style=color:#f92672>import</span> cv2
+file_path <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>path-to-bayer.raw</span><span style=color:#e6db74>&#39;</span>
+imrows <span style=color:#f92672>=</span> <span style=color:#ae81ff>540</span>
+imcols <span style=color:#f92672>=</span> <span style=color:#ae81ff>600</span>
+imsize <span style=color:#f92672>=</span> imrows<span style=color:#f92672>*</span>imcols
+<span style=color:#66d9ef>with</span> open(file_path, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>rb</span><span style=color:#e6db74>&#34;</span>) <span style=color:#66d9ef>as</span> rawimage:
+    bayer_img <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>fromfile(rawimage, np<span style=color:#f92672>.</span>dtype(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>u1</span><span style=color:#e6db74>&#39;</span>), imsize)<span style=color:#f92672>.</span>reshape((imrows, imcols))
+</code></pre></div><ul><li>define a conversion function</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>pixel</span> (img):
+    img <span style=color:#f92672>=</span> img<span style=color:#f92672>.</span>astype(np<span style=color:#f92672>.</span>float64) 
+    pixel <span style=color:#f92672>=</span> <span style=color:#66d9ef>lambda</span> x,y : {
+        <span style=color:#ae81ff>0</span>: [ img[x][y] , (img[x][y<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>] <span style=color:#f92672>+</span> img[x<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>][y] <span style=color:#f92672>+</span> img[x<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>][y] <span style=color:#f92672>+</span> img[x][y<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>]) <span style=color:#f92672>/</span> <span style=color:#ae81ff>4</span> ,  (img[x<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>][y<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>] <span style=color:#f92672>+</span> img[x<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>][y<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>] <span style=color:#f92672>+</span> img[x<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>][y<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>] <span style=color:#f92672>+</span> img[x<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>][y<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>]) <span style=color:#f92672>/</span> <span style=color:#ae81ff>4</span> ] ,
+        <span style=color:#ae81ff>1</span>: [ (img[x<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>][y] <span style=color:#f92672>+</span> img[x<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>][y])  <span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span>,img[x][y] , (img[x][y<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>] <span style=color:#f92672>+</span> img[x][y<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>]) <span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span> ],
+        <span style=color:#ae81ff>2</span>: [(img[x][y<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>] <span style=color:#f92672>+</span> img[x][y<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>]) <span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span> ,img[x][y], (img[x<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>][y] <span style=color:#f92672>+</span> img[x<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>][y]) <span style=color:#f92672>/</span> <span style=color:#ae81ff>2</span>],
+        <span style=color:#ae81ff>3</span>: [(img[x<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>][y<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>] <span style=color:#f92672>+</span> img[x<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>][y<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>] <span style=color:#f92672>+</span> img[x<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>][y<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>] <span style=color:#f92672>+</span> img[x<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>][y<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>]) <span style=color:#f92672>/</span> <span style=color:#ae81ff>4</span> , (img[x][y<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>] <span style=color:#f92672>+</span> img[x<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>][y] <span style=color:#f92672>+</span> img[x<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>][y] <span style=color:#f92672>+</span> img[x][y<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>]) <span style=color:#f92672>/</span> <span style=color:#ae81ff>4</span> ,img[x][y] ]
+    } [  x <span style=color:#f92672>%</span> <span style=color:#ae81ff>2</span> <span style=color:#f92672>+</span> (y <span style=color:#f92672>%</span> <span style=color:#ae81ff>2</span>)<span style=color:#f92672>*</span><span style=color:#ae81ff>2</span>]
+    res <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>zeros ( [    np<span style=color:#f92672>.</span>size(img,<span style=color:#ae81ff>0</span>) , np<span style=color:#f92672>.</span>size(img,<span style=color:#ae81ff>1</span>)  , <span style=color:#ae81ff>3</span>] )
+    <span style=color:#66d9ef>for</span> x <span style=color:#f92672>in</span> range (<span style=color:#ae81ff>1</span>,np<span style=color:#f92672>.</span>size(img,<span style=color:#ae81ff>0</span>)<span style=color:#f92672>-</span><span style=color:#ae81ff>2</span>):
+        <span style=color:#66d9ef>for</span> y <span style=color:#f92672>in</span> range (<span style=color:#ae81ff>1</span>,np<span style=color:#f92672>.</span>size(img,<span style=color:#ae81ff>1</span>)<span style=color:#f92672>-</span><span style=color:#ae81ff>2</span>):
+            p <span style=color:#f92672>=</span> pixel(x,y)
+            p<span style=color:#f92672>.</span>reverse();
+            res[x][y] <span style=color:#f92672>=</span> p
+    res <span style=color:#f92672>=</span> res<span style=color:#f92672>.</span>astype(np<span style=color:#f92672>.</span>uint8)
+    <span style=color:#66d9ef>return</span> res
+</code></pre></div><ul><li>break image to to 3 channels : RGB</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>channel_break</span> (img):
+    img <span style=color:#f92672>=</span> img<span style=color:#f92672>.</span>astype(np<span style=color:#f92672>.</span>float64) 
+    red<span style=color:#f92672>=</span>np<span style=color:#f92672>.</span>copy (img);red [<span style=color:#ae81ff>1</span>::<span style=color:#ae81ff>2</span>,:]<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>;red[:,<span style=color:#ae81ff>1</span>::<span style=color:#ae81ff>2</span>]<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>
+    blue<span style=color:#f92672>=</span>np<span style=color:#f92672>.</span>copy (img);blue [<span style=color:#ae81ff>0</span>::<span style=color:#ae81ff>2</span>,:]<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>;blue[:,<span style=color:#ae81ff>0</span>::<span style=color:#ae81ff>2</span>]<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>
+    green<span style=color:#f92672>=</span>np<span style=color:#f92672>.</span>copy (img);green [<span style=color:#ae81ff>0</span>::<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>0</span>::<span style=color:#ae81ff>2</span>]<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>;green [<span style=color:#ae81ff>1</span>::<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>1</span>::<span style=color:#ae81ff>2</span>]<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>;
+    red <span style=color:#f92672>=</span> red<span style=color:#f92672>.</span>astype(np<span style=color:#f92672>.</span>float64) 
+    blue <span style=color:#f92672>=</span> blue<span style=color:#f92672>.</span>astype(np<span style=color:#f92672>.</span>float64) 
+    green <span style=color:#f92672>=</span> green<span style=color:#f92672>.</span>astype(np<span style=color:#f92672>.</span>float64) 
+    <span style=color:#66d9ef>return</span> (red,green,blue)
+</code></pre></div><ul><li>conver RGB to gray</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>rgb2gray</span>(img):
+    res <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>zeros ( [    np<span style=color:#f92672>.</span>size(img,<span style=color:#ae81ff>0</span>) , np<span style=color:#f92672>.</span>size(img,<span style=color:#ae81ff>1</span>)  , <span style=color:#ae81ff>3</span>] )
+    res <span style=color:#f92672>=</span> res<span style=color:#f92672>.</span>astype(np<span style=color:#f92672>.</span>float64) 
+    <span style=color:#66d9ef>for</span> x <span style=color:#f92672>in</span> range (<span style=color:#ae81ff>1</span>,np<span style=color:#f92672>.</span>size(img,<span style=color:#ae81ff>0</span>)<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>):
+        <span style=color:#66d9ef>for</span> y <span style=color:#f92672>in</span> range (<span style=color:#ae81ff>1</span>,np<span style=color:#f92672>.</span>size(img,<span style=color:#ae81ff>1</span>)<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>):
+            res[x][y]<span style=color:#f92672>=</span>img[x][y][<span style=color:#ae81ff>0</span>]<span style=color:#f92672>*</span><span style=color:#ae81ff>0</span> <span style=color:#f92672>+</span> img[x][y][<span style=color:#ae81ff>1</span>]<span style=color:#f92672>*</span><span style=color:#ae81ff>0.5</span> <span style=color:#f92672>+</span> img[x][y][<span style=color:#ae81ff>2</span>]<span style=color:#f92672>*</span><span style=color:#ae81ff>0.5</span>;
+    res <span style=color:#f92672>=</span> res<span style=color:#f92672>.</span>astype(np<span style=color:#f92672>.</span>uint8)
+    <span style=color:#66d9ef>return</span> res
+</code></pre></div><ul><li>save results to png files</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># plot bayer imager</span>
+plt<span style=color:#f92672>.</span>imshow(bayer_img)
+plt<span style=color:#f92672>.</span>title (<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>bayer img</span><span style=color:#e6db74>&#39;</span>)
+plt<span style=color:#f92672>.</span>imsave(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>bayer_img.png</span><span style=color:#e6db74>&#39;</span>, bayer_img)
+<span style=color:#75715e>#plt.show()</span>
+
+
+<span style=color:#75715e># this algorithm conversion</span>
+rgb_res <span style=color:#f92672>=</span> pixel (bayer_img)
+plt<span style=color:#f92672>.</span>imshow(rgb_res)
+plt<span style=color:#f92672>.</span>title (<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>the article conversion</span><span style=color:#e6db74>&#39;</span>)
+plt<span style=color:#f92672>.</span>imsave(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>the_article_conversion.png</span><span style=color:#e6db74>&#39;</span>, rgb_res)
+<span style=color:#75715e>#plt.show()</span>
+
+<span style=color:#75715e># open cv conversion</span>
+colour <span style=color:#f92672>=</span> cv2<span style=color:#f92672>.</span>cvtColor(bayer_img, cv2<span style=color:#f92672>.</span>COLOR_BAYER_BG2BGR)
+plt<span style=color:#f92672>.</span>imshow(colour)
+plt<span style=color:#f92672>.</span>title (<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>color image by open cv</span><span style=color:#e6db74>&#39;</span>)
+plt<span style=color:#f92672>.</span>imsave(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>color_image_by_opencv.png</span><span style=color:#e6db74>&#39;</span>, colour)
+<span style=color:#75715e>#plt.show()</span>
+
+<span style=color:#75715e># convert to gray level</span>
+gray <span style=color:#f92672>=</span> rgb2gray(rgb_res)
+plt<span style=color:#f92672>.</span>imshow(gray)
+plt<span style=color:#f92672>.</span>title (<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>gray conversion</span><span style=color:#e6db74>&#39;</span>)
+plt<span style=color:#f92672>.</span>imsave(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>gray_level.png</span><span style=color:#e6db74>&#39;</span>, gray)
+<span style=color:#75715e>#plt.show()</span>
+
+
+<span style=color:#75715e># break to RGB  channels</span>
+RGB <span style=color:#f92672>=</span> channel_break(bayer_img)
+blue_only <span style=color:#f92672>=</span> pixel (RGB[<span style=color:#ae81ff>0</span>])
+plt<span style=color:#f92672>.</span>imshow(blue_only)
+plt<span style=color:#f92672>.</span>title (<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>blue only</span><span style=color:#e6db74>&#39;</span>)
+plt<span style=color:#f92672>.</span>imsave(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>blue_only.png</span><span style=color:#e6db74>&#39;</span>,blue_only)
+plt<span style=color:#f92672>.</span>show()
+
+green_only <span style=color:#f92672>=</span> pixel (RGB[<span style=color:#ae81ff>1</span>])
+plt<span style=color:#f92672>.</span>imshow(green_only)
+plt<span style=color:#f92672>.</span>title (<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>green only</span><span style=color:#e6db74>&#39;</span>)
+plt<span style=color:#f92672>.</span>imsave(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>green_only.png</span><span style=color:#e6db74>&#39;</span>,green_only)
+plt<span style=color:#f92672>.</span>show()
+
+red_only <span style=color:#f92672>=</span> pixel (RGB[<span style=color:#ae81ff>2</span>])
+plt<span style=color:#f92672>.</span>imshow(red_only)
+plt<span style=color:#f92672>.</span>title (<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>red only</span><span style=color:#e6db74>&#39;</span>)
+plt<span style=color:#f92672>.</span>imsave(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>red_only.png</span><span style=color:#e6db74>&#39;</span>,red_only)
+plt<span style=color:#f92672>.</span>show()
+
+<span style=color:#75715e>#plt.show()</span>
+</code></pre></div><h2 id=results>Results</h2><p><figure><img src=/post/bayer_conversion/bayer_img.png><figcaption><h4>Raw Bayer Image</h4></figcaption></figure><figure><img src=/post/bayer_conversion/rgb_res.png><figcaption><h4>Conversion to RGB</h4></figcaption></figure><figure><img src=/post/bayer_conversion/color_image_by_opencv.png><figcaption><h4>Conversion by OpenCV</h4></figcaption></figure><figure><img src=/post/bayer_conversion/gray_level.png><figcaption><h4>Conversion to Gray</h4></figcaption></figure><figure><img src=/post/bayer_conversion/red_only.png><figcaption><h4>Red Only</h4></figcaption></figure><figure><img src=/post/bayer_conversion/green_only.png><figcaption><h4>Green Only</h4></figcaption></figure><figure><img src=/post/bayer_conversion/blue_only.png><figcaption><h4>Blue Only</h4></figcaption></figure></p><h2 id=references>References</h2><p>Here are some reference sources that used to create this post<br><a href="https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html?highlight=cvtcolor">[1] Bayer to RGB</a><br><a href=http://poynton.ca/notes/colour_and_gamma/ColorFAQ.html>[2] RGB color conversions matrixes</a><br><a href=http://www.peter-cockerell.net/Bayer/bayer2.html>[3] Bayer to RGB algorithm</a><br><a href=http://www.peter-cockerell.net/Bayer/bayer.html>[4] Bayer Patterns in Digicam CCDs</a><br><a href=https://groups.google.com/forum/#!topic/sci.image.processing/Jf-aTjPEgjc>[5] RGB to gray</a></p></div><div class=content><div class=disqus-comments>Comments<div id=disqus_thread></div><script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return;}
+var d=document,s=d.createElement('script');s.async=true;s.src='//'+"yairgd-github-io-1"+'.disqus.com/embed.js';s.setAttribute('data-timestamp',+new Date());(d.head||d.body).appendChild(s);})();</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></div></div></div><div class="column is-3"><div class=card><div class=card-content><h1 class="title is-5">Categories</h1><div class=tags><span class=tag><a href=https://yairgd.github.io/categories/algorithm>algorithm</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/development>development</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/embbeded>embbeded</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/golang>golang</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/linux>linux</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/python>python</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/qt5>qt5</a></span></div></div></div><br><div class=card><div class=card-content><h1 class="title is-5">Tags</h1><div class=tags><span class=tag><a href=https://yairgd.github.io/tags/bayer>bayer</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/computer-vision>computer-vision</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/development>development</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/embedded>embedded</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/go>go</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/golang>golang</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/hugo>hugo</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/kalman-filter>kalman-filter</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/kernel>kernel</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/linux>linux</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/opkg>opkg</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/qt5>qt5</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/rgb>rgb</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/rt>rt</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/statstical-abitrage>statstical-abitrage</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/templates>templates</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/themes>themes</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/yocto>yocto</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/zynq>zynq</a></span></div></div></div><br><div class=card><div class=card-content><h1 class="title is-5">Recent posts</h1><h1><a href=https://yairgd.github.io/posts/2020/08/install-linux-on-microzed-board/>install linux on microzed board</a></h1><time class="has-text-grey-light is-size-7">1 August 2020</time><h1><a href=https://yairgd.github.io/posts/2020/06/custom-opkg-repository/>Custom opkg repository</a></h1><time class="has-text-grey-light is-size-7">18 June 2020</time><h1><a href=https://yairgd.github.io/posts/2020/05/kalman-filter-and-pair-trading/>Kalman filter and pair trading</a></h1><time class="has-text-grey-light is-size-7">1 May 2020</time><h1><a href=https://yairgd.github.io/posts/2020/04/simple-hello-world-application-using-qt5-for-embedded-linux-device./>Simple Hello World application using qt5 for embedded Linux device.</a></h1><time class="has-text-grey-light is-size-7">1 April 2020</time><h1><a href=https://yairgd.github.io/posts/2020/03/debug-linux-kernel-with-qemu/>Debug Linux Kernel With Qemu</a></h1><time class="has-text-grey-light is-size-7">18 March 2020</time></div></div><br><br><div class=card><div class=card-content><h1 class="title is-5">Archives</h1><a href=https://yairgd.github.io/archives/2020>2020</a> (13)<br><a href=https://yairgd.github.io/archives/2014>2014</a> (4)<br></div></div></div></div></div></div><footer class="footer has-background-grey-darker has-text-white"><div class="content has-text-centered"><p><span class="icon is-large"><a href="https://m.facebook.com/yair.gadelov?ref=bookmarks" class=mysocial rel=me><i class="fab fa-facebook fa-3x"></i></a></span>&nbsp;&nbsp;
+<span class="icon is-large"><a href=https://www.linkedin.com/mwlite/in/yair-gadelov-1972ab17/ class=mysocial rel=me><i class="fab fa-linkedin fa-3x"></i></a></span>&nbsp;&nbsp;
+<span class="icon is-large"><a href=https://github.com/yairgd/ class=mysocial rel=me><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;<br><br>Copyright &copy; Yair Gadelov Tech Blog 2020 - Theme by <a href=https://jeffprod.com class=mysocial>JeffProd.com</a>
+- <a class=mysocial href=https://yairgd.github.io/about>About</a><br></p></div></footer><script defer src=https://use.fontawesome.com/releases/v5.1.0/js/all.js></script></body></html>
