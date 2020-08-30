@@ -53,7 +53,7 @@ bitbake u-boot
 ### flash image on QSPI
 
 #### FSBL
-The next step is to generate FSBL aplication for microzed platform board. The board definition files (BDF) sould be instaled on vivado as reffer [here](https://github.com/Avnet/bdf). So, just crate a new HW project in vivado for microzed and the export the xsa (of hdf) file to vitis (of SDK) and then createa new FSBL application.
+The next step is to generate FSBL application for microzed platform board. The board definition files (BDF) should be installed on vivado as refer [here](https://github.com/Avnet/bdf). So, just create a new HW project in vivado for microzed and the export the XSA (of HDF) file to vitis (of SDK) and then create a new FSBL application.
 
 
 #### boot.bin
@@ -116,7 +116,7 @@ The stages for flashing images on the sd card are similar to those that have on 
 | file | name on sd card | note                         |
 |--------------|----------------|-------------------------------
 | boot.bin     | BOOT.bin       | It is the SPL and replace the previous boot.bin| 
-| yocto/build/tmp/work/microzed_zynq7-poky-linux-gnueabi/linux-xlnx/4.19-xilinx-v2019.2+gitAUTOINC+b983d5fd71-r0/deploy-linux-xlnx/microzed.dtb  | devicetree.dtb | The device tree file| 
+| yocto/build/tmp/work/microzed_zynq7-poky-linux-gnueabi/linux-xlnx/4.19-xilinx-v2019.2+gitAUTOINC+b983d5fd71-r0/deploy-linux-xlnx/microzed.dtb  | devicetree.dtb | The device tree file| 
 | yocto/build/tmp/work/microzed_zynq7-poky-linux-gnueabi/linux-xlnx/4.19-xilinx-v2019.2+gitAUTOINC+b983d5fd71-r0/deploy-linux-xnx/uImage|  uImage| u-boot image of linux kernel|
 | yocto/build/tmp/deploy/images/microzed-zynq7/core-image-minimal-microzed-zynq7.cpio.gz.u-boot |  uramdisk.image.gz |u-boot image of compressed CPIO file system|
 | yocto/build/tmp/work/microzed_zynq7-poky-linux-gnueabi/u-boot/1_2019.07-r0/build/u-boot.img |  u-boot.img| It is a u-boot image that contains u-boot.bin, and the SPL loads it from sd card extract the u-boot.bin and loads it to memory. [Reffer](https://github.com/Xilinx/u-boot-xlnx/blob/master/include/configs/zynq-common.h) here to the default name *u-boot.img* that is used by SPL|
