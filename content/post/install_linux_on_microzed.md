@@ -86,7 +86,7 @@ To flash the image on the qspi is has to set the board at jtag  mode  and run th
 ```bash
 program_flash -f /path/to/boot.bin -offset 0 -flash_type qspi_single -fsbl /path/to/fsbl_microzed.elf -blank_check -verify -cable type xilinx_tcf url TCP:127.0.0.1:3121
 ```
-also so, it can [reffer](https://www.xilinx.com/support/answers/70548.html) here about how to elimitte the need for jtag mode by adding this line to FSBL at main.c
+also so, it can [refer](https://www.xilinx.com/support/answers/70548.html) here about how to eliminate the need for JTAG mode by adding this line to FSBL at main.c
 ```c
 /*
  * Read bootmode register
