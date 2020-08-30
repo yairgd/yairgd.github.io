@@ -10,10 +10,10 @@ function renderSearchResults(results){if(results.length>0){if(results.length>9){
 searchResults.innerHTML=''
 results.forEach(result=>{var article=document.createElement('article')
 article.innerHTML=`
-            <a href="${result.ref}"><h3 class="title">${documents[result.ref].title}</h3></a>
-            <p><a href="${result.ref}">${result.ref}</a></p>
-            <br>
-            `
+	    <a href="${result.ref}"><h3 class="title">${documents[result.ref].title}</h3></a>
+	    <p><a href="${result.ref}">${result.ref}</a></p>
+	    <br>
+	    `
 searchResults.appendChild(article)})}else{searchResults.innerHTML='<p>No results found.</p>'}}
 function registerSearchHandler(){searchInput.oninput=function(event){if(searchInput.value==''){searchResults.innerHTML=''}else{var query=event.target.value
 var results=idx.search(query+'*')
