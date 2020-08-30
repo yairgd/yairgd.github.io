@@ -53,7 +53,8 @@ bitbake u-boot
 ### flash image on QSPI
 
 #### FSBL
-generate FSBL for microzed platform board. The board definition files (BDF) sould be instaled on vivado as reffer [here](https://github.com/Avent/bdf).
+The next step is to generate FSBL aplication for microzed platform board. The board definition files (BDF) sould be instaled on vivado as reffer [here](https://github.com/Avnet/bdf). So, just crate a new HW project in vivado for microzed and the export the xsa (of hdf) file to vitis (of SDK) and then createa new FSBL application.
+
 
 #### boot.bin
 To create the boot.bin file, we can use bootgen, which is a tool of Xilinx or to use [mkbootimage](https://github.com/antmicro/zynq-mkbootimage) which is an open-source replacement for Xilinx bootgen tool. I took the values of the parameters load and offset address from the u-boot file [zynq-common.h](https://gitlab.denx.de/u-boot/u-boot/-/blob/master/include/configs/zynq-common.h).
@@ -81,9 +82,20 @@ bootgen  -image boot.bif -o i boot.bin -w
 ```
 
 #### flash the board
-To flash the image on the qspi is has to set the board at jtag init mode  and run the following command:
+To flash the image on the qspi is has to set the board at jtag  mode  and run the following command:
 ```bash
 program_flash -f /path/to/boot.bin -offset 0 -flash_type qspi_single -fsbl /path/to/fsbl_microzed.elf -blank_check -verify -cable type xilinx_tcf url TCP:127.0.0.1:3121
+```
+also so, it can [reffer](https://www.xilinx.com/support/answers/70548.html) here about how to elimitte the need for jtag mode by adding this line to FSBL at main.c
+```c
+/*
+ * Read bootmode register
+ */
+BootModeRegister = Xil_In32(BOOT_MODE_REG);
+BootModeRegister &= BOOT_MODES_MASK;
+
+//add this line to trick boot mode to JTAG
+BootModeRegister = JTAG_MODE; 
 ```
 
 #### manual boot
