@@ -2,9 +2,9 @@
 User-agent: *
 
 #
-#Disallow: /posts/2014/09/creating-a-new-theme/
+#Disallow: /2014/09/creating-a-new-theme/
 #
-#Disallow: /posts/2014/03/migrate-to-hugo-from-jekyll/
+#Disallow: /2014/03/migrate-to-hugo-from-jekyll/
 #
 #Disallow: /archives/2020/
 #
@@ -12,7 +12,7 @@ User-agent: *
 #
 #Disallow: /categories/
 #
-#Disallow: /posts/2020/08/install-linux-on-microzed-board/
+#Disallow: /2020/08/install-linux-on-microzed-board/
 #
 #Disallow: /categories/linux/
 #
@@ -26,13 +26,13 @@ User-agent: *
 #
 #Disallow: /tags/zynq/
 #
-#Disallow: /posts/2020/06/custom-opkg-repository/
+#Disallow: /2020/06/custom-opkg-repository/
 #
 #Disallow: /tags/opkg/
 #
 #Disallow: /categories/algorithm/
 #
-#Disallow: /posts/2020/05/kalman-filter-and-pair-trading/
+#Disallow: /2020/05/kalman-filter-and-pair-trading/
 #
 #Disallow: /tags/kalman-filter/
 #
@@ -46,31 +46,31 @@ User-agent: *
 #
 #Disallow: /categories/qt5/
 #
-#Disallow: /posts/2020/04/simple-hello-world-application-using-qt5-for-embedded-linux-device./
+#Disallow: /2020/04/simple-hello-world-application-using-qt5-for-embedded-linux-device./
 #
-#Disallow: /posts/2020/03/debug-linux-kernel-with-qemu/
+#Disallow: /2020/03/debug-linux-kernel-with-qemu/
 #
 #Disallow: /tags/kernel/
 #
 #Disallow: /categories/embbeded/
 #
-#Disallow: /posts/2020/02/install-yocto-and-kernel-development-tools-of-imx8/
+#Disallow: /2020/02/install-yocto-and-kernel-development-tools-of-imx8/
 #
-#Disallow: /posts/2020/02/linux-uio-driver-to-handle-with-irq-source/
+#Disallow: /2020/02/linux-uio-driver-to-handle-with-irq-source/
 #
 #Disallow: /tags/rt/
 #
-#Disallow: /posts/2020/02/linux-char-device-to-handle-with-irq/
+#Disallow: /2020/02/linux-char-device-to-handle-with-irq/
 #
-#Disallow: /posts/2020/02/linux-module-magic-info/
+#Disallow: /2020/02/linux-module-magic-info/
 #
-#Disallow: /posts/2020/02/linux-core-isolation/
+#Disallow: /2020/02/linux-core-isolation/
 #
-#Disallow: /posts/2020/02/linux-module-to-disassemble-code-in-the-linux-kernel./
+#Disallow: /2020/02/linux-module-to-disassemble-code-in-the-linux-kernel./
 #
 #Disallow: /tags/bayer/
 #
-#Disallow: /posts/2020/02/color-transformation-from-bayer-to-rgb/
+#Disallow: /2020/02/color-transformation-from-bayer-to-rgb/
 #
 #Disallow: /tags/computer-vision/
 #
@@ -80,17 +80,17 @@ User-agent: *
 #
 #Disallow: /tags/hugo/
 #
-#Disallow: /posts/2020/02/my-first-post/
+#Disallow: /2020/02/my-first-post/
 #
 #Disallow: /archives/2014/
 #
-#Disallow: /posts/2014/04/hugo-template-primer/
+#Disallow: /2014/04/hugo-template-primer/
 #
 #Disallow: /categories/development/
 #
 #Disallow: /tags/development/
 #
-#Disallow: /posts/2014/04/getting-started-with-hugo/
+#Disallow: /2014/04/getting-started-with-hugo/
 #
 #Disallow: /tags/go/
 #
