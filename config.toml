@@ -87,7 +87,7 @@ publishDir = "public/"
   identifier = "blog"
   name = "Blog"
   pre = "<i class=\"sidebar-button-icon fas fa-edit\"></i>"
-  url = "/post"
+  url = "/blog"
 [[menu.main]]
   weight = 4
   identifier = "cv"
