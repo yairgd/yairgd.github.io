@@ -16,9 +16,9 @@ User-agent: *
 #
 #Disallow: /categories/linux/
 #
-#Disallow: /tags/
-#
 #Disallow: /post/
+#
+#Disallow: /tags/
 #
 #Disallow: /
 #
@@ -107,6 +107,8 @@ User-agent: *
 #Disallow: /pages/
 #
 #Disallow: /pages/search/
+#
+#Disallow: /blog/
 #
 #Disallow: /pages/cv/
 #
