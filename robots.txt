@@ -42,9 +42,9 @@ User-agent: *
 #
 #Disallow: /tags/linux/
 #
-#Disallow: /categories/qt5/
-#
 #Disallow: /tags/qt5/
+#
+#Disallow: /categories/qt5/
 #
 #Disallow: /posts/2020/04/simple-hello-world-application-using-qt5-for-embedded-linux-device./
 #
