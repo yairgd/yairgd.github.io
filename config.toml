@@ -17,7 +17,7 @@ publishDir = "public/"
  #  extensions = ["hardLineBreak"]
 
 [permalinks]
-  post = "/posts/:year/:month/:slug/"
+  post = "/:year/:month/:slug/"
 
 #    post = ""
 #	top = "/:year/:filename/"
