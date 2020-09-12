@@ -25,7 +25,7 @@ CMake is a powerful tool to manage c/c++ projects, and I prefer to use it in on 
 For convenience, it is better to install the software above in the global [path](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/) variable.
 
 ## CMake project
-The CMake tools is a generator of build systems. It can create projects to different kinds of IDEs like eclipse and visual studio, and depend on a selected IDE; it makes appropriate project files.  CMake project s a sort of scripting language that defines the project files, compiler, flag, etc.'  For embedded projects, I usually maintain two projects:
+The CMake tools is a generator of build systems. It can create projects to different kinds of IDEs like eclipse and visual studio, and depend on a selected IDE; it makes appropriate project files.  CMake project s a sort of scripting language that defines the project files, compiler, flag, etc.'  For embedded projects, I usually maintain two sub projects:
 * embedded project
 * PC project - includes unit tests, a library of communication, etc.'
 
@@ -41,7 +41,8 @@ The general template for such a project can have the following structure.
     └── CMakeLists.txt
 ```
 
-Each directory includes a nested *CMakeLists.txt* as it should be in *CMake* projects. The BSP directory usually should be taken from the chip (st, cypress, Atmel, etc.') provider, the src directory is the project itself, and its structure depends on the project. It may contain more subdirectories and libraries. 
+Each directory includes a nested *CMakeLists.txt* as it should be in *CMake* projects. The BSP directory usually should be taken from the chip (st, cypress, Atmel, etc.') provider, the src directory is the project itself, and its structure depends on the project. It may contain more subdirectories and libraries.
+
 I have used the following CMake variable to skip compiler checks that may fail under windows.
 
 ```cmake
