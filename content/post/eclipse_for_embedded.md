@@ -79,7 +79,7 @@ add_subdirectory (${CMAKE_SOURCE_DIR}/pc_app )
 SET(CMAKE_GENERATOR "Unix Makefiles")
 project (top NONE)
 ```
-It not a project, but it calls the other two subdirectories with the projects.
+It not a project, but it calls the other two sub projects.
 
 ### pc application
 For the pc application, we need *CMake* project. [Reffer (https://github.com/yairgd/atari) here for a simple project that I wrote, and it works with CMake.
