@@ -16,7 +16,7 @@ User-agent: *
 #
 #Disallow: /2020/09/ecpise-with-cmake-project-on-windows/
 #
-#Disallow: /tags/emmbeded/
+#Disallow: /tags/embedded/
 #
 #Disallow: /categories/emmbeded/
 #
@@ -45,8 +45,6 @@ User-agent: *
 #Disallow: /tags/kalman-filter/
 #
 #Disallow: /tags/statstical-abitrage/
-#
-#Disallow: /tags/embedded/
 #
 #Disallow: /tags/linux/
 #
