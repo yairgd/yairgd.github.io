@@ -1,18 +1,19 @@
-
 ---
-title: "Ecpise with CMake project on windows"
-description: "create an eclipse setup from CMake for embedded projects "
+title : "Ecpise with CMake project on windows"
+description : "create an eclipse setup from CMake for embedded project"
 tags : 
-- "eclipse"
-- "embedded"
-
+ - "eclipse"
+ - "embedded"
 date : "2020-09-12"
 archives : "2020"
 categories : 
-- "emmbeded"
+ - "emmbeded"
 
 menu : "no-main"
 ---
+
+
+
 CMake is a powerful tool to manage c/c++ projects, and I prefer to use it in on my embedded projects also. Usually, I  work in a Linux environment in the terminal where everything is installed properly in its place, and things work great. Still, when I had to switch it to eclipse on windows environment, that was a challenging task. Hence, I describe here the stages that I had to do to import a CMake project from Linux to eclipse that run on windows. The first stage is to install the following software on windows.
 
 * [arm tool chain](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads) 
