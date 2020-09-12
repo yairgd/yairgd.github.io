@@ -12,15 +12,23 @@ User-agent: *
 #
 #Disallow: /categories/
 #
-#Disallow: /2020/08/install-linux-on-microzed-board/
+#Disallow: /tags/eclipse/
 #
-#Disallow: /categories/linux/
+#Disallow: /2020/09/ecpise-with-cmake-project-on-windows/
+#
+#Disallow: /tags/emmbeded/
+#
+#Disallow: /categories/emmbeded/
 #
 #Disallow: /post/
 #
 #Disallow: /tags/
 #
 #Disallow: /
+#
+#Disallow: /2020/08/install-linux-on-microzed-board/
+#
+#Disallow: /categories/linux/
 #
 #Disallow: /tags/yocto/
 #
@@ -94,9 +102,9 @@ User-agent: *
 #
 #Disallow: /tags/go/
 #
-#Disallow: /tags/golang/
-#
 #Disallow: /categories/golang/
+#
+#Disallow: /tags/golang/
 #
 #Disallow: /tags/templates/
 #
