@@ -57,7 +57,7 @@ SET(CMAKE_CROSSCOMPILING 1)
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR arm)
 ```
-and finaly this variabe to handle cmakle error as reffers [here](https://stackoverflow.com/questions/10599038/can-i-skip-cmake-compiler-tes    ts-or-avoid-error-unrecognized-option-rdynamic)
+and finaly this variabe to handle CMake error as reffers [here](https://stackoverflow.com/questions/10599038/can-i-skip-cmake-compiler-tests-or-avoid-error-unrecognized-option-rdynamic)
 ```cmake
 set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
 set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
