@@ -82,7 +82,7 @@ project (top NONE)
 It not a project, but it calls the other two sub projects.
 
 ### pc application
-For the pc application, we need *CMake* project. [Reffer (https://github.com/yairgd/atari) here for a simple project that I wrote, and it works with CMake.
+For the pc application, we need *CMake* project. [Reffer](https://github.com/yairgd/atari) here for a simple project that I wrote, and it works with CMake.
 The shared directory should contain source files which compiled on both systems: embedded and PC. Usually, these files relate to the structures and code that both CPUs used for communication or any other shared data between the MCP and its host.
 
 ### embedded application
