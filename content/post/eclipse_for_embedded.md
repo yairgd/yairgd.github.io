@@ -83,10 +83,10 @@ It not a project, but it calls the other two sub projects.
 
 ### pc application
 For the pc application, we need *CMake* project. [Reffer](https://github.com/yairgd/atari) here for a simple project that I wrote, and it works with CMake.
-The shared directory should contain source files which compiled on both systems: embedded and PC. Usually, these files relate to the structures and code that both CPUs used for communication or any other shared data between the MCP and its host.
+The *shared* directory should contain source files which compiled on both systems: embedded and PC. Usually, these files relate to structures and code that both MCU and PC used for communication or any other shared data between the MCU and its host.
 
 ### embedded application
-The *CMakeLists* of the arm application contains the path to arm compiler. If there is a PATH variable that points to the compiler - The installation asks in installation if we want it in the global PATH - *COM_PATH*  can be lived empty. The *CON_EXT* includes the *exe* suffix in windows application. The following *CMakeLists.txt* has a linker configuration for arm cortex-m4.
+The *CMakeLists* of the arm application contains the path to arm compiler. If there is a global PATH variable that points to the compiler - The user is asked about it during the installation of the compiler - *COM_PATH*  can be lived empty. The *CON_EXT* includes the *exe* suffix in windows application. The following *CMakeLists.txt* has a linker configuration for arm cortex-m4.
 
 ```cmake
 if (UNIX)
