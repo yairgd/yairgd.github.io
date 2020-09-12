@@ -1,9 +1,10 @@
+
 ---
-title: "Ecpise with cmake project on windows"
-description: "create an eclipse setup from cmake for embbeded projects "
+title: "Ecpise with CMake project on windows"
+description: "create an eclipse setup from CMake for embedded projects "
 tags : 
 - "eclipse"
-- "emmbeded"
+- "embedded"
 
 date : "2020-09-12"
 archives : "2020"
@@ -12,7 +13,7 @@ categories :
 
 menu : "no-main"
 ---
-CMake is a powerfull tool to manage c/c++ projects and I preffer to use in on my embbeded projects also. Usually I work in linux enviementn in terminal  and Iin linux enviroments , every thing installed in the place and thing works great, but when I had to switch it to eclipse on windows envement ,that  was a changled task  so I describe here the stages that I had to make in order import my cmkae forject from linux to windos based on eclipse. The first stage is to instal the following softawer on windows.
+CMake is a powerful tool to manage c/c++ projects, and I prefer to use it in on my embedded projects also. Usually, I  work in a Linux environment in the terminal where everything is installed properly in its place, and things work great. Still, when I had to switch it to eclipse on windows environment, that was a challenging task. Hence, I describe here the stages that I had to do to import a CMake project from Linux to eclipse that run on windows. The first stage is to install the following software on windows.
 
 * [arm tool chain](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads) 
 * [gnu make tool](http://gnuwin32.sourceforge.net/packages/make.htm) - used by cmake and eclipse
@@ -20,34 +21,35 @@ CMake is a powerfull tool to manage c/c++ projects and I preffer to use in on my
 * [jdk 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) - used by eclipse
 * [eclipse for mcu](https://gnu-mcu-eclipse.github.io/)
 
-For convinece , it is better to install the software above in the global [path](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/) vriable.
+For convenience, it is better to install the software above in the global [path](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/) variable.
 
-## cmake project
-The cmake tools is a generator of build systems. It  can create projects to diffetents kinds of IDEs like eclise and visual studio and depend on a selected IDE it creates a propriate prjectsfiles.  It is based on configuration file named *CMakeLists.txt* - it is   a kind of scripting language that defines the project files , compiler  , flag etc'.  For embbeded projects I usually matins 2 projects:
+## CMake project
+The CMake tools is a generator of build systems. It can create projects to different kinds of IDEs like eclipse and visual studio, and depend on a selected IDE; it makes appropriate project files.  CMake project s a sort of scripting language that defines the project files, compiler, flag, etc.'  For embedded projects, I usually maintain two projects:
+* embedded project
+* PC project - includes unit tests, a library of communication, etc.'
 
-* embbeded project
-* PC project - includes unit tests, library of commnication etc'
-
-The general template for such  project can have the following  structute.
+The general template for such a project can have the following structure.
 ```bash
 ├── arm_app
-│   ├── src
-│   ├── bsp
-│   └── CMakeLists.txt
+│   ├── src
+│   ├── bsp
+│   └── CMakeLists.txt
 ├── CMakeLists.txt
-├── common
+├── shared
 └── pc_app
     └── CMakeLists.txt
 ```
 
-Each directory includes a nested *CMakeLists.txt* as it shoud be in *cmake* projects. The bsp dirctory usually shlud be taken from the chip (st,cypress,atmel etc') provider, the src directory is the projectsis self and its structre depend in the projects and may contain more sub directories and libraries. The common directory shpould contain source files that compiled on both system: embedded and PC. Usually these fle relate to commnication structure that both CPUs used for cominication or any other common data.
-I have used the following cmake vairbale to skip compiler checks that may fail under windows.
+Each directory includes a nested *CMakeLists.txt* as it should be in *CMake* projects. The BSP directory usually should be taken from the chip (st, cypress, Atmel, etc.') provider, the src directory is the project itself, and its structure depends on the project. It may contain more subdirectories and libraries. 
+I have used the following CMake variable to skip compiler checks that may fail under windows.
+
 ```cmake
 set(CMAKE_C_COMPILER_WORKS 1)
 set(CMAKE_CXX_COMPILER_WORKS 1)
 ```
 
-This variable setting are specific for embedded cross complier:
+This variable setting is specific for the embedded cross compiler:
+
 ```cmake
 SET(CMAKE_CROSSCOMPILING 1)
 set(CMAKE_SYSTEM_NAME Generic)
@@ -58,8 +60,6 @@ and finaly this variabe to handle cmakle error as reffers [here](https://stackov
 set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
 set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
 ```
-
-
 ### top project
 The top *CMakeLists* contains the following content:
 ```cmake
@@ -77,13 +77,14 @@ add_subdirectory (${CMAKE_SOURCE_DIR}/pc_app )
 SET(CMAKE_GENERATOR "Unix Makefiles")
 project (top NONE)
 ```
-It not a project , but it calls the other two subdirectory with the projects
+It not a project, but it calls the other two subdirectories with the projects.
+
 ### pc application
-For the pc application we need *cmake* project. [Reffer](http://derekmolloy.ie/hello-world-introductions-to-cmake/) here for more details. The common dircory should contain files that are also used in the embbeded proccessor. For example , it shoud contain a source file with commnication protocol, like structure that both sides use it.
+For the pc application, we need *CMake* project. [Reffer (https://github.com/yairgd/atari) here for a simple project that I wrote, and it works with CMake.
+The shared directory should contain source files which compiled on both systems: embedded and PC. Usually, these files relate to the structures and code that both CPUs used for communication or any other shared data between the MCP and its host.
 
-### embbeded project
-The the *CMakeLists* of the arm appclication contains the path to arm compiler. If the path is written in the PATH variable , *COM_PATH*  can be lived empty. The *CON_EXT* includes the *exe* suffix in windows application. The folloing *CMakeLists.txt* has linker configuration for arm coretx-m4.
-
+### embedded application
+The *CMakeLists* of the arm application contains the path to arm compiler. If there is a PATH variable that points to the compiler - The installation asks in installation if we want it in the global PATH - *COM_PATH*  can be lived empty. The *CON_EXT* includes the *exe* suffix in windows application. The following *CMakeLists.txt* has a linker configuration for arm cortex-m4.
 
 ```cmake
 if (UNIX)
@@ -165,8 +166,8 @@ add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/app )
 ```
 
 
-## create eclipse project
-To create an eclipse project we have to run the following code in windows command terminl:
+## create an eclipse project
+To create an eclipse project, we have to run the following code in windows command terminal:
 ```bash
 cd c:\path\to\project
 mkdir Debug
@@ -181,10 +182,9 @@ Now, in eclipse it has to import the project
 select Debug and click on the eftbutton and press on *import*
 {{< figure src="/post/eclipse_for_embedded/show_project.png" title="import the debug project" >}}
 
-now, it can bulid,debug and run it as any other eclipse project.
-{{< figure src="/post/eclipse_for_embedded/import_debug_project.png" title="project redy to work" >}}
+now, it can build, debug, and run it as any other eclipse project.
+{{< figure src="/post/eclipse_for_embedded/import_debug_project.png" title="project ready to work" >}}
 
 ## further issues
 
 ## References
-
