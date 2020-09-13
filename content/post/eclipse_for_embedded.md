@@ -12,7 +12,7 @@ categories :
 menu : "no-main"
 ---
 
-CMake is a powerful tool to manage c/c++ projects, and I prefer to use it in on my embedded projects also. Usually, the MCU has some communication with other processors (usually PC), and CMake also allows easy integration between both projects: MCU and HOST. For example, a shared source code that can recompile in both processors when any change occurs in these shared files.
+CMake is a powerful tool to manage c/c++ projects, and I prefer to use it in on my embedded projects also. Usually, the MCU has some communication with other processors (usually PC), and CMake also allows easy integration between both projects: MCU and HOST. For example, a shared source code that simultaneously able to recompile in both processors when any change occurs in these shared files.
 
 Usually, I  work in a Linux environment in the terminal where everything is installed correctly in its place, and things work great.  Still, when I had to switch it to eclipse on windows environment, that was a challenging task. Hence, I describe here the stages that I had to do to import a CMake project from Linux to eclipse that run on windows. The first stage is to install the following software on windows.
 
