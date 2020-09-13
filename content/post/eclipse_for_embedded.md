@@ -41,7 +41,7 @@ The general template for such a project can have the following structure.
     └── CMakeLists.txt
 ```
 
-Each directory includes a nested *CMakeLists.txt* as it should be in *CMake* projects. The BSP directory usually should be taken from the chip (st, cypress, Atmel, etc.') provider, the src directory is the project itself, and its structure depends on the project. It may contain more subdirectories and libraries.
+Each directory includes a nested *CMakeLists.txt* as it should be in *CMake* projects. The BSP directory usually should be taken from the chip (st, cypress, Atmel, etc.') provider, the src directory is the project itself, and its structure depends on the project. It may contain more subdirectories and libraries and more nested *CMakeLists.txt* files.
 
 I have used the following CMake variable to skip compiler checks that may fail under windows.
 
