@@ -1,5 +1,5 @@
 ---
-title : "Ecpise with CMake project on windows"
+title : "Eclipse with CMake project on windows"
 description : "create an eclipse setup from CMake for embedded project"
 tags : 
  - "eclipse"
@@ -12,9 +12,9 @@ categories :
 menu : "no-main"
 ---
 
+CMake is a powerful tool to manage c/c++ projects, and I prefer to use it in on my embedded projects also. Usually, the MCU has some communication with other processors (usually PC), and CMake also allows easy integration between both projects: MCU and HOST. For example, a shared source code that can recompile in both processors when any change occurs in these shared files.
 
-
-CMake is a powerful tool to manage c/c++ projects, and I prefer to use it in on my embedded projects also. Usually, I  work in a Linux environment in the terminal where everything is installed properly in its place, and things work great. Still, when I had to switch it to eclipse on windows environment, that was a challenging task. Hence, I describe here the stages that I had to do to import a CMake project from Linux to eclipse that run on windows. The first stage is to install the following software on windows.
+Usually, I  work in a Linux environment in the terminal where everything is installed correctly in its place, and things work great.  Still, when I had to switch it to eclipse on windows environment, that was a challenging task. Hence, I describe here the stages that I had to do to import a CMake project from Linux to eclipse that run on windows. The first stage is to install the following software on windows.
 
 * [arm tool chain](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads) 
 * [gnu make tool](http://gnuwin32.sourceforge.net/packages/make.htm) - used by cmake and eclipse
@@ -25,7 +25,7 @@ CMake is a powerful tool to manage c/c++ projects, and I prefer to use it in on 
 For convenience, it is better to install the software above in the global [path](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/) variable.
 
 ## CMake project
-The CMake tools is a generator of build systems. It can create projects to different kinds of IDEs like eclipse and visual studio, and depend on a selected IDE; it makes appropriate project files.  CMake project s a sort of scripting language that defines the project files, compiler, flag, etc.'  For embedded projects, I usually maintain two sub projects:
+The CMake tools is a generator of build systems. It can create projects to different kinds of IDEs like eclipse and visual studio, and depend on a selected IDE; it makes appropriate project files.  CMake project s a sort of scripting language that defines the project files, compiler, flag, etc.'  For embedded projects, I usually maintain two sub-projects:
 * embedded project
 * PC project - includes unit tests, a library of communication, etc.'
 
@@ -79,7 +79,7 @@ add_subdirectory (${CMAKE_SOURCE_DIR}/pc_app )
 SET(CMAKE_GENERATOR "Unix Makefiles")
 project (top NONE)
 ```
-It not a project, but it calls the other two sub projects.
+It not a project, but it calls the other two sub-projects.
 
 ### pc application
 For the pc application, we need *CMake* project. [Reffer](https://github.com/yairgd/atari) here for a simple project that I wrote, and it works with CMake.
@@ -181,7 +181,7 @@ As a result of that , cmake will create in the Debug directory files for eclipse
 Now, in eclipse it has to import the project
 {{< figure src="/post/eclipse_for_embedded/import_project.png" title="project import" >}}
 
-select Debug and click on the eftbutton and press on *import*
+click the left button and select Debug and press on *import*
 {{< figure src="/post/eclipse_for_embedded/show_project.png" title="import the debug project" >}}
 
 now, it can build, debug, and run it as any other eclipse project.
