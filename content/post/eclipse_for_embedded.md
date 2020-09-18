@@ -187,6 +187,11 @@ click the left button and select Debug and press on *import*
 now, it can build, debug, and run it as any other eclipse project.
 {{< figure src="/post/eclipse_for_embedded/import_debug_project.png" title="project ready to work" >}}
 
-## further issues
+## Further Issues
+* Debug tools using [xpack-openocd](https://xpack.github.io/openocd/releases/) for windows.  To install, follow that [reference](https://gnu-mcu-eclipse.github.io/debug/openocd/).
+* Freertos thread awerness tools from [nxp](https://mcuoneclipse.com/2016/07/06/freertos-kernel-awareness-for-eclipse-from-nxp/)
+
 
 ## References
+[1] [eclipse for mcu](https://gnu-mcu-eclipse.github.io/)
+
