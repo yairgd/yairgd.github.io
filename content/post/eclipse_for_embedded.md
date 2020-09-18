@@ -190,6 +190,7 @@ now, it can build, debug, and run it as any other eclipse project.
 ## Further Issues
 * Debug tools using [xpack-openocd](https://xpack.github.io/openocd/releases/) for windows.  To install, follow that [reference](https://gnu-mcu-eclipse.github.io/debug/openocd/).
 * Freertos thread awerness tools from [nxp](https://mcuoneclipse.com/2016/07/06/freertos-kernel-awareness-for-eclipse-from-nxp/)
+* [reffer](https://www.youtube.com/watch?v=nw3sEkfbTI0&feature=emb_rel_end) here for trace analyzer for freertos
 
 
 ## References
