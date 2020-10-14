@@ -173,7 +173,8 @@ To create an eclipse project, we have to run the following code in windows comma
 ```bash
 cd c:\path\to\project
 mkdir Debug
-cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_ECLIPSE_GENERATE_SOURCE_PROJECT=TRUE -DCMAKE_ECLIPSE_MAKE_ARGUMENTS=-j8 ..
+cd Debug
+cmake -G "Eclipse CDT4 - Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_ECLIPSE_GENERATE_SOURCE_PROJECT=TRUE -DCMAKE_ECLIPSE_MAKE_ARGUMENTS=-j8 -DCMAKE_SYSTEM_NAME="Generic" ..
 ```
 As a result of that , cmake will create in the Debug directory files for eclipse roject like : *.project*,*.cproject*,*.setings*.
 {{< figure src="/post/eclipse_for_embedded/run_cmake.png" title="create eclipse project" >}}
