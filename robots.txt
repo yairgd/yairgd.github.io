@@ -12,7 +12,7 @@ User-agent: *
 #
 #Disallow: /categories/
 #
-#Disallow: /2020/10/compile-linux-kenel-for-zynq/
+#Disallow: /2020/10/compile-linux-kernel-for-zynq/
 #
 #Disallow: /tags/kernel/
 #
