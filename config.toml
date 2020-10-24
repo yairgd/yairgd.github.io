@@ -1,6 +1,11 @@
 baseURL = "https://yairgd.github.io/"
 
 
+#disableKinds = ["taxonomy", "taxonomyTerm"]
+
+
+
+
 languageCode = "en-us"
 title = "Yair Gadelov Tech Blog"
 
@@ -9,7 +14,7 @@ enableRobotsTXT="true"
 googleAnalytics = "UA-43536203-1"
 disqusShortname = "yairgd-github-io-1"
 
-theme = "jeffprod"
+#theme = "mytheme"
 
 publishDir = "public/"
 
@@ -112,28 +117,4 @@ publishDir = "public/"
 
 
 
-[[menu.links]]
-  weight = 1
-  identifier = "rss"
-  name = "RSS"
-  pre = "<i class=\"sidebar-button-icon fas fa-rss\"></i>"
-  url = "/index.xml"
-[[menu.links]]
-  weight = 2
-  identifier = "categories"
-  name = "Categories"
-  pre = "<i class=\"sidebar-button-icon fas fa-bookmark\"></i>"
-  url = "/categories"
-[[menu.links]]
-  weight = 3
-  identifier = "tags"
-  name = "Tags"
-  pre = "<i class=\"sidebar-button-icon fas fa-tags\"></i>"
-  url = "/tags"
-[[menu.links]]
-  weight = 4
-  identifier = "github"
-  name = "GitHub"
-  pre = "<i class=\"sidebar-button-icon fab fa-github\"></i>"
-  url = "https://github.com/yairgd/"
-  
+
