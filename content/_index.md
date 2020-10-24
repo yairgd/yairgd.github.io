@@ -5,7 +5,7 @@ draft: false
 ---
 
 <!-- <img src="" class="align-right"/> -->
-{{< figure src="/yair_ashdod_sea.jpeg" alt="yair gadelov in ashdod beach">}}
+{{< figure src="/img/yair_ashdod_sea.jpeg" alt="yair gadelov in ashdod beach">}}
 
 This is my personal homepage mainly to record my work. I'm working as an Embbed SW engineer, but I love to work on stuff during my free time.
 
