@@ -32,9 +32,9 @@ User-agent: *
 #
 #Disallow: /2020/09/eclipse-with-cmake-project-on-windows/
 #
-#Disallow: /tags/embedded/
+#Disallow: /categories/embedded/
 #
-#Disallow: /categories/emmbeded/
+#Disallow: /tags/embedded/
 #
 #Disallow: /2020/08/install-linux-on-microzed-board/
 #
@@ -59,8 +59,6 @@ User-agent: *
 #Disallow: /2020/04/simple-hello-world-application-using-qt5-for-embedded-linux-device./
 #
 #Disallow: /2020/03/debug-linux-kernel-with-qemu/
-#
-#Disallow: /categories/embbeded/
 #
 #Disallow: /2020/02/install-yocto-and-kernel-development-tools-of-imx8/
 #
