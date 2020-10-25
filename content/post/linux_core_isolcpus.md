@@ -10,7 +10,7 @@ date : "2020-02-18"
 archives : "2020"
 categories : 
 - "linux"
-- "embbeded"
+- "embedded"
 
 menu : "no-main"
 ---

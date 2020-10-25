@@ -7,7 +7,7 @@ tags :
 date : "2020-09-12"
 archives : "2020"
 categories : 
- - "emmbeded"
+ - "embedded"
 
 menu : "no-main"
 ---
