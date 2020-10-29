@@ -45,7 +45,7 @@ To install the tool can make sure that you are in the build directory (*build-op
 . meta-toolchain-openstlinux-weston-stm32mp1-x86_64-toolchain-3.1-snapshot.sh
 ```
 
-ST recommends installing [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html), which is basically an eclipse environment with pre-installed GCC and other useful tools like GCC. I usually work without IDE, and GCC was downloaded from [here](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads/7-2018-q2-update)
+ST recommends installing [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html), which is basically an eclipse environment with pre-installed GCC and other useful tools like [openocd](http://openocd.org/).  I usually work without IDE, and GCC was downloaded from [here](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads/7-2018-q2-update)
 
 
 ## kernel & u-boot & sd image
