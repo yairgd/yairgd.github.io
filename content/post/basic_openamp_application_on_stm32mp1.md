@@ -52,8 +52,8 @@ ST recommends installing [STM32CubeIDE](https://www.st.com/en/development-tools/
 I have used the default image that gets with the development kit, so everything was there and defined correctly. I will write a post on creating an adapted image for the stm32mp1 that includes: kernel, u-boot, and file system. I also used a default application given by   [STM32Cube_FW_MP1_V1.2.0 ](https://wiki.st.com/stm32mpu/index.php/Getting_started/STM32MP1_boards/STM32MP157x-EV1/Develop_on_Arm%C2%AE_Cortex%C2%AE-M4/Install_STM32Cube_MP1_package).
 
 
-## debug m4
-The board has two modes: engineering mode where it can work on the Cortex-M4 using JTAG as it has done in any other ST microcontroller. The Cortex-M4 core will be automatically started in engineering mode once you power the board, and the Cortex-A core will not run the regular SD card boot process. This allows quickly prototyping Cortex-M4 firmware without configuring the Linux-level settings. In the production mode, the device boots from Cortex-A7, and the m4 is disabled and only can be accessed from the Linux OS. To load and activate the Cortex-M4 firmware in production mode it has to type.
+## debug Cortex-M4
+The board has two modes: engineering mode where it can work on the Cortex-M4 using JTAG as it has done in any other ST microcontroller. The Cortex-M4 core will be automatically started in engineering mode once you power the board, and the Cortex-A core will not run the regular SD card boot process. This allows quickly prototyping Cortex-M4 firmware without configuring the Linux-level settings. In the production mode, the device boots from Cortex-A7, and the Cortex-M4 is disabled and only can be accessed from the Linux OS. To load and activate the Cortex-M4 firmware in production mode it has to type.
 
 ```bash
 echo stop > /sys/class/remoteproc/remoteproc0/state                    # power up Cortex-M4
