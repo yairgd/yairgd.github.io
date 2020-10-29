@@ -81,7 +81,7 @@ monitor soft_reset_halt
 step
 c
  ```
-ST provides [IDE](https://www.st.com/en/development-tools/stm32cubeide.html), which based on eclipse and has all the needed facilities to support debugging with IDE.  Usually, I'm using [cgdb](https://cgdb.github.io/), and the following figure displays a Cortex-M4 debug session using cgdb (in the left window) and Linux kernel lot output (right window) with hello messages they were sent from the Cortext-M4 using OpenMP.
+ST provides [IDE](https://www.st.com/en/development-tools/stm32cubeide.html), which based on eclipse and has all the needed facilities to support debugging with IDE.  Usually, I'm using [cgdb](https://cgdb.github.io/), and the following figure displays a Cortex-M4 debug session using cgdb (in the left window) and output log of Linux kernel (right window) with hello messages they were sent from the Cortext-M4 using OpenMP.
 
 {{< figure src="/post/hello_message_comming_from_cortex_m4.png" title="Linux kernel log: Hello message commining from Cortex-M4 to Cortex-A9 " >}}
 
