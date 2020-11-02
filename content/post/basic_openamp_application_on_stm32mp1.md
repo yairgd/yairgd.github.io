@@ -45,7 +45,7 @@ To install the tool can make sure that you are in the build directory (*build-op
 . meta-toolchain-openstlinux-weston-stm32mp1-x86_64-toolchain-3.1-snapshot.sh
 ```
 
-ST recommends installing [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html), which is basically an eclipse environment with pre-installed GCC and other useful tools like GCC. I usually work without IDE, and GCC was downloaded from [here](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads/7-2018-q2-update)
+ST recommends installing [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html), which is basically an eclipse environment with pre-installed GCC and other useful tools like [openocd](http://openocd.org/).  I usually work without IDE, and GCC was downloaded from [here](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads/7-2018-q2-update)
 
 
 ## kernel & u-boot & sd image
@@ -81,7 +81,7 @@ monitor soft_reset_halt
 step
 c
  ```
-ST provides [IDE](https://www.st.com/en/development-tools/stm32cubeide.html), which based on eclipse and has all the needed facilities to support debugging with IDE.  Usually, I'm using [cgdb](https://cgdb.github.io/), and the following figure displays a Cortex-M4 debug session using cgdb (in the left window) and Linux kernel lot output (right window) with hello messages they were sent from the Cortext-M4 using OpenMP.
+ST provides [IDE](https://www.st.com/en/development-tools/stm32cubeide.html), which based on eclipse and has all the needed facilities to support debugging with IDE.  Usually, I'm using [cgdb](https://cgdb.github.io/), and the following figure displays a Cortex-M4 debug session using cgdb (in the left window) and output log of Linux kernel (right window) with hello messages they were sent from the Cortext-M4 using OpenMP.
 
 {{< figure src="/post/hello_message_comming_from_cortex_m4.png" title="Linux kernel log: Hello message commining from Cortex-M4 to Cortex-A9 " >}}
 
