@@ -168,11 +168,11 @@ Here is what the three numbers assigned to “interrupt" means:
 >boot ROM does not program these registers; therefore the SDK device drivers must program the GIC
 >to accommodate these sensitivity types.
 
-* The third number is the IRQ type:
- 	1 = low-to-high edge triggered
-        2 = high-to-low edge triggered
-        4 = active high level-sensitive
-        8 = active low level-sensitive
+* The third number is the IRQ type:  
+ 	1 = low-to-high edge triggered  
+        2 = high-to-low edge triggered  
+        4 = active high level-sensitive  
+        8 = active low level-sensitive  
 
 
 
