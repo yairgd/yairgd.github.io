@@ -5,11 +5,195 @@ gtag('js',new Date());gtag('config','UA-158845844-1');</script><script src=https
 <a class=navbar-item href=/pages/cv>CV</a>
 <a class=navbar-item href=/projects>Projects</a>
 <a class=navbar-item href=/pages/search>Search</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog1.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">Linux uio driver to handle with IRQ source</h1></div></div></section><div class=container><div class=section><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><article class=media><div class=media-content><div class=content><p class="title is-5"><a href=https://yairgd.github.io/2020/02/linux-uio-driver-to-handle-with-irq-source/>Linux uio driver to handle with IRQ source</a></p><p class="subtitle is-size-6 has-text-grey-light">Published at February 24, 2020 &#183;
-<i class="far fa-clock"></i>&nbsp;1 min read
+<i class="far fa-clock"></i>&nbsp;6 min read
 &#183; Tags:
 <a href=https://yairgd.github.io/tags/linux/>linux</a>
 <a href=https://yairgd.github.io/tags/kernel/>kernel</a>
-<a href=https://yairgd.github.io/tags/rt/>rt</a></p></br></div></div></article><p>This is a a driver based on <a href=https://www.kernel.org/doc/html/v4.13/driver-api/uio-howto.html>UIO</a> subsystem to handle with external IRQ source.</p><h2 id=the-driver-structure>The driver structure</h2><h2 id=references>References</h2><p><a href=https://www.kernel.org/doc/html/v4.13/driver-api/uio-howto.html>[1] https://www.kernel.org/doc/html/v4.13/driver-api/uio-howto.html</a><br><a href=http://fpga.org/2013/05/28/how-to-design-and-access-a-memory-mapped-device-part-two>[2] http://fpga.org/2013/05/28/how-to-design-and-access-a-memory-mapped-device-part-two</a><br><a href=https://elinux.org/images/b/b0/Uio080417celfelc08.pdf>[3] https://elinux.org/images/b/b0/Uio080417celfelc08.pdf</a><br><a href=https://www.osadl.org/fileadmin/dam/rtlws/12/Koch.pdf>[4] https://www.osadl.org/fileadmin/dam/rtlws/12/Koch.pdf</a></p></div><div class=content><div class=disqus-comments>Comments<div id=disqus_thread></div><script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return;}
+<a href=https://yairgd.github.io/tags/rt/>rt</a></p></br></div></div></article><p>The Userspace I/O framework (<a href=https://www.kernel.org/doc/html/v4.13/driver-api/uio-howto.html>UIO</a>) is part of the linux kernel and allows device drivers to be written almost entirely in userspace. UIO is suitable for hardware that does not fit into other kernel subsystems (Like special HW like FPGA) and allowing the programmer to write most of the driver in userspace using all standard application programming tools and libraries. This greatly simplifies development, maintenance, and distribution of device drivers for this kind of hardware. I did a simple project implemenetd on Xilinx Zynq that shows response to IRQ that come from perioic time that impelented on the FPGA part of the zynq. The PL side (ARM) responsed to the IRQ at user space ans allows versy quick periodic response to IRQ.</p><h2 id=fpga-design>FPGA design</h2><p>This is a simple FPGA project made on Vivao. It has an ARM proccessor,GPIO and Fixed interval timert (FIT). The FIT is contolled by the ARM and enabled by internal GPIO bit.<figure><img src=/post/linux_uio_device_irq/uiofpga_block_design.png><figcaption><h4>The Block Desgin</h4></figcaption></figure></p><p>The IRQ output of the FIT is is connected to the ARM interrupt at IRQ_F2P[0]<figure><img src=/post/linux_uio_device_irq/irq_definition.png><figcaption><h4>IRQ Selection</h4></figcaption></figure></p><h2 id=the-driver-code>The driver code</h2><p>here is the driver code:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#75715e>#</span><span style=color:#75715e>include</span> <span style=color:#75715e>&lt;linux/module.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span><span style=color:#75715e>#</span><span style=color:#75715e>include</span> <span style=color:#75715e>&lt;linux/slab.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span><span style=color:#75715e>#</span><span style=color:#75715e>include</span> <span style=color:#75715e>&lt;linux/device.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span><span style=color:#75715e>#</span><span style=color:#75715e>include</span> <span style=color:#75715e>&lt;linux/uio_driver.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span><span style=color:#75715e>#</span><span style=color:#75715e>include</span> <span style=color:#75715e>&lt;linux/interrupt.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span><span style=color:#75715e>#</span><span style=color:#75715e>include</span> <span style=color:#75715e>&lt;linux/of_address.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span><span style=color:#75715e>#</span><span style=color:#75715e>include</span> <span style=color:#75715e>&lt;linux/of_irq.h&gt;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span><span style=color:#75715e>#</span><span style=color:#75715e>include</span> <span style=color:#75715e>&lt;linux/of_platform.h&gt; </span><span style=color:#75715e>
+</span><span style=color:#75715e></span>
+<span style=color:#66d9ef>static</span> <span style=color:#66d9ef>struct</span> uio_info <span style=color:#f92672>*</span>info;
+<span style=color:#66d9ef>static</span> <span style=color:#66d9ef>struct</span> device <span style=color:#f92672>*</span>dev;
+<span style=color:#66d9ef>static</span> <span style=color:#66d9ef>int</span> irq <span style=color:#f92672>=</span> <span style=color:#ae81ff>6</span>;
+module_param(irq, <span style=color:#66d9ef>int</span>, S_IRUGO);
+
+<span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> <span style=color:#a6e22e>my_release</span>(<span style=color:#66d9ef>struct</span> device <span style=color:#f92672>*</span>dev)
+{
+	pr_info(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>releasing my uio device</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>);
+}
+
+<span style=color:#66d9ef>static</span> irqreturn_t <span style=color:#a6e22e>my_handler</span>(<span style=color:#66d9ef>int</span> irq, <span style=color:#66d9ef>struct</span> uio_info <span style=color:#f92672>*</span>dev_info)
+{
+<span style=color:#75715e>//	static int count = 0;
+</span><span style=color:#75715e></span><span style=color:#75715e>//	pr_info(&#34;In UIO handler, count=%d\n&#34;, ++count);
+</span><span style=color:#75715e></span>	<span style=color:#66d9ef>return</span> IRQ_HANDLED;
+}
+
+<span style=color:#75715e>#</span><span style=color:#75715e>define DEVNAME &#34;fpga-belkin&#34;</span><span style=color:#75715e>
+</span><span style=color:#75715e></span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>int</span> __init <span style=color:#a6e22e>my_init</span>(<span style=color:#66d9ef>void</span>)
+{
+	<span style=color:#66d9ef>struct</span> device_node <span style=color:#f92672>*</span> np <span style=color:#f92672>=</span> NULL;
+	
+	<span style=color:#75715e>/* set IRQ */</span>
+	np <span style=color:#f92672>=</span> of_find_compatible_node(NULL,NULL,DEVNAME);
+	<span style=color:#66d9ef>if</span> (np <span style=color:#f92672>=</span><span style=color:#f92672>=</span> NULL)
+	{
+		printk (KERN_INFO <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>node %s is not defined in DTS</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>,DEVNAME );
+
+		<span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+	}
+	irq  <span style=color:#f92672>=</span> irq_of_parse_and_map(np, <span style=color:#ae81ff>0</span>); <span style=color:#75715e>/* get IRQ # from device tree */</span>
+
+
+	dev <span style=color:#f92672>=</span> kzalloc(<span style=color:#66d9ef>sizeof</span>(<span style=color:#66d9ef>struct</span> device), GFP_KERNEL);
+	
+	
+	dev_set_name(dev,DEVNAME);
+	dev<span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span>release <span style=color:#f92672>=</span> my_release;
+<span style=color:#75715e>#</span><span style=color:#75715e>pragma GCC diagnostic push</span><span style=color:#75715e>
+</span><span style=color:#75715e></span><span style=color:#75715e>#</span><span style=color:#75715e>pragma GCC diagnostic ignored &#34;-Wunused-result&#34; </span><span style=color:#75715e>
+</span><span style=color:#75715e></span>	(<span style=color:#66d9ef>void</span>)device_register(dev);
+<span style=color:#75715e>#</span><span style=color:#75715e>pragma GCC diagnostic pop </span><span style=color:#75715e>
+</span><span style=color:#75715e></span>
+	info <span style=color:#f92672>=</span> kzalloc(<span style=color:#66d9ef>sizeof</span>(<span style=color:#66d9ef>struct</span> uio_info), GFP_KERNEL);
+	info<span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span>name <span style=color:#f92672>=</span> DEVNAME;
+	info<span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span>version <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>0.0.1</span><span style=color:#e6db74>&#34;</span>;
+	info<span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span>irq <span style=color:#f92672>=</span> irq;
+	info<span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span>irq_flags <span style=color:#f92672>=</span> IRQF_SHARED;
+	info<span style=color:#f92672>-</span><span style=color:#f92672>&gt;</span>handler <span style=color:#f92672>=</span> my_handler;
+
+
+
+	<span style=color:#66d9ef>if</span> (uio_register_device(dev, info) <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>0</span>) {
+		device_unregister(dev);
+		kfree(dev);
+		kfree(info);
+		pr_info(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Failing to register uio device</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>);
+		<span style=color:#66d9ef>return</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;
+	}
+	
+	pr_info(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Registered UIO handler for IRQ=%d</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, irq);
+	<span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+}
+
+<span style=color:#66d9ef>static</span> <span style=color:#66d9ef>void</span> __exit <span style=color:#a6e22e>my_exit</span>(<span style=color:#66d9ef>void</span>)
+{
+	uio_unregister_device(info);
+	device_unregister(dev);
+	pr_info(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Un-Registered UIO handler for IRQ=%d</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, irq);
+	kfree(info);
+	kfree(dev);
+}
+
+module_init(my_init);
+module_exit(my_exit);
+
+MODULE_AUTHOR(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Yair Gadelov</span><span style=color:#e6db74>&#34;</span>);
+MODULE_DESCRIPTION(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>axi gpio for zynq</span><span style=color:#e6db74>&#34;</span>);
+MODULE_LICENSE(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>GPL v2</span><span style=color:#e6db74>&#34;</span>);
+</code></pre></div><p>makefile to build:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-make data-lang=make>obj-m <span style=color:#f92672>:=</span> uiofpga.o
+
+SRC <span style=color:#f92672>:=</span> <span style=color:#66d9ef>$(</span>shell pwd<span style=color:#66d9ef>)</span>
+
+<span style=color:#a6e22e>all</span><span style=color:#f92672>:</span>
+	<span style=color:#66d9ef>$(</span>MAKE<span style=color:#66d9ef>)</span> -C <span style=color:#66d9ef>$(</span>KERNEL_SRC<span style=color:#66d9ef>)</span> M<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>SRC<span style=color:#66d9ef>)</span>
+
+<span style=color:#a6e22e>modules_install</span><span style=color:#f92672>:</span>
+	<span style=color:#66d9ef>$(</span>MAKE<span style=color:#66d9ef>)</span> -C <span style=color:#66d9ef>$(</span>KERNEL_SRC<span style=color:#66d9ef>)</span> M<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>SRC<span style=color:#66d9ef>)</span> modules_install
+
+<span style=color:#a6e22e>clean</span><span style=color:#f92672>:</span>
+	rm -f *.o *~ core .depend .*.cmd *.ko *.mod.c
+	rm -f Module.markers Module.symvers modules.order
+	rm -rf .tmp_versions Modules.symvers
+</code></pre></div><h2 id=the-device-tree>The device tree</h2><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>/ <span style=color:#f92672>{</span>
+	...
+
+	fit_uio:fit  <span style=color:#f92672>{</span>
+		status <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;okay&#34;</span>;
+		compatible <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;fix-interval-timer-irq&#34;</span>;
+		interrupt-parent <span style=color:#f92672>=</span> &lt;&amp;intc&gt;;
+                interrupts <span style=color:#f92672>=</span> &lt;<span style=color:#ae81ff>0</span> <span style=color:#ae81ff>29</span> 1&gt;;
+	<span style=color:#f92672>}</span>;
+
+	...
+<span style=color:#f92672>}</span>
+
+</code></pre></div><p>Here is what the three numbers assigned to “interrupt&rdquo; means:</p><ul><li><p>The first value is a flag indicating if the interrupt is an SPI (shared peripheral interrupt). A nonzero value means it is an SPI.</p></li><li><p>The second number relates to the IRQ number. For Shared Periperal interrupts, the value in the device tree is the (IRQ - 32), eg. subtract 32 from the IRQ number. See Chapter 7 table 7.4 of the Zynq tech ref manual (ug-585) to understand the interrupt numbers. I guss it becase the fitst bit of SPI ( Shared Peripheral Interrupts) is mapped to IRQ 32. I mapped the FIT to 61 (32+29) - The first bit among the 16 bits of the of the shared interrupt port from the PL. This is q quote from UG-585 P. 229:</p></li></ul><blockquote><p>A group of approximately 60 interrupts from various modules can be routed to one or both of the
+CPUs or the PL. The interrupt controller manages the prioritization and reception of these interrupts for the CPUs.
+Except for IRQ #61 through #68 and #84 through #91, all interrupt sensitivity types are fixed by the
+requesting sources and cannot be changed. The GIC must be programmed to accommodate this. The
+boot ROM does not program these registers; therefore the SDK device drivers must program the GIC
+to accommodate these sensitivity types.</p></blockquote><ul><li>The third number is the IRQ type:
+1 = low-to-high edge triggered
+2 = high-to-low edge triggered
+4 = active high level-sensitive
+8 = active low level-sensitive</li></ul><h2 id=simple-test-application>simple test application:</h2><p>HEre is a demo how to recevive and response for interrupts from the FIT in user space. I have configure the FIT to interrupt every 61 useconds and most of the times it deffently looks accurate.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash> 61.000000   61.000000   61.000000   61.000000   63.000000   60.000000   61.000000   60.000000   61.000000   88.000000   37.000000   60.000000   60.000000   61.000000   61.000000   61.000000   62.000000   60.000000   61.000000   61.000000   61.000000   63.000000   60.000000   61.000000   60.000000   61.000000   61.000000   61.000000   61.000000   62.000000   61.000000   61.000000   61.000000   60.000000   62.000000   60.000000   62.000000   61.000000   63.000000   59.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   62.000000   62.000000   60.000000   60.000000   62.000000   63.000000   59.000000
+</code></pre></div><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#66d9ef>int</span> fd;
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>trigger_init</span>(<span style=color:#66d9ef>void</span>)
+{
+
+	fd<span style=color:#f92672>=</span>open(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>/dev/uio0</span><span style=color:#e6db74>&#34;</span>,O_RDONLY);
+	<span style=color:#66d9ef>if</span> (fd<span style=color:#f92672>&lt;</span><span style=color:#ae81ff>0</span>) {
+		<span style=color:#66d9ef>return</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;
+	}
+
+	<span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0</span>;
+}
+<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>trigger_poll</span>(<span style=color:#66d9ef>void</span>)
+{
+	<span style=color:#66d9ef>int</span> info <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>,nb; <span style=color:#75715e>/* unmask */</span>
+
+	<span style=color:#66d9ef>struct</span> pollfd fds <span style=color:#f92672>=</span> {
+            .fd <span style=color:#f92672>=</span> fd,
+            .events <span style=color:#f92672>=</span> POLLIN,
+        };
+
+        <span style=color:#66d9ef>int</span> ret <span style=color:#f92672>=</span> poll(<span style=color:#f92672>&amp;</span>fds, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>100</span>);
+
+	<span style=color:#66d9ef>if</span> (ret <span style=color:#f92672>&gt;</span><span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>) {
+            nb <span style=color:#f92672>=</span> read(fd, <span style=color:#f92672>&amp;</span>info, <span style=color:#66d9ef>sizeof</span>(info));
+            <span style=color:#66d9ef>if</span> (<span style=color:#ae81ff>0</span> <span style=color:#f92672>&amp;</span><span style=color:#f92672>&amp;</span> nb <span style=color:#f92672>=</span><span style=color:#f92672>=</span> (ssize_t)<span style=color:#66d9ef>sizeof</span>(info)) {
+                <span style=color:#75715e>/* Do something in response to the interrupt. */</span>
+                printf(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Interrupt #%u!</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span>, info);
+            }
+        } <span style=color:#66d9ef>else</span> {
+	    info <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;
+            close(fd);
+        }
+
+
+	<span style=color:#66d9ef>return</span> info;
+
+}
+</code></pre></div><p>The number of interrupt occurabce can be displayed by typping <em>cat /proc/interrupts</em></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>           CPU0       CPU1       
+ 16:          <span style=color:#ae81ff>1</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>27</span> Edge      gt
+ 17:          <span style=color:#ae81ff>0</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>43</span> Level     ttc_clockevent
+ 18:     <span style=color:#ae81ff>617543</span>     <span style=color:#ae81ff>758201</span>     GIC-0  <span style=color:#ae81ff>29</span> Edge      twd
+ 19:          <span style=color:#ae81ff>0</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>37</span> Level     arm-pmu
+ 20:          <span style=color:#ae81ff>0</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>38</span> Level     arm-pmu
+ 21:         <span style=color:#ae81ff>43</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>39</span> Level     f8007100.adc
+ 24:          <span style=color:#ae81ff>0</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>35</span> Level     f800c000.ocmc
+ 25:        <span style=color:#ae81ff>397</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>82</span> Level     xuartps
+ 26:     <span style=color:#ae81ff>397868</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>54</span> Level     eth0
+ 27:          <span style=color:#ae81ff>0</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>45</span> Level     f8003000.dmac
+ 28:          <span style=color:#ae81ff>0</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>46</span> Level     f8003000.dmac
+ 29:          <span style=color:#ae81ff>0</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>47</span> Level     f8003000.dmac
+ 30:          <span style=color:#ae81ff>0</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>48</span> Level     f8003000.dmac
+ 31:          <span style=color:#ae81ff>0</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>49</span> Level     f8003000.dmac
+ 32:          <span style=color:#ae81ff>0</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>72</span> Level     f8003000.dmac
+ 33:          <span style=color:#ae81ff>0</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>73</span> Level     f8003000.dmac
+ 34:          <span style=color:#ae81ff>0</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>74</span> Level     f8003000.dmac
+ 35:          <span style=color:#ae81ff>0</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>75</span> Level     f8003000.dmac
+ 36:          <span style=color:#ae81ff>0</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>40</span> Level     f8007000.devcfg
+ 42:          <span style=color:#ae81ff>0</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>41</span> Edge      f8005000.watchdog
+ 43:    <span style=color:#ae81ff>3478435</span>          <span style=color:#ae81ff>0</span>     GIC-0  <span style=color:#ae81ff>61</span> Edge      fix-intervel-timer-irq   &lt;-- The number of FIT interrupts occurances
+</code></pre></div><h2 id=references>References</h2><p><a href=https://www.kernel.org/doc/html/v4.13/driver-api/uio-howto.html>[1] https://www.kernel.org/doc/html/v4.13/driver-api/uio-howto.html</a><br><a href=http://fpga.org/2013/05/28/how-to-design-and-access-a-memory-mapped-device-part-two>[2] http://fpga.org/2013/05/28/how-to-design-and-access-a-memory-mapped-device-part-two</a><br><a href=https://elinux.org/images/b/b0/Uio080417celfelc08.pdf>[3] https://elinux.org/images/b/b0/Uio080417celfelc08.pdf</a><br><a href=https://www.osadl.org/fileadmin/dam/rtlws/12/Koch.pdf>[4] https://www.osadl.org/fileadmin/dam/rtlws/12/Koch.pdf</a><br><a href=https://www.kernel.org/doc/html/v4.14/driver-api/uio-howto.html>[5] https://www.kernel.org/doc/html/v4.14/driver-api/uio-howto.html</a><br><a href=https://www.xilinx.com/support/answers/62363.html>[6] https://www.xilinx.com/support/answers/62363.html</a><br><a href=https://yurovsky.github.io/2014/10/10/linux-uio-gpio-interrupt.html>[7] https://yurovsky.github.io/2014/10/10/linux-uio-gpio-interrupt.html</a><br><a href=https://www.slideshare.net/chrissimmonds/quick-and-easy-device-drivers-for-embedded-linux-using-uio>[8] https://www.slideshare.net/chrissimmonds/quick-and-easy-device-drivers-for-embedded-linux-using-uio</a></p></div><div class=content><div class=disqus-comments>Comments<div id=disqus_thread></div><script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return;}
 var d=document,s=d.createElement('script');s.async=true;s.src='//'+"yairgd-github-io-1"+'.disqus.com/embed.js';s.setAttribute('data-timestamp',+new Date());(d.head||d.body).appendChild(s);})();</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></div></div></div><div class="column is-3"><div class=card><div class=card-content><h1 class="title is-5">Categories</h1><div class=tags><span class=tag><a href=https://yairgd.github.io/categories/algorithm>algorithm</a></span>
 <span class=tag><a href=https://yairgd.github.io/categories/development>development</a></span>
 <span class=tag><a href=https://yairgd.github.io/categories/embedded>embedded</a></span>
