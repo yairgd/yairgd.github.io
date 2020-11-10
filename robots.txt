@@ -12,7 +12,19 @@ User-agent: *
 #
 #Disallow: /categories/
 #
+#Disallow: /tags/cypress./
+#
+#Disallow: /2020/11/debugging-of-cypress-psoc6-in-linux-terminal./
+#
 #Disallow: /categories/embedded/
+#
+#Disallow: /tags/openocd/
+#
+#Disallow: /post/
+#
+#Disallow: /tags/
+#
+#Disallow: /
 #
 #Disallow: /tags/kernel/
 #
@@ -20,15 +32,9 @@ User-agent: *
 #
 #Disallow: /categories/linux/
 #
-#Disallow: /post/
-#
 #Disallow: /2020/10/simple-openamp-application-for-stm32mp157/
 #
 #Disallow: /tags/stm32/
-#
-#Disallow: /tags/
-#
-#Disallow: /
 #
 #Disallow: /tags/yocto/
 #
@@ -56,9 +62,9 @@ User-agent: *
 #
 #Disallow: /tags/statstical-abitrage/
 #
-#Disallow: /tags/qt5/
-#
 #Disallow: /categories/qt5/
+#
+#Disallow: /tags/qt5/
 #
 #Disallow: /2020/04/simple-hello-world-application-using-qt5-for-embedded-linux-device./
 #
