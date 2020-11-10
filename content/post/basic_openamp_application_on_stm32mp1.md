@@ -1,6 +1,6 @@
 ---
 title: "Simple OpenAMP application for stm32mp157 "
-description: "How to build the Linux kernel for zynq in separate and not as part of the yocto build."
+description: "A simple example of OpenAmp using stm32mp1 with Cortex-A7 to communicate within SOC Cortex-M4"
 tags : 
  - "linux"
  - "kernel"
@@ -16,9 +16,7 @@ categories :
 menu : "no-main"
 ---
 
-The [stm32mp157](https://www.st.com/en/microcontrollers-microprocessors/stm32mp157.html) is SOC from STMicrocntrollers, and it has within it a dual-core-a7 MPU and cortex-m4 MCU. The Core-a7 is an application processor that operates Linux, and the Cortex-m4 runs RTOS or bare-metal application. The Cortex-m4 can be used for real-time tasks, such as creating a very acquire and high-speed signal waveform for real-time operates purposes. In this kind of application, the cortex-a7 will run the master application will control the application on the Cortex-m4 using [RPMsg Messaging Protocol](https://github.com/OpenAMP/open-amp/wiki/RPMsg-Messaging-Protocol). I have used [STM32MP157C-DK2](https://www.st.com/en/evaluation-tools/stm32mp157c-dk2.html#)  evaluation kit to create a simple hello world messaging application between the cortex-a7 (Linux) to cortex-m4 (bare metal) 
-
-
+The  [stm32mp157](https://www.st.com/en/microcontrollers-microprocessors/stm32mp157.html) is SOC from ST Microcontrollers, and it has a dual-core Cortex-A7 MPU and Cortex-M4 MCU within it. The Cortex-A7 is the application processor that operates Linux, and the Cortex-m4 runs RTOS or bare-metal application. The Cortex-M4 can be used for real-time tasks, such as creating a periodic and accurate control signal without jitter. In this kind of application, the Cortex-A7 will run the master application and control the application of the Cortex-m4 using the [RPMsg Messaging Protocol](https://github.com/OpenAMP/open-amp/wiki/RPMsg-Messaging-Protocol). I have used the [STM32MP157C-DK2](https://www.st.com/en/evaluation-tools/stm32mp157c-dk2.html#)  evaluation kit to create a simple hello world messaging application between Cortex-a7 (Linux) to Cortex-M4 (bare metal)
 
 ## install necessary tools
 The working environment is Linux and usually and I had to install [repo](https://gerrit.googlesource.com/git-repo/) tool (Gentoo)
@@ -49,11 +47,10 @@ ST recommends installing [STM32CubeIDE](https://www.st.com/en/development-tools/
 
 
 ## kernel & u-boot & sd image
-I have used the default image that gets with the development kit, so everything was there and defined correctly. I will write a post on creating an adapted image for the stm32mp1 that includes: kernel, u-boot, and file system. I also used a default application given by   [STM32Cube_FW_MP1_V1.2.0 ](https://wiki.st.com/stm32mpu/index.php/Getting_started/STM32MP1_boards/STM32MP157x-EV1/Develop_on_Arm%C2%AE_Cortex%C2%AE-M4/Install_STM32Cube_MP1_package).
-
+I have used the default image that gets with the development kit, so everything was there.  I will write a post on creating an adapted image for the stm32mp157, including the kernel, u-boot, and file system but for this demo, the original sd card of the development kit was more than enough. I also used a default application given by [STM32Cube_FW_MP1_V1.2.0 ](https://wiki.st.com/stm32mpu/index.php/Getting_started/STM32MP1_boards/STM32MP157x-EV1/Develop_on_Arm%C2%AE_Cortex%C2%AE-M4/Install_STM32Cube_MP1_package).
 
 ## debug Cortex-M4
-The board has two modes: engineering mode where it can work on the Cortex-M4 using JTAG as it has done in any other ST microcontroller. The Cortex-M4 core will be automatically started in engineering mode once you power the board, and the Cortex-A core will not run the regular SD card boot process. This allows quickly prototyping Cortex-M4 firmware without configuring the Linux-level settings. In the production mode, the device boots from Cortex-A7, and the Cortex-M4 is disabled and only can be accessed from the Linux OS. To load and activate the Cortex-M4 firmware in production mode it has to type.
+The board has two modes: engineering mode where it can work on the Cortex-M4 using JTAG as it has done in any other ST microcontroller. The Cortex-M4 core will be automatically started in engineering mode once you power the board, and the Cortex-A core will not run the regular SD card boot process. This allows quickly prototyping Cortex-M4 firmware without configuring the Linux-level settings. In production mode, the device boots from Cortex-A7 and the Cortex-M4 is disabled and can only be accessed from the Linux OS. To load and activate the Cortex-M4 firmware in production mode, it has to type.
 
 ```bash
 echo stop > /sys/class/remoteproc/remoteproc0/state                    # power up Cortex-M4
@@ -83,7 +80,7 @@ c
  ```
 ST provides [IDE](https://www.st.com/en/development-tools/stm32cubeide.html), which based on eclipse and has all the needed facilities to support debugging with IDE.  Usually, I'm using [cgdb](https://cgdb.github.io/), and the following figure displays a Cortex-M4 debug session using cgdb (in the left window) and output log of Linux kernel (right window) with hello messages they were sent from the Cortext-M4 using OpenMP.
 
-{{< figure src="/post/hello_message_comming_from_cortex_m4.png" title="Linux kernel log: Hello message commining from Cortex-M4 to Cortex-A9 " >}}
+{{< figure src="/post/hello_message_comming_from_cortex_m4.png" title="Linux kernel log: Hello message from Cortex-M4 to Cortex-A9 " >}}
 
 
 ## To do

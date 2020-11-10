@@ -1,6 +1,6 @@
 ---
 title : "Eclipse with CMake project on windows"
-description : "create an eclipse setup from CMake for embedded project"
+description : "create an eclipse setup from CMake for an embedded project"
 tags : 
  - "eclipse"
  - "embedded"

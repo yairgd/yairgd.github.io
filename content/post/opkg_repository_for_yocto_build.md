@@ -1,6 +1,6 @@
 ---
 title: "Custom opkg repository"
-description: "Simple repository server o handle opkg utiliey in embbeded systems"
+description: "Simple repository server to handle opkg utiliey in embedded systems"
 draft: false
 tags : 
  - "opkg"
