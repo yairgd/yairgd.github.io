@@ -28,9 +28,9 @@ User-agent: *
 #
 #Disallow: /tags/kernel/
 #
-#Disallow: /tags/linux/
-#
 #Disallow: /categories/linux/
+#
+#Disallow: /tags/linux/
 #
 #Disallow: /2020/10/simple-openamp-application-for-stm32mp157/
 #
@@ -72,7 +72,7 @@ User-agent: *
 #
 #Disallow: /2020/02/install-yocto-and-kernel-development-tools-of-imx8/
 #
-#Disallow: /2020/02/linux-uio-driver-to-handle-with-irq-source/
+#Disallow: /2020/02/linux-uio-driver-to-handle-with-irq-source./
 #
 #Disallow: /tags/rt/
 #
