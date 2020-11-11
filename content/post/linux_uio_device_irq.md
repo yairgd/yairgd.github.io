@@ -14,7 +14,7 @@ categories :
 
 menu : "no-main"
 ---
- The Userspace I/O framework (UIO) is part of the Linux kernel and allows device drivers to be written almost entirely in userspace.  UIO driver is suitable for hardware that does not fit into other kernel subsystems (Like special HW like FPGA) and allows the programmer to write most of the driver in userspace using all standard application programming tools libraries.  It can also dramatically simplify the development, maintenance, and distribution of device drivers for this kind of hardware. I implemented a simple project on Xilinx Zynq that shows the IRQ response for a periodic timer implemented on the PL (FPGA) side of the Zynq. The PS side (ARM) responds to the IRQ at user space and allows a rapid IRQ response.
+ The Userspace I/O framework (UIO) is part of the Linux kernel and allows device drivers to be written almost entirely in userspace.  UIO driver is suitable for hardware that does not fit into other kernel subsystems (Like special HW like FPGA) and allows the programmer to write most of the driver in userspace using all standard application programming tools libraries.  It can also dramatically simplify the development, maintenance, and distribution of device drivers for this kind of hardware. I implemented a simple project on Xilinx Zynq that shows the IRQ response for a periodic timer implemented on the PL (FPGA) side of the Zynq. The PS side (ARM) responds to the IRQ at user space and allows a rapid IRQ response. It can view the project [here](https://github.com/yairgd/uiofpga).
 
 
 ## FPGA design
