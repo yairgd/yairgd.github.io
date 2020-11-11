@@ -28,9 +28,9 @@ User-agent: *
 #
 #Disallow: /tags/kernel/
 #
-#Disallow: /categories/linux/
-#
 #Disallow: /tags/linux/
+#
+#Disallow: /categories/linux/
 #
 #Disallow: /2020/10/simple-openamp-application-for-stm32mp157/
 #
