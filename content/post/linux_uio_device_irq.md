@@ -1,6 +1,6 @@
 ---
-title: "Linux uio driver to handle with IRQ source "
-description: "Linux uio driver to handle with external IRQ"
+title: "Linux UIO driver to handle with IRQ source."
+description: "Linux UIO driver to handle with external IRQ."
 tags : 
  - "linux"
  - "kernel"
@@ -14,12 +14,12 @@ categories :
 
 menu : "no-main"
 ---
- The Userspace I/O framework ([UIO](https://www.kernel.org/doc/html/v4.13/driver-api/uio-howto.html)) is part of the linux kernel and allows device drivers to be written almost entirely in userspace. UIO is suitable for hardware that does not fit into other kernel subsystems (Like special HW like FPGA)  and allowing the programmer to write most of the driver in userspace using all standard application programming tools and libraries. This greatly simplifies development, maintenance, and distribution of device drivers for this kind of hardware. I did  a simple project implemenetd on Xilinx Zynq that shows response to IRQ that come from perioic time that impelented on the FPGA part of the zynq. The PL side (ARM) responsed to the IRQ at user space ans allows versy quick periodic response to IRQ.
+ The Userspace I/O framework (UIO) is part of the Linux kernel and allows device drivers to be written almost entirely in userspace.  UIO driver is suitable for hardware that does not fit into other kernel subsystems (Like special HW like FPGA) and allows the programmer to write most of the driver in userspace using all standard application programming tools libraries.  It can also dramatically simplify the development, maintenance, and distribution of device drivers for this kind of hardware. I implemented a simple project on Xilinx Zynq that shows the IRQ response for a periodic timer implemented on the PL (FPGA) side of the Zynq. The PS side (ARM) responds to the IRQ at user space and allows a rapid IRQ response.
 
 
 ## FPGA design
-This is a simple FPGA project made on Vivao. It has an ARM proccessor,GPIO and Fixed interval timert (FIT). The FIT is contolled by the ARM and enabled by internal GPIO bit. 
-{{< figure src="/post/linux_uio_device_irq/uiofpga_block_design.png" title="The Block Desgin" >}}
+Here is a simple FPGA project made on Vivado. It has an ARM processor, GPIO, and Fixed interval timer (FIT). The user can enable or disable the FIT by setting the correct bit in the  GPIO register.
+{{< figure src="/post/linux_uio_device_irq/uiofpga_block_design.png" title="The Block Design" >}}
 
 The IRQ output of the FIT is is connected to the ARM interrupt at IRQ_F2P[0]
 {{< figure src="/post/linux_uio_device_irq/irq_definition.png" title="IRQ Selection" >}}
@@ -160,12 +160,12 @@ Here is what the three numbers assigned to “interrupt" means:
 
 * The first value is a flag indicating if the interrupt is an SPI (shared peripheral interrupt). A nonzero value means it is an SPI.
 
-* The second number relates to the IRQ number. For Shared Periperal interrupts, the value in the device tree is the (IRQ - 32), eg. subtract 32 from the IRQ number. See Chapter 7  table 7.4 of  the Zynq tech ref manual (ug-585) to understand the interrupt numbers. I guss it becase the fitst bit of SPI ( Shared Peripheral Interrupts) is mapped to IRQ 32. I mapped the FIT to 61 (32+29) - The first bit among the 16 bits of the of the shared interrupt port from the PL. This is q quote from UG-585 P. 229:
+* The second number relates to the IRQ number. For Shared Peripheral interrupts, the value in the device tree is the (IRQ - 32), e.g., subtract 32 from the 61 number. See Chapter 7, table 7.4 of the Zynq tech ref manual (ug-585) to understand the interrupt numbers. I guess it because the first bit of SPI ( Shared Peripheral Interrupts) is mapped to IRQ 32. I mapped the FIT to 61 (32+29) - The first bit among the 16 bits of the shared interrupt port from the PL. Here is a  quote from UG-585 P. 229:
 >A group of approximately 60 interrupts from various modules can be routed to one or both of the
 >CPUs or the PL. The interrupt controller manages the prioritization and reception of these interrupts for the CPUs.
 >Except for IRQ #61 through #68 and #84 through #91, all interrupt sensitivity types are fixed by the
 >requesting sources and cannot be changed. The GIC must be programmed to accommodate this. The
->boot ROM does not program these registers; therefore the SDK device drivers must program the GIC
+>boot ROM does not program these registers; therefore, the SDK device drivers must program the GIC
 >to accommodate these sensitivity types.
 
 * The third number is the IRQ type:  
@@ -180,7 +180,7 @@ Here is what the three numbers assigned to “interrupt" means:
 
 
 ## simple test application:
-HEre is a demo how to recevive and response for interrupts from the FIT in user space.  I have configure the FIT to interrupt every 61 useconds and most of the times it deffently looks accurate. 
+Here is a demo of how to receive and respond to interrupts from the FIT in userspace.  I have configured the FIT to interrupt every 61 microseconds, and most of the time, it defiantly looks accurate. 
 ```bash
  61.000000   61.000000   61.000000   61.000000   63.000000   60.000000   61.000000   60.000000   61.000000   88.000000   37.000000   60.000000   60.000000   61.000000   61.000000   61.000000   62.000000   60.000000   61.000000   61.000000   61.000000   63.000000   60.000000   61.000000   60.000000   61.000000   61.000000   61.000000   61.000000   62.000000   61.000000   61.000000   61.000000   60.000000   62.000000   60.000000   62.000000   61.000000   63.000000   59.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   61.000000   62.000000   62.000000   60.000000   60.000000   62.000000   63.000000   59.000000
 ```
@@ -224,7 +224,7 @@ int trigger_poll(void)
 
 }
 ```
-The number of interrupt occurabce can be displayed by typping *cat /proc/interrupts*
+The number of interrupt occurrence can be displayed by typing *cat /proc/interrupts*
 ```bash
            CPU0       CPU1       
  16:          1          0     GIC-0  27 Edge      gt
