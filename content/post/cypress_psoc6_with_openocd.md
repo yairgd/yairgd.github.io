@@ -1,9 +1,9 @@
 ---
-draft: true
-title: "Debuging of cypress psoc6 in linux terminal"
-description: "an example how to use openocd with dual core cypress psoc6  "
+draft: false
+title: "Debugging of cypress psoc6 in Linux terminal."
+description: "an example of how to use OpenOCD with dual-core cypress psoc6."
 tags : 
- - "cypress"
+ - "cypress."
  - "openocd"
 
 date : "2020-11-05"
@@ -13,14 +13,14 @@ categories :
 
 menu : "no-main"
 ---
-I have used openocd in my embbeded projects and here is a simple explanation how to work with OpenOCD with  [PSOC6](https://www.cypress.com/documentation/development-kitsboards/psoc-6-ble-pioneer-kit-cy8ckit-062-ble) of cypress and here.   Cypress has its own porting for [OpenOCD](https://github.com/Cypress-OpenOCD/OpenOCD) for its [interfaces](https://www.cypress.com/documentation/development-kitsboards/kitprog-user-guide): kitprog3 & kitprog4. Usually I work on a linux terminal using command line with cgdb but, OpenOCD is allready installed on [modus](https://www.cypress.com/products/modustoolbox-software-environment) , the default IDE of cypress.  
-The PSOC6 is dual core mcu: CM0+ and CM4 and when booting, it first powers on the CM0+ and  if the CM4 is also  needed ,  the CM0+ has to power it on.  Using openocd it can debug both proccessors at the same time , each proccessor will have a sperate port that will controll it.
+I have used OpenOCD in my embedded projects, and here is a simple explanation how to work with OpenOCD with  [PSOC6](https://www.cypress.com/documentation/development-kitsboards/psoc-6-ble-pioneer-kit-cy8ckit-062-ble) of cypress and here.   Cypress has its own porting for [OpenOCD](https://github.com/Cypress-OpenOCD/OpenOCD) for its [interfaces](https://www.cypress.com/documentation/development-kitsboards/kitprog-user-guide): kitprog3 & kitprog4. Usually, I work on a Linux terminal using a command line with cgdb but, OpenOCD is already installed on [modus](https://www.cypress.com/products/modustoolbox-software-environment), the default IDE of cypress.  
+The PSOC6 is dual-core MCU: CM0+ and CM4, and when booting, it first powers on the CM0+, and if the CM4 is also needed,  the CM0+ has to power it on.  Using OpenOCD, it can debug both processors at the same time. Each processor will have a separate port that will control it.
 
 
 ## OpenOCD setup
-This is my favourite setup when working with embbeded project on a linux terminal. 
+This is my favorite setup when working with an embedded project on a Linux terminal. 
 
-run OpenOCD server, The cypress programmer should be connected 
+Run the OpenOCD server. The cypress programmer should be connected. 
 
 ```bash
 cd  ~/path/to/cypress/openocd/scripts  
@@ -34,12 +34,12 @@ psoc6.cpu.cm0 configure -gdb-port 70000
 psoc6.cpu.cm4 configure -rtos auto -rtos-wipe-on-reset-halt 1
 ```
 
-In another terminal I opend telnet session to OpenOCD server using the default 4444 port
+In another terminal, I open a telnet session to the OpenOCD server using the default 4444 port
 ```bash
 telnet  127.0.0.1 4444
 ```
 
-In the telnet session I have useed this command to program the device (Usually after compliation)
+In the telnet session, I have used this command to program the device (Usually after compilation)
 ```bash
 program /path/to/cm4/prog.elf;reset
 ```
@@ -66,7 +66,7 @@ wrote 119808 bytes from file /path/to/cm4/prog.elf  in 3.906287s (29.952 KiB/s)
 ```
 
 ## gdb setup
-It has to place the following content in the file *~/.gdbinit*. This  creates a custom *reset* command that restarts the  debugging session. You can name it "r" to make consume time during debug.
+It has to place the following content in the file *~/.gdbinit*. This creates a custom *reset* command that restarts the debugging session. You can name it "r" to make consume time during debugging.
 
 ```gdb
 define reset
@@ -79,12 +79,12 @@ define reset
 end
 ```
 
-before any call to *restart* it has to connect to OpenOCD server using:
+before any call to *restart* it has to connect to the OpenOCD server using:
 ```gdb
 target remote 127.0.0.1 PORT
 ```
 
-where *PORT* is eighther 60000 to debug CM4 or nigther 70000  to debug CM0+ , needless to say that, the target elf file should be for the correct proccessor.
+Where *PORT* is either 60000 to debug CM4 or nighter 70000  to debug CM0+, needless to say that, the target elf file should be for the correct processor.
 
 
 
