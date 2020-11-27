@@ -11,12 +11,16 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@master
+       env: # env 
+            ACTIONS_ALLOW_UNSECURE_COMMANDS : TRUE
 
     - name: Setup Hugo
       uses: peaceiris/actions-hugo@v2.4.0
+      env: # env 
+            ACTIONS_ALLOW_UNSECURE_COMMANDS : TRUE
       with:
         hugo-version: '0.64.1'
-
+  
     - name: Build
       run: hugo --gc --minify --cleanDestinationDir
 
