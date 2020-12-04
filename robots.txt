@@ -16,9 +16,9 @@ User-agent: *
 #
 #Disallow: /2020/11/install-embedded-linux-toolchain-on-windows/
 #
-#Disallow: /categories/linux/
-#
 #Disallow: /tags/linux/
+#
+#Disallow: /categories/linux/
 #
 #Disallow: /post/
 #
@@ -64,9 +64,9 @@ User-agent: *
 #
 #Disallow: /tags/statstical-abitrage/
 #
-#Disallow: /categories/qt5/
-#
 #Disallow: /tags/qt5/
+#
+#Disallow: /categories/qt5/
 #
 #Disallow: /2020/04/simple-hello-world-application-using-qt5-for-embedded-linux-device./
 #
