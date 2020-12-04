@@ -14,7 +14,7 @@ categories :
 draft: false
 menu : "no-main"
 ---
-The toolchain for embedded Linux should be matched for the target image, and that is why we can't just find and download it from somewhere. Therefore, we should be it. This is a tutorial on how to build and install YOCTO SDK on a windows machine. This to allow developing embedded Linux on windows using eclipse or event visual studio.
+The toolchain for embedded Linux should be matched for the target image, and that is why we can't just find and download it from somewhere. Therefore, we should be it. This is a tutorial on how to build and install YOCTO SDK on a windows machine. This allows developing embedded Linux on windows using eclipse or even visual studio.
 
 ## Setup YOCTO build
 If you already have a YOCTO build, you need to make the following simple steps:
@@ -62,7 +62,7 @@ do_stash_locale() {
 EXTRA_OECONF_append_sdkmingw32 = "--disable-tui --without-curses --without-system-readline --with-python=no"
 ```
 
-* In this file *st-machine-common-stm32mp.inc* I had to disable some nativesdb packages that were filed during the compilation.
+* In this file *st-machine-common-stm32mp.inc* I had to disable some native SDK packages that were filed during the compilation.
 ```bash
 .
 ST_DEPENDENCIES_BUILD_FOR_SDK_append = " nativesdk-openssl-dev "
