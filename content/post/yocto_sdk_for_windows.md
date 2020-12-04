@@ -43,13 +43,13 @@ When using the poky distribution like I did [here]({{< ref  path="post/install_l
 
 When I work with yocto distribution for [stm32mp](https://www.st.com/en/embedded-software/stm32mp1distrib.html) I had to work around some issues. I think it relates to the way the ST defines its yocto distribution.
 
-* As a result of the folloing error message.
+* As a result of the following error message.
 ```bash
 ERROR: Task do_install in virtual:nativesdk:/path/to/yocto/layers/openembedded-core/meta/recipes-core/glibc/glibc-locale_2.31.bb depends upon non-existent task do_stash_locale in /path/yo/yocto/layers/meta-openembedded/meta-mingw/recipes-devtools/mingw-w64/nativesdk-mingw-w64-runtime_6.0.0.bb
 ERROR: Command execution failed: 1`
 ```
 
-add the following lines to this file [nativesdk-mingw-w64-runtime_6.0.0.bb](http://git.yoctoproject.org/cgit.cgi/meta-mingw/tree/recipes-devtools/mingw-w64/nativesdk-mingw-w64-runtime_6.0.0.bb?h=dunfell) 
+I had to add the following lines to this file [nativesdk-mingw-w64-runtime_6.0.0.bb](http://git.yoctoproject.org/cgit.cgi/meta-mingw/tree/recipes-devtools/mingw-w64/nativesdk-mingw-w64-runtime_6.0.0.bb?h=dunfell) 
 
 ```bash
 addtask do_stash_locale after do_install before do_populate_sysroot do_package
