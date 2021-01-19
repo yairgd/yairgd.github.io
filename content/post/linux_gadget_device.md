@@ -1,6 +1,6 @@
 ---
-title: "Linux Gadget Device"
-description: "Set up linux device as human interface device or mass storage device"
+title: "Linux Gadget Device."
+description: "Set up Linux device as human interface device or mass storage device."
 tags : 
  - "usb"
  - "linux"
@@ -15,11 +15,11 @@ categories :
 draft: false
 menu : "no-main"
 ---
-This post is an example how to make a USB device from a linux embbeded mahcine where is can controlled by any HOST. From Linux [documention](https://www.kernel.org/doc/html/v4.17/driver-api/usb/gadget.html):
+This post is an example of making a USB device from a Linux embedded machine where any HOST can control it. From Linux [documention](https://www.kernel.org/doc/html/v4.17/driver-api/usb/gadget.html):
 
->Most Linux developers will not be able to use this API, since they have USB host hardware in a PC, workstation, or server. Linux users with embedded systems are more likely to have USB peripheral hardware. To distinguish drivers running inside such hardware from the more familiar Linux “USB device drivers”, which are host side proxies for the real USB devices, a different term is used: the drivers inside the peripherals are “USB gadget drivers”. In USB protocol interactions, the device driver is the master (or “client driver”) and the gadget driver is the slave (or “function driver”).
+>Most Linux developers will not be able to use this API since they have USB host hardware in a PC, workstation, or server. Linux users with embedded systems are more likely to have USB peripheral hardware. To distinguish drivers running inside such hardware from the more familiar Linux “USB device drivers,” which are host-side proxies for the real USB devices, a different term is used: the drivers inside the peripherals are “USB gadget drivers.” In USB protocol interactions, the device driver is the master (or “client driver”) and the gadget driver is the slave (or “function driver”).
 
-I wil use arm32mp157 EVK board to demostate to use Linux USB gadget API and define the Linux device as mass storage deive and keyabord on the same USB OTG device. This EVB has a cpu named stm32mp157. 
+I will use stm32mp157 EVK board to demonstrate using Linux USB gadget API and define the Linux device as a mass storage drive and keyboard on the same USB OTG device. This EVB has a CPU named stm32mp157. 
 
 ## config Kernel modules
 It has to config the following module Mass storae driver in the Liunx kernel:
@@ -52,7 +52,7 @@ Symbol: USB_MASS_STORAGE [=m]
  ```
 
 ## Config USB Device though configfs
-The configfs is a subsystem at the Linux kernel, and it allows to define a USB device. The linux deivce has a USB device connection, and it is defined as the following with one configiguration and two functions with in it:  
+The config is a subsystem at the Linux kernel, and it allows to define a USB device. The Linux device has a USB device connection, and it is defined as the following with one configuration and two functions within it:  
 1. USB mass storage - turns the Linx device to Disk On Key.  
 2. HID - turns the Linux device into a keyboard.  
 
@@ -98,7 +98,7 @@ ln -s functions/hid.0 configs/c1.1
 echo "49000000.usb-otg" > UDC
 ```
 
-The utility [usbhid-dump](https://github.com/DIGImend/usbhid-dump) can help one to get the report desciptor of HID device. In gentoo , just type:
+The utility [usbhid-dump](https://github.com/DIGImend/usbhid-dump) can help one get the HID device's report descriptor. In Gentoo, type:
 ```bash
 emerge usbutils
 ```
@@ -139,13 +139,13 @@ Here is a report descriptor of keyboard.
 ```
 
 
-Here is how to create an image that will serve as storage place for tha mass storage device:
+Here is how to create an image that will serve as a storage place for the mass storage device:
 ```bash
 # how big do you want the filesystem; specify it as SIZE * 1024.
 dd if=/dev/zero of=fat.fs bs=1024 count=SIZE 
 # formats the file as the filesystem FAT.
 mkfs.vfat ./fat.fs
-# to accses the file system on a Linux Machine:
+# to access the file system on a Linux Machine:
 mount -o loop  fat.fs /mnt mounts fat.fs to /mnt.
 ```
 
