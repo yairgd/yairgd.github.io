@@ -21,6 +21,35 @@ This post is an example how to make a USB device from a linux embbeded mahcine w
 
 I wil use arm32mp157 EVK board to demostate to use Linux USB gadget API and define the Linux device as mass storage deive and keyabord on the same USB OTG device. This EVB has a cpu named stm32mp157. 
 
+## config Kernel modules
+It has to config the following module Mass storae driver in the Liunx kernel:
+```bash
+Symbol: USB_MASS_STORAGE [=m]                                             
+   Type  : tristate                                                          
+   Prompt: Mass Storage Gadget                                               
+     Location:                                                               
+       -> Device Drivers                                                     
+         -> USB support (USB_SUPPORT [=y])                                   
+           -> USB Gadget Support (USB_GADGET [=y])                           
+             -> USB Gadget precomposed configurations (<choice> [=m])        
+     Defined at drivers/usb/gadget/legacy/Kconfig:240                        
+     Depends on: <choice> && BLOCK [=y]                                      
+     Selects: USB_LIBCOMPOSITE [=y] && USB_F_MASS_STORAGE [=y]
+```
+ ans also the folloinwg HID driver:
+ ```bash
+   Symbol: USB_G_HID [=m]                                                                                               
+   Type  : tristate                                                                                                     
+   Prompt: HID Gadget                                                                                                   
+     Location:                                                                                                          
+       -> Device Drivers                                                                                                
+         -> USB support (USB_SUPPORT [=y])                                                                              
+           -> USB Gadget Support (USB_GADGET [=y])                                                                      
+             -> USB Gadget precomposed configurations (<choice> [=m])                                                   
+     Defined at drivers/usb/gadget/legacy/Kconfig:431                                                                   
+     Depends on: <choice>                                                                                               
+     Selects: USB_LIBCOMPOSITE [=y] && USB_F_HID [=y] 
+ ```
 
 ## Config USB Device though configfs
 The configfs is a subsystem at the Linux kernel, and it allows to define a USB device. The linux deivce has a USB device connection, and it is defined as the following with one configiguration and two functions with in it:  
