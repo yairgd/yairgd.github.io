@@ -22,7 +22,7 @@ This post is an example of making a USB device from a Linux embedded machine whe
 I will use stm32mp157 EVK board to demonstrate using Linux USB gadget API and define the Linux device as a mass storage drive and keyboard on the same USB OTG device. This EVB has a CPU named stm32mp157. 
 
 ## config Kernel modules
-It has to config the following module Mass storae driver in the Liunx kernel:
+It has to config the following module Mass storage driver in the Linux kernel:
 ```bash
 Symbol: USB_MASS_STORAGE [=m]                                             
    Type  : tristate                                                          
@@ -36,7 +36,7 @@ Symbol: USB_MASS_STORAGE [=m]
      Depends on: <choice> && BLOCK [=y]                                      
      Selects: USB_LIBCOMPOSITE [=y] && USB_F_MASS_STORAGE [=y]
 ```
- ans also the folloinwg HID driver:
+ and also the following HID driver:
  ```bash
    Symbol: USB_G_HID [=m]                                                                                               
    Type  : tristate                                                                                                     
