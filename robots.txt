@@ -6,7 +6,7 @@ User-agent: *
 #
 #Disallow: /2014/03/migrate-to-hugo-from-jekyll/
 #
-#Disallow: /archives/2020/
+#Disallow: /archives/2021/
 #
 #Disallow: /archives/
 #
@@ -14,17 +14,25 @@ User-agent: *
 #
 #Disallow: /categories/embedded/
 #
-#Disallow: /2020/11/install-embedded-linux-toolchain-on-windows/
+#Disallow: /categories/linux/
 #
 #Disallow: /tags/linux/
 #
-#Disallow: /categories/linux/
+#Disallow: /2021/01/linux-gadget-device/
 #
 #Disallow: /post/
 #
+#Disallow: /tags/stm32/
+#
 #Disallow: /tags/
 #
+#Disallow: /tags/usb/
+#
 #Disallow: /
+#
+#Disallow: /archives/2020/
+#
+#Disallow: /2020/11/install-embedded-linux-toolchain-on-windows/
 #
 #Disallow: /tags/yocto/
 #
@@ -37,8 +45,6 @@ User-agent: *
 #Disallow: /tags/kernel/
 #
 #Disallow: /2020/10/simple-openamp-application-for-stm32mp157/
-#
-#Disallow: /tags/stm32/
 #
 #Disallow: /2020/10/compile-linux-kernel-for-zynq/
 #
