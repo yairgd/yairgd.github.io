@@ -1,9 +1,31 @@
 {{ define "main" }}
 
+<script  >
+
+	var doc = new jsPDF();          
+var elementHandler = {
+	'#ignorePDF': function (element, renderer) {
+		return true;
+	}
+};
+ source = document.getElementById("cv");
+doc.fromHTML(
+	source,
+	15,
+	15,
+	{
+		'width': 180,'elementHandlers': elementHandler, lineHeight: 1,
+		orientation: 'p', 
+        unit: 'mm', 
+        format: [297, 210]
+	});
+
+doc.output("dataurlnewwindow");
+</script>
 <div class="columns">
 	<div class="column is-9">
 		<div class="tile is-child box">
-			<div class="content">
+			<div id="cv" class="content">
 				{{ .Content }}
 			</div>
 		</div>
