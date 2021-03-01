@@ -1,1 +1,2 @@
 https://gohugo.io/tools/search/
+https://keithpblog.org/post/hugo-website-seo/
