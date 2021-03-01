@@ -27,7 +27,7 @@ jobs:
       uses: canastro/copy-file-action@master
       with:
         source: "BingSiteAuth.xml"
-        target: "public/BingSiteAuth.xml"
+        target: "./public/BingSiteAuth.xml"
         
         
     - name: Deploy
