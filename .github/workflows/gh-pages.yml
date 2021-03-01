@@ -23,8 +23,12 @@ jobs:
       run: hugo --gc --minify --cleanDestinationDir
    
     - name: Deploy BingSiteAuth
-       run: cp ./BingSiteAuth.xml ./public
-
+      uses: canastro/copy-file-action@master
+      with:
+        source: "BingSiteAuth.xml"
+        target: "public/BingSiteAuth.xml"
+        
+        
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v2.4.0 
       env:
