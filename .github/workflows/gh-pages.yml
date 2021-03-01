@@ -26,8 +26,8 @@ jobs:
     - name: Deploy BingSiteAuth
       uses: canastro/copy-file-action@master
       with:
-        source: "BingSiteAuth.xml"
-        target: "./public/BingSiteAuth.xml"
+        source: "/home/runner/work/yairgd.github.io/yairgd.github.io/BingSiteAuth.xml"
+        target: "/home/runner/work/yairgd.github.io/yairgd.github.io/public/BingSiteAuth.xml"
         
         
     - name: Deploy
