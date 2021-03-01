@@ -1,0 +1,139 @@
+
+User-agent: *
+
+#
+#Disallow: /2014/09/creating-a-new-theme/
+#
+#Disallow: /2014/03/migrate-to-hugo-from-jekyll/
+#
+#Disallow: /archives/2021/
+#
+#Disallow: /archives/
+#
+#Disallow: /categories/
+#
+#Disallow: /categories/embedded/
+#
+#Disallow: /tags/linux/
+#
+#Disallow: /categories/linux/
+#
+#Disallow: /2021/01/linux-gadget-device./
+#
+#Disallow: /post/
+#
+#Disallow: /tags/stm32/
+#
+#Disallow: /tags/
+#
+#Disallow: /tags/usb/
+#
+#Disallow: /
+#
+#Disallow: /archives/2020/
+#
+#Disallow: /2020/11/install-embedded-linux-toolchain-on-windows/
+#
+#Disallow: /tags/yocto/
+#
+#Disallow: /tags/cypress./
+#
+#Disallow: /2020/11/debugging-of-cypress-psoc6-in-linux-terminal./
+#
+#Disallow: /tags/openocd/
+#
+#Disallow: /tags/kernel/
+#
+#Disallow: /2020/10/simple-openamp-application-for-stm32mp157/
+#
+#Disallow: /2020/10/compile-linux-kernel-for-zynq/
+#
+#Disallow: /tags/eclipse/
+#
+#Disallow: /2020/09/eclipse-with-cmake-project-on-windows/
+#
+#Disallow: /tags/embedded/
+#
+#Disallow: /2020/08/install-linux-on-microzed-board/
+#
+#Disallow: /tags/zynq/
+#
+#Disallow: /2020/06/custom-opkg-repository/
+#
+#Disallow: /tags/opkg/
+#
+#Disallow: /categories/algorithm/
+#
+#Disallow: /2020/05/kalman-filter-and-pair-trading/
+#
+#Disallow: /tags/kalman-filter/
+#
+#Disallow: /tags/statstical-abitrage/
+#
+#Disallow: /tags/qt5/
+#
+#Disallow: /categories/qt5/
+#
+#Disallow: /2020/04/simple-hello-world-application-using-qt5-for-embedded-linux-device./
+#
+#Disallow: /2020/03/debug-linux-kernel-with-qemu/
+#
+#Disallow: /2020/02/install-yocto-and-kernel-development-tools-of-imx8/
+#
+#Disallow: /2020/02/linux-uio-driver-to-handle-with-irq-source./
+#
+#Disallow: /tags/rt/
+#
+#Disallow: /2020/02/linux-char-device-to-handle-with-irq/
+#
+#Disallow: /2020/02/linux-module-magic-info/
+#
+#Disallow: /2020/02/linux-core-isolation/
+#
+#Disallow: /2020/02/linux-module-to-disassemble-code-in-the-linux-kernel./
+#
+#Disallow: /tags/bayer/
+#
+#Disallow: /2020/02/color-transformation-from-bayer-to-rgb/
+#
+#Disallow: /tags/computer-vision/
+#
+#Disallow: /categories/python/
+#
+#Disallow: /tags/rgb/
+#
+#Disallow: /tags/hugo/
+#
+#Disallow: /2020/02/my-first-post/
+#
+#Disallow: /archives/2014/
+#
+#Disallow: /2014/04/hugo-template-primer/
+#
+#Disallow: /categories/development/
+#
+#Disallow: /tags/development/
+#
+#Disallow: /2014/04/getting-started-with-hugo/
+#
+#Disallow: /tags/go/
+#
+#Disallow: /tags/golang/
+#
+#Disallow: /categories/golang/
+#
+#Disallow: /tags/templates/
+#
+#Disallow: /tags/themes/
+#
+#Disallow: /pages/about/
+#
+#Disallow: /pages/
+#
+#Disallow: /pages/search/
+#
+#Disallow: /blog/
+#
+#Disallow: /pages/cv/
+#
+

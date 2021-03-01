@@ -1,0 +1,62 @@
+<!doctype html><html lang=en-us><head><script async src="https://www.googletagmanager.com/gtag/js?id=UA-158845844-1"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','UA-158845844-1');</script><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js></script><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery-cookiebar/1.0.5/jquery.cookiebar.min.js></script><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/jquery-cookiebar/1.0.5/jquery.cookiebar.css><script type=text/javascript>$(document).ready(function(){$.cookieBar({fixed:true,acceptOnScroll:600,policyURL:'/privacy-policy/',policyButton:true,policyText:'Privacy Policy',expireDays:45});});</script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css integrity=sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js integrity=sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js integrity=sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI crossorigin=anonymous onload=renderMathInElement(document.body);></script><script src=https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js></script><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><title>Search</title><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content><link href="https://fonts.googleapis.com/css?family=Open+Sans" rel=stylesheet><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css><link rel=stylesheet href=https://yairgd.github.io/css/blog.css></head><body><nav class="navbar is-fixed-top" role=navigation aria-label="main navigation"><div class=navbar-brand><a class=navbar-item href=https://yairgd.github.io/>Home</a>
+<a class=navbar-item href=/pages/about>About</a>
+<a class=navbar-item href=/blog>Blog</a>
+<a class=navbar-item href=/pages/cv>CV</a>
+<a class=navbar-item href=/projects>Projects</a>
+<a class=navbar-item href=/pages/search>Search</a></div></nav><section class="hero is-info is-medium"><div class=hero-body style=background-image:url(https://yairgd.github.io/img/bg-blog1.jpg)><div class="container has-text-centered"><br><h1 class="title is-size-1">Search</h1></div></div></section><div class=container><div class=section><script src=https://unpkg.com/lunr/lunr.js></script><script type=text/javascript>var idx,searchInput,searchResults=null
+var documents=[]
+function renderSearchResults(results){if(results.length>0){if(results.length>9){results=results.slice(0,10)}
+searchResults.innerHTML=''
+results.forEach(result=>{var article=document.createElement('article')
+article.innerHTML=`
+	    <a href="${result.ref}"><h3 class="title">${documents[result.ref].title}</h3></a>
+	    <p><a href="${result.ref}">${result.ref}</a></p>
+	    <br>
+	    `
+searchResults.appendChild(article)})}else{searchResults.innerHTML='<p>No results found.</p>'}}
+function registerSearchHandler(){searchInput.oninput=function(event){if(searchInput.value==''){searchResults.innerHTML=''}else{var query=event.target.value
+var results=idx.search(query+'*')
+renderSearchResults(results)}}
+searchInput.focus()
+searchInput.placeholder=''}
+window.onload=function(){searchInput=document.getElementById('search-input')
+searchResults=document.getElementById('search-results')
+fetch('/blog/index.json',{method:'get'}).then(res=>res.json()).then(res=>{idx=lunr(function(){this.ref('url')
+this.field('title')
+this.field('content')
+res.forEach(function(doc){this.add(doc)
+documents[doc.url]={'title':doc.title,'content':doc.content,}},this)})
+registerSearchHandler()}).catch(err=>{searchResults.innerHTML=`<p>${err}</p>`})}</script><div class=columns><div class="column is-9"><div class="tile is-child box"><div class=content><p>I implemented the following search page according to this <a href=https://janikvonrotz.ch/2019/06/10/2019-06-10-simple-hugo-page-search-with-lunrjs/>refferece</a></p><input id=search-input type=text placeholder=Loading... name=search><section id=search-results class=search></section></div></div></div><div class="column is-3"><div class=card><div class=card-content><h1 class="title is-5">Categories</h1><div class=tags><span class=tag><a href=https://yairgd.github.io/categories/algorithm>algorithm</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/development>development</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/embedded>embedded</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/golang>golang</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/linux>linux</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/python>python</a></span>
+<span class=tag><a href=https://yairgd.github.io/categories/qt5>qt5</a></span></div></div></div><br><div class=card><div class=card-content><h1 class="title is-5">Tags</h1><div class=tags><span class=tag><a href=https://yairgd.github.io/tags/bayer>bayer</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/computer-vision>computer-vision</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/cypress.>cypress.</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/development>development</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/eclipse>eclipse</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/embedded>embedded</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/go>go</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/golang>golang</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/hugo>hugo</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/kalman-filter>kalman-filter</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/kernel>kernel</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/linux>linux</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/openocd>openocd</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/opkg>opkg</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/qt5>qt5</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/rgb>rgb</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/rt>rt</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/statstical-abitrage>statstical-abitrage</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/stm32>stm32</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/templates>templates</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/themes>themes</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/usb>usb</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/yocto>yocto</a></span>
+<span class=tag><a href=https://yairgd.github.io/tags/zynq>zynq</a></span></div></div></div><br><div class=card><div class=card-content><h1 class="title is-5">Recent posts</h1><h1><a href=https://yairgd.github.io/2021/01/linux-gadget-device./>Linux Gadget Device.</a></h1><time class="has-text-grey-light is-size-7">19 January 2021</time><h1><a href=https://yairgd.github.io/2020/11/install-embedded-linux-toolchain-on-windows/>Install embedded Linux toolchain on windows</a></h1><time class="has-text-grey-light is-size-7">25 November 2020</time><h1><a href=https://yairgd.github.io/2020/11/debugging-of-cypress-psoc6-in-linux-terminal./>Debugging of cypress psoc6 in Linux terminal.</a></h1><time class="has-text-grey-light is-size-7">5 November 2020</time><h1><a href=https://yairgd.github.io/2020/10/simple-openamp-application-for-stm32mp157/>Simple OpenAMP application for stm32mp157</a></h1><time class="has-text-grey-light is-size-7">25 October 2020</time><h1><a href=https://yairgd.github.io/2020/10/compile-linux-kernel-for-zynq/>Compile Linux kernel for zynq</a></h1><time class="has-text-grey-light is-size-7">17 October 2020</time></div></div><br><br><div class=card><div class=card-content><h1 class="title is-5">Archives</h1><a href=https://yairgd.github.io/archives/2021>2021</a> (1)<br><a href=https://yairgd.github.io/archives/2020>2020</a> (18)<br><a href=https://yairgd.github.io/archives/2014>2014</a> (4)<br></div></div></div></div></div></div><footer class="footer has-background-grey-darker has-text-white"><div class="content has-text-centered"><p><span class="icon is-large"><a href="https://m.facebook.com/yair.gadelov?ref=bookmarks" class=mysocial rel=me><i class="fab fa-facebook fa-3x"></i></a></span>&nbsp;&nbsp;
+<span class="icon is-large"><a href=https://www.linkedin.com/mwlite/in/yair-gadelov-1972ab17/ class=mysocial rel=me><i class="fab fa-linkedin fa-3x"></i></a></span>&nbsp;&nbsp;
+<span class="icon is-large"><a href=https://github.com/yairgd/ class=mysocial rel=me><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;<br><br>Copyright &copy; Yair Gadelov Tech Blog 2021 - Theme by <a href=https://jeffprod.com class=mysocial>JeffProd.com</a>
+- <a class=mysocial href=https://yairgd.github.io/about>About</a><br></p></div></footer><script defer src=https://use.fontawesome.com/releases/v5.1.0/js/all.js></script></body></html>

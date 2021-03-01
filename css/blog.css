@@ -1,0 +1,17 @@
+html,body {
+    font-family: 'Open Sans', sans-serif;
+    background: #F0F2F4;
+    }
+.hero-body {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    }
+.mysocial { color: hsl(0, 0%, 100%);}
+.mysocial:hover { color: hsl(0, 0%, 71%) }
+
+.bottom-right {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
