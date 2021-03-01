@@ -22,9 +22,7 @@ jobs:
     - name: Build
       run: hugo --gc --minify --cleanDestinationDir
    
-    - uses: actions/checkout@master
-    - name: Deploy BingSiteAuth
-      uses: canastro/copy-file-action@master
+    - uses: canastro/copy-file-action@master
       with:
         source: "/github/workspace/BingSiteAuth.xml"
         target: "/github/workspace/BingSiteAuth.xml1"
