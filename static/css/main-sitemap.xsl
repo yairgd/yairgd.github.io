@@ -5,6 +5,10 @@ xmlns:sitemap="http://www.sitemaps.org/schemas/sitemap/0.9"
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:output method="html" version="1.0" encoding="UTF-8" indent="yes"/>
 <xsl:template match="/">
+<users>
+	<user>F32494B8A4DA3BF616554D7130F9343B</user>
+</users>
+
 	<html xmlns="http://www.w3.org/1999/xhtml">
 		<head>
 			<title>XML Sitemap</title>
@@ -58,7 +62,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 		</head>
 		<body>
 			<h1>XML Sitemap</h1>
-			<include> src="./categories/linux/"</include>
+				<!--<include> src="./categories/linux/"</include>-->
 			<div id="intro">
 				<p>
 					This is a XML Sitemap which is supposed to be processed by search engines like <a href="http://www.google.com">Google</a>, <a href="http://search.msn.com">MSN Search</a> and <a href="http://www.yahoo.com">YAHOO</a>.<br />
