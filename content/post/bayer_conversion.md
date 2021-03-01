@@ -10,6 +10,7 @@ archives : "2020"
 categories : 
  - "algorithm"
  - "python"
+author : "Yair Gadelov"
 
 menu : "no-main"
 ---

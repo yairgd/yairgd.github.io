@@ -10,6 +10,8 @@ date : "2020-03-18"
 archives : "2020"
 categories : 
 - "linux"
+author : "Yair Gadelov"
+
 menu : "no-main"
 ---
 I have tried to debug the Linux kernel using GDB and a system emulator [qemu](https://www.qemu.org/). I use YOCTO and standard [pokey](https://www.yoctoproject.org/software-item/poky/)  distribution to build Linux image and kernel. I made changes to the standard [.config](post/content/post/debug-linux-kernel-with-qemu/config) file to support debug symbols and remove the [KASLR option from the kernel](https://www.spinics.net/lists/newbies/msg59708.html)

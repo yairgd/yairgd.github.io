@@ -13,6 +13,8 @@ categories :
  - "embedded"
 
 draft: false
+author : "Yair Gadelov"
+
 menu : "no-main"
 ---
 This post is an example of making a USB device from a Linux embedded machine where any HOST can control it. From Linux [documention](https://www.kernel.org/doc/html/v4.17/driver-api/usb/gadget.html):

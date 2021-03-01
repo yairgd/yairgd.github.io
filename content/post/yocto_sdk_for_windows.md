@@ -12,6 +12,8 @@ categories :
  - "embedded"
 
 draft: false
+author : "Yair Gadelov"
+
 menu : "no-main"
 ---
 The toolchain for embedded Linux should be matched for the target image, and that is why we can't just find and download it from somewhere. Therefore, we should be it. This is a tutorial on how to build and install YOCTO SDK on a windows machine. This allows developing embedded Linux on windows using eclipse or even visual studio.

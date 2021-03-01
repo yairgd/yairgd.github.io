@@ -9,6 +9,7 @@ date : "2020-02-24"
 archives : "2020"
 categories : 
 - "linux"
+author : "Yair Gadelov"
 
 menu : "no-main"
 ---

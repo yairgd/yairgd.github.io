@@ -8,6 +8,7 @@ date : "2020-09-12"
 archives : "2020"
 categories : 
  - "embedded"
+author : "Yair Gadelov"
 
 menu : "no-main"
 ---

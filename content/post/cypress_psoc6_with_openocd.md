@@ -10,6 +10,7 @@ date : "2020-11-05"
 archives : "2020"
 categories : 
  - "embedded"
+author : "Yair Gadelov"
 
 menu : "no-main"
 ---

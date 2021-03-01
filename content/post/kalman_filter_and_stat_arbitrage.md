@@ -9,7 +9,7 @@ date : "2020-05-01"
 archives : "2020"
 categories : 
  - "algorithm"
-
+author : "Yair Gadelov"
 menu : "no-main"
 ---
 Pair trading is a type of cointegration approach to statistical arbitrage trading strategy in which usually a pair of stocks are tcraded in a market-neutral strategy, i.e. it doesn’t matter whether the market is trending upwards or downwards, the two open positions for each stock hedge against each other. The key challenges in pairs trading are to:  

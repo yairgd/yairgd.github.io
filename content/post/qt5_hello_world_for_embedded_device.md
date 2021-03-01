@@ -11,6 +11,7 @@ archives : "2020"
 categories : 
  - "linux"
  - "qt5"
+author : "Yair Gadelov"
 
 menu : "no-main"
 ---

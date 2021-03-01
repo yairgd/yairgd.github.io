@@ -11,6 +11,7 @@ archives : "2020"
 categories : 
 - "linux"
 - "embedded"
+author : "Yair Gadelov"
 
 menu : "no-main"
 ---

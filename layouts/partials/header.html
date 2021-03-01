@@ -16,6 +16,14 @@
 	{{ template "partials/katex.html" . }}
 	
 
+
+
+
+
+    {{ partial "seo_schema" . }}    
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{ with .Title }}{{ . }}{{ end }}</title>
